@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth scrolling for the entire page */
+/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
@@ -17,9 +17,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbar for webkit browsers */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -28,59 +28,76 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: #2a2a3e;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #3a3a5e;
 }
 
-/* Ink splash decorative elements */
+/* Section divider */
 .section-divider {
   height: 1px;
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(201, 169, 78, 0.3),
-    rgba(196, 30, 58, 0.3),
+    rgba(201, 169, 78, 0.2),
+    rgba(196, 30, 58, 0.2),
     transparent
   );
   margin: 0 auto;
-  max-width: 80%;
+  max-width: 70%;
 }
 
-/* Animation keyframes */
+/* Animations */
 @keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
 }
 
-/* Card hover effect base */
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(196, 30, 58, 0.15); }
+  50% { box-shadow: 0 0 40px rgba(196, 30, 58, 0.3), 0 0 60px rgba(201, 169, 78, 0.1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes slideDown {
+  0% { opacity: 0; transform: translateY(-100%); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Card hover effect */
 .card-hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
@@ -88,4 +105,29 @@ body {
 .card-hover:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 40px rgba(196, 30, 58, 0.1), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Skill bar animation */
+@keyframes fillBar {
+  0% { width: 0%; }
+}
+
+/* Featured project gradient border */
+.featured-border {
+  position: relative;
+}
+
+.featured-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(196,30,58,0.3), rgba(201,169,78,0.2), transparent, rgba(196,30,58,0.3));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.featured-border:hover::before {
+  opacity: 1;
 }

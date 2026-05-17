@@ -1,7 +1,6 @@
-import { Box, Container, Typography, Chip } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { skills } from '../data/repos';
 
-// 按类别分组
 const categories = [...new Set(skills.map((s) => s.category))];
 
 function Skills(): JSX.Element {
@@ -49,7 +48,6 @@ function Skills(): JSX.Element {
           }}
         />
 
-        {/* Skills by category */}
         {categories.map((category, catIndex) => (
           <Box key={category} sx={{ mb: catIndex < categories.length - 1 ? 5 : 0 }}>
             <Typography
@@ -58,51 +56,93 @@ function Skills(): JSX.Element {
                 color: 'text.secondary',
                 letterSpacing: '0.12em',
                 fontSize: '0.7rem',
-                mb: 2,
+                mb: 3,
                 display: 'block',
               }}
             >
               {category}
             </Typography>
+
             <Box
               sx={{
                 display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: 1.5,
+                flexDirection: 'column',
+                gap: 2.5,
+                maxWidth: 520,
+                mx: 'auto',
               }}
             >
               {skills
                 .filter((s) => s.category === category)
                 .map((skill, index) => (
-                  <Chip
+                  <Box
                     key={skill.name}
-                    label={skill.name}
                     sx={{
-                      px: 1.5,
-                      py: 1.2,
-                      fontSize: '0.82rem',
-                      fontWeight: 600,
-                      backgroundColor: `${skill.color}15`,
-                      color: skill.color,
-                      border: `1px solid ${skill.color}30`,
-                      borderRadius: '8px',
+                      textAlign: 'left',
                       opacity: 0,
-                      animation: `fadeInUp 0.4s ease-out ${0.05 * (catIndex * 6 + index)}s forwards`,
-                      '&:hover': {
-                        backgroundColor: `${skill.color}25`,
-                        transform: 'translateY(-3px)',
-                        boxShadow: `0 6px 20px ${skill.color}20`,
-                      },
-                      transition: 'all 0.25s ease',
-                      height: 'auto',
-                      '& .MuiChip-label': {
-                        display: 'block',
-                        py: 0.3,
-                      },
+                      animation: `fadeInUp 0.4s ease-out ${0.08 * (index + 1)}s forwards`,
                     }}
-                    variant="outlined"
-                  />
+                  >
+                    {/* Skill name + level */}
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        mb: 0.8,
+                      }}
+                    >
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          fontWeight: 600,
+                          fontSize: '0.85rem',
+                          color: skill.color,
+                        }}
+                      >
+                        {skill.name}
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        sx={{ color: 'text.secondary', fontSize: '0.75rem' }}
+                      >
+                        {skill.level}%
+                      </Typography>
+                    </Box>
+
+                    {/* Progress bar */}
+                    <Box
+                      sx={{
+                        height: 6,
+                        borderRadius: 3,
+                        backgroundColor: 'rgba(255,255,255,0.04)',
+                        overflow: 'hidden',
+                        position: 'relative',
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          height: '100%',
+                          borderRadius: 3,
+                          width: `${skill.level}%`,
+                          background: `linear-gradient(90deg, ${skill.color}40, ${skill.color})`,
+                          animation: `fillBar 1s ease-out ${0.3 + 0.1 * index}s forwards`,
+                          transformOrigin: 'left',
+                          position: 'relative',
+                          '&::after': {
+                            content: '""',
+                            position: 'absolute',
+                            right: 0,
+                            top: -1,
+                            width: 8,
+                            height: 8,
+                            borderRadius: '50%',
+                            backgroundColor: skill.color,
+                            boxShadow: `0 0 12px ${skill.color}60`,
+                          },
+                        }}
+                      />
+                    </Box>
+                  </Box>
                 ))}
             </Box>
           </Box>
