@@ -27,7 +27,7 @@ export const repos: Repo[] = [
     techStack: ['Python', 'FastAPI', 'SQLAlchemy', '微信小程序'],
     icon: '🏛️',
     gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
-    image: '/projects/项目截图/墨韵.png',
+    image: '/projects/项目截图/CRS推荐系统平台竖版.png',
     previewUrl: 'https://frontend-l76hlj7sd-kukik-s-projects.vercel.app',
   },
   {
@@ -43,7 +43,7 @@ export const repos: Repo[] = [
     techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
     icon: '🎮',
     gradient: 'linear-gradient(135deg, #0c1929, #1a1a3a)',
-    image: '/projects/项目截图/明日方舟人格测试.png',
+    image: '/projects/项目截图/明日方舟人格测试竖版.jpg',
     previewUrl: 'https://oldking-yes.github.io/arknights-personality-v2/',
   },
   {
@@ -59,8 +59,8 @@ export const repos: Repo[] = [
     techStack: ['TypeScript', 'AI/LLM', 'Node.js'],
     icon: '🤖',
     gradient: 'linear-gradient(135deg, #0c1929, #0a2a3a)',
-    image: '/projects/项目截图/炼化自己.png',
-    previewUrl: 'https://refine-yourself.vercel.app',
+    image: '/projects/项目截图/炼化自己竖版.jpg',
+    previewUrl: 'https://refineyourself.asia/',
   },
   {
     name: 'ink-studio',
@@ -75,7 +75,7 @@ export const repos: Repo[] = [
     techStack: ['HTML', 'CSS', 'JavaScript'],
     icon: '🎨',
     gradient: 'linear-gradient(135deg, #0c1929, #2a1a1a)',
-    image: '/projects/项目截图/CRS推荐算法.png',
+    image: '/projects/项目截图/前端设计实验室竖版.jpg',
     previewUrl: 'https://oldking-yes.github.io/ink-studio/',
   },
 ];

@@ -80,7 +80,7 @@ function Projects(): JSX.Element {
               '&::-webkit-scrollbar': { display: 'none' },
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
-              px: { xs: 'calc(50vw - 140px)', md: 'calc(50vw - 510px)' },
+              px: { xs: 'calc(50vw - 140px)', md: 'calc(50vw - 530px)' },
               gap: { xs: 2.5, md: 4 },
               alignItems: 'center',
               width: '100%',
@@ -96,7 +96,7 @@ function Projects(): JSX.Element {
                 rel="noopener noreferrer"
                 sx={{
                   flex: '0 0 auto',
-                  width: { xs: 'calc(100vw - 88px)', md: 920 },
+                  width: { xs: 'calc(100vw - 88px)', md: 960 },
                   aspectRatio: { xs: '3/5', md: '3/2' },
                   scrollSnapAlign: 'center',
                   textDecoration: 'none',
@@ -106,7 +106,7 @@ function Projects(): JSX.Element {
                   backdropFilter: 'blur(12px)',
                   overflow: 'hidden',
                   display: 'flex',
-                  flexDirection: 'column',
+                  flexDirection: { xs: 'column', md: 'row' },
                   transition: 'transform 0.2s ease, border-color 0.2s ease',
                   '&:hover': {
                     transform: 'translateY(-2px)',
@@ -114,10 +114,14 @@ function Projects(): JSX.Element {
                   },
                 }}
               >
-                <Box sx={{ flex: { xs: '0 0 40%', md: '0 0 52%' }, overflow: 'hidden', backgroundColor: '#0a0f14' }}>
+                <Box sx={{ flex: { xs: '0 0 40%', md: '0 0 37%' }, overflow: 'hidden', backgroundColor: '#0a0f14', position: 'relative' }}>
                   {repo.image ? (
                     <Box component="img" src={assetUrl(repo.image)} alt={repo.displayName}
-                      sx={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }}
+                      sx={{
+                        width: '100%', height: '100%', objectFit: 'cover',
+                        objectPosition: { xs: 'top', md: 'center top' },
+                        display: 'block',
+                      }}
                     />
                   ) : (
                     <Box sx={{ width: '100%', height: '100%', background: repo.gradient, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', opacity: 0.3 }}>
@@ -126,7 +130,7 @@ function Projects(): JSX.Element {
                   )}
                 </Box>
 
-                <Box sx={{ flex: 1, p: { xs: 2.5, md: 3.5 }, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                <Box sx={{ flex: 1, p: { xs: 2.5, md: 3.5 }, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
                     <GitHubIcon sx={{ fontSize: 18, color: '#8ba8c0', flexShrink: 0 }} />
                     <Box sx={{ minWidth: 0, flex: 1 }}>
