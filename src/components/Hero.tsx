@@ -39,14 +39,14 @@ function Hero(): JSX.Element {
           {githubUser.displayName}
         </Typography>
 
-        {/* Key identity line — 突出数据科学 */}
+        {/* Key identity line */}
         <Typography
           variant="h2"
           sx={{
             fontSize: { xs: '1.2rem', sm: '1.5rem', md: '1.8rem' },
             fontWeight: 500,
             color: 'text.secondary',
-            mb: 3,
+            mb: 2,
             animation: 'fadeInUp 0.6s ease-out 0.2s forwards',
             opacity: 0,
             lineHeight: 1.5,
@@ -56,7 +56,37 @@ function Hero(): JSX.Element {
           {' · '}AI Agent 开发 · Claude Code 实践者
         </Typography>
 
-        {/* Compact tech tags */}
+        {/* Highlight tags */}
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{
+            mb: 3,
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: 0.5,
+            animation: 'fadeInUp 0.6s ease-out 0.25s forwards',
+            opacity: 0,
+          }}
+        >
+          {['AI Agent 开发', 'Claude Code', 'CRS 推荐系统'].map((tag) => (
+            <Chip
+              key={tag}
+              label={tag}
+              size="small"
+              sx={{
+                backgroundColor: 'rgba(200, 169, 110, 0.08)',
+                color: 'rgba(255,255,255,0.7)',
+                border: '1px solid rgba(200, 169, 110, 0.15)',
+                fontWeight: 500,
+                fontSize: '0.75rem',
+                height: 24,
+              }}
+            />
+          ))}
+        </Stack>
+
+        {/* Tech tags */}
         <Stack
           direction="row"
           spacing={1}
