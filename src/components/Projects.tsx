@@ -18,7 +18,7 @@ function Projects(): JSX.Element {
       <Container maxWidth="lg">
         {/* Section header */}
         <Box sx={{ textAlign: 'center', mb: 6 }} className="reveal">
-          <Typography variant="overline" sx={{ color: '#a0d8f0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
+          <Typography variant="overline" sx={{ color: '#8ba8c0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
             PROJECTS
           </Typography>
           <Typography variant="h2" sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700, mt: 1 }}>
@@ -98,12 +98,12 @@ function Projects(): JSX.Element {
 
               <Box sx={{ position: 'relative', zIndex: 1 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
-                  <GitHubIcon sx={{ fontSize: 20, color: '#a0d8f0' }} />
+                  <GitHubIcon sx={{ fontSize: 20, color: '#8ba8c0' }} />
                   <Box>
                     <Typography variant="h3" sx={{ fontSize: '1.2rem', fontWeight: 700, color: '#e8e0d0' }}>
                       {repo.displayName}
                     </Typography>
-                    <Typography variant="caption" sx={{ color: '#a0d8f0', fontFamily: '"SF Mono", "Fira Code", monospace', fontSize: '0.7rem' }}>
+                    <Typography variant="caption" sx={{ color: '#8ba8c0', fontFamily: '"SF Mono", "Fira Code", monospace', fontSize: '0.7rem' }}>
                       {repo.name}
                     </Typography>
                   </Box>
@@ -138,7 +138,7 @@ function Projects(): JSX.Element {
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2, mt: 3 }}>
           <IconButton
             onClick={(e) => { e.stopPropagation(); prev(); }}
-            sx={{ color: 'text.secondary', border: '1px solid rgba(255,255,255,0.06)', '&:hover': { borderColor: '#a0d8f0', color: '#a0d8f0' } }}
+            sx={{ color: 'text.secondary', border: '1px solid rgba(255,255,255,0.06)', '&:hover': { borderColor: '#8ba8c0', color: '#8ba8c0' } }}
           >
             <ChevronLeftIcon />
           </IconButton>
@@ -149,16 +149,16 @@ function Projects(): JSX.Element {
                 onClick={(e) => { e.stopPropagation(); setActiveIndex(i); }}
                 sx={{
                   width: 8, height: 8, borderRadius: '50%',
-                  backgroundColor: i === activeIndex ? '#a0d8f0' : 'rgba(255,255,255,0.1)',
+                  backgroundColor: i === activeIndex ? '#8ba8c0' : 'rgba(255,255,255,0.1)',
                   cursor: 'pointer', transition: 'all 0.2s ease',
-                  '&:hover': { backgroundColor: i === activeIndex ? '#a0d8f0' : 'rgba(255,255,255,0.3)' },
+                  '&:hover': { backgroundColor: i === activeIndex ? '#8ba8c0' : 'rgba(255,255,255,0.3)' },
                 }}
               />
             ))}
           </Box>
           <IconButton
             onClick={(e) => { e.stopPropagation(); next(); }}
-            sx={{ color: 'text.secondary', border: '1px solid rgba(255,255,255,0.06)', '&:hover': { borderColor: '#a0d8f0', color: '#a0d8f0' } }}
+            sx={{ color: 'text.secondary', border: '1px solid rgba(255,255,255,0.06)', '&:hover': { borderColor: '#8ba8c0', color: '#8ba8c0' } }}
           >
             <ChevronRightIcon />
           </IconButton>

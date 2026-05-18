@@ -11,12 +11,12 @@ const theme = responsiveFontSizes(
         contrastText: '#0a0a0a',
       },
       secondary: {
-        main: '#a0d8f0',     // 更浅的淡蓝
-        light: '#c0e8f8',    // 亮蓝
-        dark: '#80c0d8',     // 暗蓝
+        main: '#8ba8c0',     // 灰蓝（低饱和）
+        light: '#a8c4d8',    // 亮灰蓝
+        dark: '#7090a8',     // 暗灰蓝
       },
       info: {
-        main: '#a0d8f0',     // 更浅的淡蓝
+        main: '#8ba8c0',     // 灰蓝强调
       },
       background: {
         default: '#0a0a0a',

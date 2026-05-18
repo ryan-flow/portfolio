@@ -28,7 +28,7 @@ function About(): JSX.Element {
             <Box className="reveal">
               <Typography
                 variant="overline"
-                sx={{ color: '#a0d8f0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace', mb: 1, display: 'block' }}
+                sx={{ color: '#8ba8c0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace', mb: 1, display: 'block' }}
               >
                 ABOUT
               </Typography>
@@ -41,7 +41,7 @@ function About(): JSX.Element {
                 }}
               >
                 用技术
-                <Box component="span" sx={{ background: 'linear-gradient(135deg, #c8a96e, #a0d8f0)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                <Box component="span" sx={{ background: 'linear-gradient(135deg, #c8a96e, #8ba8c0)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                   {' '}传承文化
                 </Box>
               </Typography>
@@ -91,7 +91,7 @@ function About(): JSX.Element {
                   <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
                     GitHub 注册
                   </Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#a0d8f0' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#8ba8c0' }}>
                     2019.08
                   </Typography>
                 </Box>
@@ -99,7 +99,7 @@ function About(): JSX.Element {
                   <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
                     开源项目
                   </Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#a0d8f0' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#8ba8c0' }}>
                     4 个
                   </Typography>
                 </Box>
@@ -107,7 +107,7 @@ function About(): JSX.Element {
                   <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
                     技术领域
                   </Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#a0d8f0' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#8ba8c0' }}>
                     全栈·AI·文化
                   </Typography>
                 </Box>
@@ -143,7 +143,7 @@ function About(): JSX.Element {
                   }}
                 >
                   <Box sx={{ position: 'relative', zIndex: 1 }}>
-                    <Typography variant="body2" sx={{ color: '#a0d8f0', fontFamily: 'monospace', fontSize: '0.75rem', mb: 1 }}>
+                    <Typography variant="body2" sx={{ color: '#8ba8c0', fontFamily: 'monospace', fontSize: '0.75rem', mb: 1 }}>
                       {dir.num}
                     </Typography>
                     <Typography variant="h4" sx={{ fontSize: '1rem', fontWeight: 600, mb: 1, color: 'text.primary' }}>

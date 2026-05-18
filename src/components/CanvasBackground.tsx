@@ -11,8 +11,8 @@ interface Cell {
 
 const FONT_SIZE = 14;
 const CHAR_W = 12;
-const LINE_H = 21;
-const VERT_STRETCH = 1.12;
+const LINE_H = 22;
+const VERT_STRETCH = 1.28;
 
 function CanvasBackground(): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -96,30 +96,30 @@ function CanvasBackground(): JSX.Element {
             cell.brightness = 0.65;
           }
 
-          const opacity = cell.brightness * (1 - progress * 0.8);
+          const opacity = cell.brightness * (1 - progress * 0.35);
           ctx.save();
           ctx.translate(x, y);
           ctx.scale(1, VERT_STRETCH);
-          ctx.fillStyle = `rgba(200, 196, 184, ${opacity})`;
+          ctx.fillStyle = `rgba(200, 200, 200, ${opacity})`;
           ctx.fillText(cell.char, 0, 0);
           ctx.restore();
         }
       }
 
-      // 暗化覆盖（加重）
+      // 暗化覆盖（减轻）
       if (progress > 0) {
-        ctx.fillStyle = `rgba(0, 0, 0, ${progress * 0.75})`;
+        ctx.fillStyle = `rgba(0, 0, 0, ${progress * 0.3})`;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // 暗角（加重）
+      // 暗角
       const cx = canvas.width / 2;
       const cy = canvas.height / 2;
       const maxR = Math.max(canvas.width, canvas.height) * 0.7;
       const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
       grad.addColorStop(0, 'rgba(0,0,0,0)');
       grad.addColorStop(0.5, 'rgba(0,0,0,0)');
-      grad.addColorStop(1, 'rgba(0,0,0,0.3)');
+      grad.addColorStop(1, 'rgba(200,200,200,0.08)');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 

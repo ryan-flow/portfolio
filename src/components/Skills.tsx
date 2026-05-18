@@ -7,7 +7,7 @@ function Skills(): JSX.Element {
       <Container maxWidth="lg">
         {/* Section header */}
         <Box sx={{ textAlign: 'center', mb: 6 }} className="reveal">
-          <Typography variant="overline" sx={{ color: '#a0d8f0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
+          <Typography variant="overline" sx={{ color: '#8ba8c0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
             SKILLS
           </Typography>
           <Typography variant="h2" sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700, mt: 1 }}>

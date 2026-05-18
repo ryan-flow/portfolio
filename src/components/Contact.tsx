@@ -8,7 +8,7 @@ function Contact(): JSX.Element {
     <Box component="section" id="contact" sx={{ py: { xs: 10, md: 14 }, textAlign: 'center' }}>
       <Container maxWidth="sm">
         <Box className="reveal">
-          <Typography variant="overline" sx={{ color: '#a0d8f0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
+          <Typography variant="overline" sx={{ color: '#8ba8c0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
             CONTACT
           </Typography>
           <Typography variant="h2" sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700, mt: 1, mb: 3 }}>
@@ -66,7 +66,7 @@ function Contact(): JSX.Element {
                   py: 1.5, fontSize: '0.85rem', fontWeight: 600,
                   borderColor: 'rgba(255,255,255,0.06)', color: 'text.primary', borderRadius: 2,
                   fontFamily: '"SF Mono", "Fira Code", monospace',
-                  '&:hover': { borderColor: '#a0d8f0', backgroundColor: 'rgba(126, 200, 232, 0.06)', color: '#a0d8f0', transform: 'translateY(-2px)' },
+                  '&:hover': { borderColor: '#8ba8c0', backgroundColor: 'rgba(139, 168, 192, 0.06)', color: '#8ba8c0', transform: 'translateY(-2px)' },
                   transition: 'all 0.3s ease',
                 }}
               >

@@ -87,7 +87,7 @@ export const skills: Skill[] = [
 
 export const githubUser = {
   username: 'oldking-yes',
-  displayName: '王子轩',
+  displayName: '老王',
   avatarUrl: 'https://avatars.githubusercontent.com/u/54438040?v=4',
   bio: '数据科学与大数据专业 · AI Agent 开发者 · Claude Code 深度用户。毕业设计结合 CRS 推荐系统与 AI 数字人，探索传统文化数字化的前沿实践。',
   tagline: '数据科学 · AI Agent 开发 · Claude Code 生态实践者',
