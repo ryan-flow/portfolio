@@ -10,56 +10,45 @@ const tagline = '4 个 AI 原生项目 · 全栈落地';
 const tags = ['推荐系统', 'LLM 应用', 'AI Agent', '全栈开发'];
 
 function Hero(): JSX.Element {
-  const [phase, setPhase] = useState<'name' | 'chineseName' | 'tagline' | 'done'>('name');
   const [nameText, setNameText] = useState('');
   const [chineseNameText, setChineseNameText] = useState('');
   const [taglineText, setTaglineText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
+  const allDone = nameText.length === name.length
+    && chineseNameText.length === chineseName.length
+    && taglineText.length === tagline.length;
 
   useEffect(() => {
     const cursorInt = setInterval(() => setShowCursor((c) => !c), 480);
 
-    // Phase 1: English name
-    let ni = 0;
+    // All three lines type in parallel
+    let ni = 0; let cj = 0; let tj = 0;
+
     const nameInt = setInterval(() => {
-      if (ni < name.length) {
-        setNameText(name.slice(0, ni + 1));
-        ni++;
-      } else {
-        clearInterval(nameInt);
-        // Phase 2: Chinese name
-        setTimeout(() => {
-          setPhase('chineseName');
-          let cj = 0;
-          const chInt = setInterval(() => {
-            if (cj < chineseName.length) {
-              setChineseNameText(chineseName.slice(0, cj + 1));
-              cj++;
-            } else {
-              clearInterval(chInt);
-              // Phase 3: Tagline
-              setTimeout(() => {
-                setPhase('tagline');
-                let tj = 0;
-                const tagInt = setInterval(() => {
-                  if (tj < tagline.length) {
-                    setTaglineText(tagline.slice(0, tj + 1));
-                    tj++;
-                  } else {
-                    clearInterval(tagInt);
-                    setPhase('done');
-                  }
-                }, 45);
-              }, 250);
-            }
-          }, 150);
-        }, 250);
+      if (ni < name.length) { setNameText(name.slice(0, ++ni)); } else clearInterval(nameInt);
+    }, 80);
+
+    const chInt = setInterval(() => {
+      if (cj < chineseName.length) { setChineseNameText(chineseName.slice(0, ++cj)); } else clearInterval(chInt);
+    }, 250);
+
+    const tagInt = setInterval(() => {
+      if (tj < tagline.length) { setTaglineText(tagline.slice(0, ++tj)); } else clearInterval(tagInt);
+    }, 55);
+
+    // Poll for all done
+    const doneCheck = setInterval(() => {
+      if (ni >= name.length && cj >= chineseName.length && tj >= tagline.length) {
+        clearInterval(doneCheck);
       }
-    }, 110);
+    }, 100);
 
     return () => {
       clearInterval(nameInt);
+      clearInterval(chInt);
+      clearInterval(tagInt);
       clearInterval(cursorInt);
+      clearInterval(doneCheck);
     };
   }, []);
 
@@ -93,7 +82,7 @@ function Hero(): JSX.Element {
               display: 'inline',
               fontSize: { xs: '2.8rem', sm: '4rem', md: '5.5rem' },
               fontWeight: 800,
-              ...(phase === 'done'
+              ...(allDone
                 ? {
                     background: 'linear-gradient(135deg, #dce3ea 0%, #8fa4b8 40%, #a8bcc8 60%, #dce3ea 100%)',
                     backgroundSize: '200% auto',
@@ -106,19 +95,6 @@ function Hero(): JSX.Element {
             }}
           >
             {nameText}
-          </Typography>
-          <Typography
-            variant="h1"
-            sx={{
-              display: 'inline',
-              fontSize: { xs: '2.8rem', sm: '4rem', md: '5.5rem' },
-              fontWeight: 800,
-              color: '#8fa4b8',
-              opacity: phase !== 'done' && showCursor ? 1 : 0,
-              transition: 'opacity 0.05s',
-            }}
-          >
-            _
           </Typography>
         </Box>
 
@@ -134,19 +110,6 @@ function Hero(): JSX.Element {
             }}
           >
             {chineseNameText}
-          </Typography>
-          <Typography
-            sx={{
-              display: 'inline',
-              fontSize: { xs: '0.9rem', md: '1.1rem' },
-              fontWeight: 300,
-              color: 'rgba(255,255,255,0.30)',
-              letterSpacing: '0.35em',
-              opacity: phase === 'chineseName' && showCursor ? 1 : 0,
-              transition: 'opacity 0.05s',
-            }}
-          >
-            _
           </Typography>
         </Box>
 
@@ -170,7 +133,7 @@ function Hero(): JSX.Element {
               display: 'inline',
               fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.75rem' },
               color: '#8fa4b8',
-              opacity: tagline.length > 0 && taglineText.length < tagline.length && showCursor ? 1 : 0,
+              opacity: !allDone && showCursor ? 1 : 0,
               transition: 'opacity 0.05s',
             }}
           >
@@ -180,8 +143,8 @@ function Hero(): JSX.Element {
 
         {/* After typing done — all elements fade in */}
         <Box sx={{
-          opacity: phase === 'done' ? 1 : 0,
-          transform: phase === 'done' ? 'translateY(0)' : 'translateY(16px)',
+          opacity: allDone ? 1 : 0,
+          transform: allDone ? 'translateY(0)' : 'translateY(16px)',
           transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
         }}>
           <Stack direction="row" spacing={1} sx={{ mb: 3, justifyContent: 'center', flexWrap: 'wrap', gap: 0.5 }}>
@@ -231,7 +194,7 @@ function Hero(): JSX.Element {
       {/* Scroll arrow */}
       <Box sx={{
         position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)',
-        opacity: phase === 'done' ? 1 : 0,
+        opacity: allDone ? 1 : 0,
         transition: 'opacity 0.8s ease-out 0.5s',
       }}>
         <Box sx={{

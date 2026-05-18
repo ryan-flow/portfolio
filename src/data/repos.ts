@@ -2,6 +2,7 @@ export interface Repo {
   name: string;
   displayName: string;
   description: string;
+  rationale: string;
   language: string;
   stars: number;
   url: string;
@@ -17,7 +18,9 @@ export const repos: Repo[] = [
     name: 'heritage-crs-platform',
     displayName: 'CRS 推荐系统平台',
     description:
-      '基于对话推荐引擎的全栈应用——融合 AI 对话、五级回退问答策略与知识图谱推荐解释生成，16 张数据表架构。',
+      'CRS 对话推荐引擎驱动的全栈应用，集成 AI 对话、知识图谱与小程序前端。',
+    rationale:
+      '核心决策：采用 ASK-REC 引擎实现多轮对话推荐，五级回退策略保证回答覆盖率。知识图谱用于增强推荐解释的透明度和可信度。16 张数据表支撑完整的用户、内容、交互数据闭环。',
     language: 'Python',
     stars: 0,
     url: 'https://github.com/oldking-yes/heritage-crs-platform',
@@ -31,7 +34,9 @@ export const repos: Repo[] = [
     name: 'arknights-personality-v2',
     displayName: 'AI 人格测试引擎',
     description:
-      'LLM 驱动的对话式人格评测应用，React + Tailwind 构建的交互问答与结果推理系统。',
+      'LLM 驱动的对话式人格评测系统，React + TypeScript 全栈前端。',
+    rationale:
+      '设计自定义对话引擎，通过多轮交互式问答推理用户人格类型。采用组件化架构实现问题分支逻辑与结果计算分离，已部署上线并支持分享。',
     language: 'TypeScript',
     stars: 1,
     url: 'https://github.com/oldking-yes/arknights-personality-v2',
@@ -45,7 +50,9 @@ export const repos: Repo[] = [
     name: 'refine-yourself',
     displayName: 'AI 人格克隆',
     description:
-      '对话数据驱动的 AI 人格克隆系统——从聊天记录提取特征并训练个性化 AI 分身。',
+      '从聊天记录中提取特征、训练个性化 AI 分身的实验项目。',
+    rationale:
+      '探索 LLM 人格模拟的技术边界——通过对话数据预处理、特征工程和模型微调，实现具有一致性格表达的 AI 对话代理。验证了"数据驱动人格建模"的技术可行性。',
     language: 'TypeScript',
     stars: 0,
     url: 'https://github.com/oldking-yes/refine-yourself',
@@ -58,7 +65,9 @@ export const repos: Repo[] = [
     name: 'ink-studio',
     displayName: '前端设计实验室',
     description:
-      '前端交互与视觉表达实验项目，探索创意 Web 技术与 UI 动效。',
+      '前端交互与视觉实验项目，纯原生技术栈实现。',
+    rationale:
+      '在没有框架依赖的前提下，探索 CSS 动效、Canvas 图形和交互设计的边界。实践了从视觉构思到代码实现的完整创意流程，培养了对细节和性能的敏感度。',
     language: 'HTML',
     stars: 0,
     url: 'https://github.com/oldking-yes/ink-studio',
