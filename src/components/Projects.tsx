@@ -43,7 +43,7 @@ function Projects(): JSX.Element {
       el.scrollTo({ left: first.offsetLeft - (containerW - cardW) / 2, behavior: 'instant' as ScrollBehavior });
     }
 
-    // Update indicator dot: scrollend (native) + debounced scroll (fallback)
+    // Update indicator dot on every scroll (rAF-throttled)
     const updateDot = () => {
       if (!el) return;
       const cs = el.querySelectorAll<HTMLElement>('[data-card]');
@@ -54,18 +54,22 @@ function Projects(): JSX.Element {
       if (idx >= 0 && idx < repos.length) setRealIndex(idx);
     };
 
-    let scrollTimer: ReturnType<typeof setTimeout>;
+    let rafId: number;
+    let pending = false;
     const onScroll = () => {
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(updateDot, 150);
+      if (!pending) {
+        pending = true;
+        rafId = requestAnimationFrame(() => {
+          updateDot();
+          pending = false;
+        });
+      }
     };
 
-    el.addEventListener('scrollend', updateDot);
     el.addEventListener('scroll', onScroll, { passive: true });
     return () => {
-      el.removeEventListener('scrollend', updateDot);
       el.removeEventListener('scroll', onScroll);
-      clearTimeout(scrollTimer);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, []);
 
