@@ -19,30 +19,14 @@ function Hero(): JSX.Element {
         background: 'linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.3) 50%, rgba(10,10,10,0.6) 100%)',
       }}
     >
-      <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
-        {/* Greeting */}
-        <Box sx={{ animation: 'fadeInUp 0.6s ease-out forwards' }}>
-          <Typography
-            variant="body2"
-            sx={{
-              color: '#a0d8f0',
-              fontWeight: 600,
-              mb: 1.5,
-              fontSize: '0.9rem',
-              fontFamily: '"SF Mono", "Fira Code", monospace',
-            }}
-          >
-            你好，我是
-          </Typography>
-        </Box>
-
+      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
         {/* Name with warm gradient + shimmer */}
         <Typography
           variant="h1"
           sx={{
             fontSize: { xs: '2.8rem', sm: '4rem', md: '5.5rem' },
             fontWeight: 800,
-            mb: 1.5,
+            mb: 1,
             background: 'linear-gradient(135deg, #e8e0d0 0%, #c8a96e 50%, #e8e0d0 100%)',
             backgroundSize: '200% auto',
             backgroundClip: 'text',
@@ -55,104 +39,61 @@ function Hero(): JSX.Element {
           {githubUser.displayName}
         </Typography>
 
-        {/* Tagline */}
+        {/* Key identity line — 突出数据科学 */}
         <Typography
           variant="h2"
           sx={{
-            fontSize: { xs: '1.3rem', sm: '1.8rem', md: '2.2rem' },
+            fontSize: { xs: '1.2rem', sm: '1.5rem', md: '1.8rem' },
             fontWeight: 500,
             color: 'text.secondary',
-            mb: 2,
+            mb: 3,
             animation: 'fadeInUp 0.6s ease-out 0.2s forwards',
             opacity: 0,
+            lineHeight: 1.5,
           }}
         >
-          数据科学 · AI Agent 开发 · Claude Code 生态实践者
+          <Box component="span" sx={{ color: '#a0d8f0', fontWeight: 600 }}>数据科学</Box>
+          {' · '}AI Agent 开发 · Claude Code 实践者
         </Typography>
 
-        {/* Bio */}
-        <Typography
-          variant="body1"
+        {/* Compact tech tags */}
+        <Stack
+          direction="row"
+          spacing={1}
           sx={{
-            color: 'text.secondary',
-            maxWidth: 560,
-            mb: 2,
-            fontSize: '0.95rem',
-            lineHeight: 1.8,
+            mb: 3.5,
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: 0.5,
             animation: 'fadeInUp 0.6s ease-out 0.3s forwards',
             opacity: 0,
           }}
         >
-          数据科学与大数据专业，AI Agent 开发者，Claude Code 深度用户。毕业设计结合 CRS 推荐系统与 AI 数字人，探索传统文化数字化的前沿实践。
-        </Typography>
-
-        {/* Tags */}
-        <Stack
-          direction="row"
-          spacing={1}
-          sx={{
-            mb: 2.5,
-            flexWrap: 'wrap',
-            gap: 0.5,
-            animation: 'fadeInUp 0.6s ease-out 0.35s forwards',
-            opacity: 0,
-          }}
-        >
-          {['数据科学', 'AI Agent 开发', 'Claude Code', 'CRS 推荐系统', '全栈开发'].map((tag) => (
-            <Chip
-              key={tag}
-              label={tag}
-              size="small"
-              sx={{
-                backgroundColor: 'rgba(200, 169, 110, 0.08)',
-                color: 'rgba(255,255,255,0.6)',
-                border: '1px solid rgba(200, 169, 110, 0.12)',
-                fontWeight: 500,
-                fontSize: '0.75rem',
-              }}
-            />
-          ))}
-        </Stack>
-
-        {/* Tech stack highlight */}
-        <Stack
-          direction="row"
-          spacing={1}
-          sx={{
-            mb: 3,
-            flexWrap: 'wrap',
-            gap: 0.5,
-            animation: 'fadeInUp 0.6s ease-out 0.38s forwards',
-            opacity: 0,
-          }}
-        >
-          <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.65rem', alignSelf: 'center' }}>
-            技术栈：
-          </Typography>
-          {['Python', 'FastAPI', 'React', 'LLM', 'LangChain', 'AI Agent'].map((tech) => (
+          {['Claude Code', 'LangChain', 'React', 'FastAPI', 'LLM'].map((tech) => (
             <Chip
               key={tech}
               label={tech}
               size="small"
               sx={{
-                backgroundColor: 'rgba(160, 216, 240, 0.06)',
+                backgroundColor: 'rgba(160, 216, 240, 0.08)',
                 color: '#a0d8f0',
-                border: '1px solid rgba(160, 216, 240, 0.12)',
+                border: '1px solid rgba(160, 216, 240, 0.15)',
                 fontWeight: 500,
-                fontSize: '0.65rem',
-                height: 20,
+                fontSize: '0.75rem',
+                height: 24,
               }}
             />
           ))}
         </Stack>
 
-        {/* Stats — light blue with pulse glow */}
+        {/* Stats */}
         <Stack
           direction="row"
           spacing={{ xs: 3, sm: 5 }}
           sx={{
             mb: 4,
-            animation: 'fadeInUp 0.6s ease-out 0.4s forwards',
+            justifyContent: 'center',
+            animation: 'fadeInUp 0.6s ease-out 0.35s forwards',
             opacity: 0,
           }}
         >
@@ -187,8 +128,9 @@ function Hero(): JSX.Element {
           sx={{
             display: 'flex',
             gap: 2,
+            justifyContent: 'center',
             flexWrap: 'wrap',
-            animation: 'fadeInUp 0.6s ease-out 0.45s forwards',
+            animation: 'fadeInUp 0.6s ease-out 0.4s forwards',
             opacity: 0,
           }}
         >
