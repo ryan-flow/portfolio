@@ -56,8 +56,8 @@ function CanvasBackground(): JSX.Element {
         for (let c = 0; c < COLS; c++) {
           cells[r][c] = {
             char: chars[Math.floor(Math.random() * chars.length)],
-            brightness: 0.02 + Math.random() * 0.06,
-            changeTimer: Math.floor(Math.random() * 120),
+            brightness: 0.15 + Math.random() * 0.25,
+            changeTimer: Math.floor(Math.random() * 60),
           };
         }
       }
@@ -86,11 +86,11 @@ function CanvasBackground(): JSX.Element {
           cell.changeTimer--;
           if (cell.changeTimer <= 0) {
             cell.char = chars[Math.floor(Math.random() * chars.length)];
-            cell.changeTimer = 30 + Math.floor(Math.random() * 80);
-            cell.brightness = 0.3 + Math.random() * 0.3;
+            cell.changeTimer = 15 + Math.floor(Math.random() * 50);
+            cell.brightness = 0.5 + Math.random() * 0.4;
           }
 
-          cell.brightness = Math.max(0.005, cell.brightness - 0.0008);
+          cell.brightness = Math.max(0.03, cell.brightness - 0.0012);
 
           if (Math.random() < 0.001) {
             cell.brightness = 0.65;
@@ -100,7 +100,7 @@ function CanvasBackground(): JSX.Element {
           ctx.save();
           ctx.translate(x, y);
           ctx.scale(1, VERT_STRETCH);
-          ctx.fillStyle = `rgba(200, 200, 200, ${opacity})`;
+          ctx.fillStyle = `rgba(200, 180, 150, ${opacity})`;
           ctx.fillText(cell.char, 0, 0);
           ctx.restore();
         }
@@ -119,7 +119,7 @@ function CanvasBackground(): JSX.Element {
       const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
       grad.addColorStop(0, 'rgba(0,0,0,0)');
       grad.addColorStop(0.5, 'rgba(0,0,0,0)');
-      grad.addColorStop(1, 'rgba(200,200,200,0.08)');
+      grad.addColorStop(1, 'rgba(0,0,0,0.12)');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 

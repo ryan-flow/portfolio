@@ -46,7 +46,7 @@ function About(): JSX.Element {
                 </Box>
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9, mb: 2 }}>
-                你好，我是王子轩。数据科学与大数据专业，AI Agent 开发者。善于利用 Claude Code 等 AI 编程工具高效构建全栈应用。
+                你好，我是老王。数据科学与大数据专业，AI Agent 开发者。善于利用 Claude Code 等 AI 编程工具高效构建全栈应用。
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9, mb: 2 }}>
                 从微信小程序到 AI 对话系统，从数据库设计到推荐算法——我享受从零到一构建完整产品的过程。毕业设计「墨韵」是一个基于 CRS 推荐系统的非遗文化传播平台，也是我对技术+文化融合的一次深入实践。

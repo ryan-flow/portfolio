@@ -5,6 +5,11 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { repos } from '../data/repos';
 
+function assetUrl(path: string): string {
+  const base = import.meta.env.BASE_URL ?? '/';
+  return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
+}
+
 function Projects(): JSX.Element {
   const [activeIndex, setActiveIndex] = useState(0);
   const touchRef = useRef({ startX: 0, startY: 0, isSwiping: false });
@@ -85,7 +90,7 @@ function Projects(): JSX.Element {
             {repo.image ? (
               <Box
                 component="img"
-                src={repo.image}
+                src={assetUrl(repo.image)}
                 alt={repo.displayName}
                 sx={{
                   width: '100%',

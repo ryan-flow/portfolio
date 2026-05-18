@@ -3,3 +3,5 @@ dist
 .vite
 *.local
 .DS_Store
+.playwright-cli/
+xiaomi-bg.png
