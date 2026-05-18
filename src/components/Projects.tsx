@@ -80,10 +80,28 @@ function Projects(): JSX.Element {
               '&::-webkit-scrollbar': { display: 'none' },
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
-              px: { xs: 'calc(50vw - 140px)', md: 'calc(50vw - 370px)' },
-              gap: { xs: 2.5, md: 4 },
+              px: { xs: 'calc(50vw - 130px)', md: 'calc(50vw - 370px)' },
+              gap: { xs: 3, md: 4 },
               alignItems: 'center',
               width: '100%',
+              position: 'relative',
+              '&::before, &::after': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                width: { xs: 40, md: 60 },
+                zIndex: 2,
+                pointerEvents: 'none',
+              },
+              '&::before': {
+                left: 0,
+                background: 'linear-gradient(to right, rgba(10,10,10,0.6), transparent)',
+              },
+              '&::after': {
+                right: 0,
+                background: 'linear-gradient(to left, rgba(10,10,10,0.6), transparent)',
+              },
             }}
           >
             {repos.map((repo) => (
@@ -96,7 +114,7 @@ function Projects(): JSX.Element {
                 rel="noopener noreferrer"
                 sx={{
                   flex: '0 0 auto',
-                  width: { xs: 'calc(100vw - 88px)', md: 640 },
+                  width: { xs: 'calc(100vw - 108px)', md: 640 },
                   aspectRatio: { xs: '3/5', md: '3/4' },
                   scrollSnapAlign: 'center',
                   textDecoration: 'none',
