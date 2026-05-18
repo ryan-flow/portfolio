@@ -43,8 +43,8 @@ function Projects(): JSX.Element {
       el.scrollTo({ left: first.offsetLeft - (containerW - cardW) / 2, behavior: 'instant' as ScrollBehavior });
     }
 
-    // Only update indicator dot after scrolling stops
-    const onScrollEnd = () => {
+    // Update indicator dot: scrollend (native) + debounced scroll (fallback)
+    const updateDot = () => {
       if (!el) return;
       const cs = el.querySelectorAll<HTMLElement>('[data-card]');
       if (cs.length < 2) return;
@@ -54,8 +54,19 @@ function Projects(): JSX.Element {
       if (idx >= 0 && idx < repos.length) setRealIndex(idx);
     };
 
-    el.addEventListener('scrollend', onScrollEnd);
-    return () => el.removeEventListener('scrollend', onScrollEnd);
+    let scrollTimer: ReturnType<typeof setTimeout>;
+    const onScroll = () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(updateDot, 150);
+    };
+
+    el.addEventListener('scrollend', updateDot);
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      el.removeEventListener('scrollend', updateDot);
+      el.removeEventListener('scroll', onScroll);
+      clearTimeout(scrollTimer);
+    };
   }, []);
 
   return (
