@@ -27,23 +27,13 @@ function Projects(): JSX.Element {
     setRealIndex(idx);
   }, []);
 
-  const prev = () => snapTo(realIndex === 0 ? repos.length - 1 : realIndex - 1);
-  const next = () => snapTo(realIndex === repos.length - 1 ? 0 : realIndex + 1);
+  const prev = () => { if (realIndex > 0) snapTo(realIndex - 1); };
+  const next = () => { if (realIndex < repos.length - 1) snapTo(realIndex + 1); };
 
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
 
-    // Start at first card
-    const cards = el.querySelectorAll<HTMLElement>('[data-card]');
-    const first = cards[0];
-    if (first) {
-      const containerW = el.clientWidth;
-      const cardW = first.offsetWidth;
-      el.scrollTo({ left: first.offsetLeft - (containerW - cardW) / 2, behavior: 'instant' as ScrollBehavior });
-    }
-
-    // Update indicator dot on every scroll (rAF-throttled)
     const updateDot = () => {
       if (!el) return;
       const cs = el.querySelectorAll<HTMLElement>('[data-card]');
@@ -54,23 +44,8 @@ function Projects(): JSX.Element {
       if (idx >= 0 && idx < repos.length) setRealIndex(idx);
     };
 
-    let rafId: number;
-    let pending = false;
-    const onScroll = () => {
-      if (!pending) {
-        pending = true;
-        rafId = requestAnimationFrame(() => {
-          updateDot();
-          pending = false;
-        });
-      }
-    };
-
-    el.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      el.removeEventListener('scroll', onScroll);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
+    el.addEventListener('scroll', updateDot, { passive: true });
+    return () => el.removeEventListener('scroll', updateDot);
   }, []);
 
   return (
@@ -86,10 +61,12 @@ function Projects(): JSX.Element {
         </Box>
 
         <Box sx={{ position: 'relative', flex: 1, display: 'flex', alignItems: 'center' }}>
-          <IconButton onClick={prev} sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', left: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 52, height: 52, border: '1px solid rgba(143,164,184,0.20)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: '#c8d8e8', '&:hover': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' }, '& .MuiSvgIcon-root': { fontSize: 28 } }}>
+          <IconButton onClick={prev} disabled={realIndex === 0}
+            sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', left: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 52, height: 52, border: '1px solid rgba(143,164,184,0.20)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.4)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' }, '& .MuiSvgIcon-root': { fontSize: 28 } }}>
             <ChevronLeftIcon />
           </IconButton>
-          <IconButton onClick={next} sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', right: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 52, height: 52, border: '1px solid rgba(143,164,184,0.20)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: '#c8d8e8', '&:hover': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' }, '& .MuiSvgIcon-root': { fontSize: 28 } }}>
+          <IconButton onClick={next} disabled={realIndex === repos.length - 1}
+            sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', right: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 52, height: 52, border: '1px solid rgba(143,164,184,0.20)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.4)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' }, '& .MuiSvgIcon-root': { fontSize: 28 } }}>
             <ChevronRightIcon />
           </IconButton>
 
