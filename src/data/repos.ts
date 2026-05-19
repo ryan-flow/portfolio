@@ -64,19 +64,19 @@ export const repos: Repo[] = [
   },
   {
     name: 'ink-studio',
-    displayName: '墨韵 · 数字水墨',
+    displayName: '墨韵 · AI 水墨',
     description:
-      '数字水墨诗画互动平台——SVG 场景引擎 + Canvas 墨迹扩散 + Web Audio 古琴音景，单文件自包含。',
+      'AI 驱动的水墨诗画生成器——输入关键词 → DeepSeek 创作诗句 → Canvas 实时渲染为水墨画。',
     rationale:
-      '[创意实验] 零框架零依赖，单个 index.html 自包含完整数字水墨体验。SVG 场景引擎（山脉竹林仙鹤锦鲤墨滴飞花瓣）+ Canvas 2D 题诗作画（一键导出）+ Web Audio 古琴泛音音景。五种主题配色（墨韵/青花/金碧/朱砂/雪景），书法风格留言墙。验证了纯前端可实现完整艺术交互体验的技术上限。',
+      '[AI创意] Cloudflare Worker 代理 DeepSeek API，用户输入关键词（如「秋思」）→ AI 自动生成题画诗 → Canvas 2D 实时渲染（4 种模板 + 印章 + PNG 导出）。SVG 动态水墨场景 + Web Audio 古琴音景。纯静态 GitHub Pages + Worker 边缘计算架构。',
     language: 'HTML',
     stars: 0,
     url: 'https://github.com/oldking-yes/ink-studio',
-    techStack: ['SVG', 'Canvas 2D', 'Web Audio API', 'CSS Animation'],
+    techStack: ['DeepSeek API', 'Cloudflare Workers', 'Canvas 2D', 'SVG', 'Web Audio API', 'GitHub Pages'],
     icon: '🎨',
     gradient: 'linear-gradient(135deg, #0c1929, #2a1a1a)',
     image: '/projects/项目截图/前端设计实验室.png',
-    previewUrl: 'https://oldking-yes.github.io/ink-studio/',
+    previewUrl: 'https://nebula-website-henna.vercel.app/',
   },
 ];
 
