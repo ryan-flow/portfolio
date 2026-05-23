@@ -176,10 +176,10 @@ export const githubUser = {
   username: 'oldking-yes',
   displayName: 'Zixuan Wang',
   avatarUrl: 'https://avatars.githubusercontent.com/u/54438040?v=4',
-  bio: '数据科学与大数据专业 · AI Agent 开发者 · Claude Code 深度用户。全栈开发，CRS 推荐系统与 LLM 应用实践经验。',
-  tagline: '数据科学 · AI Agent 开发 · Claude Code 生态实践者',
+  bio: '数据科学与大数据专业 · AI 应用开发工程师 · 专注 LLM 集成 + 前端工程 + 推荐系统',
+  tagline: 'AI 应用开发工程师 · LLM 集成 · 前端工程 · 推荐系统',
   githubUrl: 'https://github.com/oldking-yes',
   email: 'oldking.yes@outlook.com',
-  jobTarget: 'AI Agent 开发 / 全栈工程师 · 寻求 2026 校招 / 实习机会',
+  jobTarget: 'AI 应用开发工程师 · 2026 届应届生 · 广州 · 校招',
   resumeUrl: '/resume.pdf',
 };

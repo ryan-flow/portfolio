@@ -1,4 +1,4 @@
-# 老王 · Personal Portfolio
+# 王子轩 · AI 应用开发工程师 · 求职作品集
 
 <p align="center">
   <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black" />
@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/MUI-007FFF?style=flat-square&logo=mui&logoColor=white" />
 </p>
 
-个人作品集展示页面 — 集中展示我的 AI 开发、全栈工程和创意编程作品。
+AI 应用开发工程师 · 专注 LLM 集成 + 前端工程 + 推荐系统 · 2026 届应届生 · 广州
 
 🔗 **Live**: [oldking-yes.github.io/portfolio](https://oldking-yes.github.io/portfolio)
 
@@ -25,10 +25,11 @@
 
 | 项目 | 说明 | 技术栈 |
 |------|------|--------|
-| [墨韵 · Ink Studio](https://github.com/oldking-yes/ink-studio) | 数字水墨诗画实验室 | Canvas, SVG, Cloudflare Workers |
-| [非遗文化传播系统](https://github.com/oldking-yes/heritage-crs-platform) | CRS 推荐 + AI 数字人非遗传播平台 | Python, React, Neo4j, Flask |
-| [罗德岛干员人格测试](https://github.com/oldking-yes/arknights-personality-v2) | 明日方舟主题性格测试 PWA | React, TypeScript, Vite, i18n |
-| [Refine Yourself](https://github.com/oldking-yes/refine-yourself) | AI 数字分身聊天应用 | Next.js, Supabase, DeepSeek |
+| [CRS 推荐系统平台](https://github.com/oldking-yes/heritage-crs-platform) | CRS 对话推荐 + Neo4j 知识图谱 + AI 数字人 | Python, FastAPI, React, Neo4j |
+| [PRD Agent RAG](https://github.com/oldking-yes/prd-agent-rag) | RAG + Agent 驱动的产品需求文档生成 | FastAPI, PydanticAI, ChromaDB, DeepSeek |
+| [AI 人格克隆](https://github.com/oldking-yes/refine-yourself) | DeepSeek 驱动的五层人格画像与数字分身 | Next.js, Supabase, DeepSeek |
+| [AI 人格测试引擎](https://github.com/oldking-yes/arknights-personality-v2) | 沉浸式人格评测 × 世界观叙事 | React, Chart.js, Framer Motion, PWA |
+| [墨韵 · AI 水墨](https://github.com/oldking-yes/ink-studio) | AI 驱动的水墨诗画生成器 | Canvas, Cloudflare Workers, DeepSeek |
 
 ## 🛠️ 技术栈
 
