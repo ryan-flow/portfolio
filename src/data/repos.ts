@@ -180,6 +180,6 @@ export const githubUser = {
   tagline: 'AI 应用开发工程师 · LLM 集成 · 前端工程 · 推荐系统',
   githubUrl: 'https://github.com/oldking-yes',
   email: 'oldking.yes@outlook.com',
-  jobTarget: 'AI 应用开发工程师 · 2026 届应届生 · 广州 · 校招',
+  jobTarget: 'AI 应用开发工程师 · 2026 · 广州',
   resumeUrl: '/resume.pdf',
 };

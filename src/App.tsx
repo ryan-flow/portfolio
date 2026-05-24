@@ -7,6 +7,7 @@ import Skills from './components/Skills';
 import Timeline from './components/Timeline';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import AiChat from './components/AiChat';
 
 function App(): JSX.Element {
   useEffect(() => {
@@ -37,6 +38,7 @@ function App(): JSX.Element {
         <Timeline />
         <Contact />
         <Footer />
+        <AiChat />
       </Box>
     </Box>
   );
