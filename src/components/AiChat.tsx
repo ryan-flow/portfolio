@@ -17,6 +17,12 @@ const QUICK_PROMPTS = [
   { label: '和别人有什么不同', prompt: '跟同届应届生比，你觉得自己最大的优势是什么？' },
 ];
 
+const WELCOME_FEATURES = [
+  { icon: '💡', text: '技术选型与架构决策' },
+  { icon: '🚀', text: '项目经历与难点攻克' },
+  { icon: '🎯', text: '求职方向与职业规划' },
+];
+
 function AiChat(): JSX.Element {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -39,7 +45,7 @@ function AiChat(): JSX.Element {
       if (done) break;
 
       buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split('\n');
+      const lines = buffer.split('\\n');
       buffer = lines.pop() || '';
 
       for (const line of lines) {
@@ -204,7 +210,7 @@ function AiChat(): JSX.Element {
             },
           }}
         >
-          {/* Empty state */}
+          {/* Empty state — welcome card */}
           {messages.length === 0 && (
             <Box
               sx={{
@@ -213,13 +219,14 @@ function AiChat(): JSX.Element {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: 3,
+                gap: 4,
               }}
             >
+              {/* Welcome heading */}
               <Box sx={{ textAlign: 'center' }}>
                 <Typography
                   sx={{
-                    fontSize: { xs: '1.1rem', sm: '1.3rem' },
+                    fontSize: { xs: '1.3rem', sm: '1.6rem' },
                     fontWeight: 700,
                     color: '#e8e0d0',
                     mb: 1,
@@ -232,23 +239,66 @@ function AiChat(): JSX.Element {
                     fontSize: { xs: '0.78rem', sm: '0.85rem' },
                     color: 'rgba(255,255,255,0.3)',
                     lineHeight: 1.6,
-                    maxWidth: 320,
+                    maxWidth: 360,
                   }}
                 >
-                  关于项目经历与技术选型
+                  关于项目经历、技术选型与求职方向
                 </Typography>
               </Box>
 
-              {/* Hint arrow pointing down to input area */}
-              <Typography
-                sx={{
-                  fontSize: '0.7rem',
-                  color: 'rgba(143,164,184,0.3)',
-                  animation: 'float 2.5s ease-in-out infinite',
-                }}
-              >
-                ↓ 试试下方快捷提问
-              </Typography>
+              {/* Feature tags */}
+              <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
+                {WELCOME_FEATURES.map((f) => (
+                  <Box
+                    key={f.text}
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 0.6,
+                      px: 1.5,
+                      py: 0.8,
+                      borderRadius: 2,
+                      border: '1px solid rgba(143,164,184,0.10)',
+                      backgroundColor: 'rgba(143,164,184,0.04)',
+                    }}
+                  >
+                    <Typography sx={{ fontSize: '0.9rem' }}>{f.icon}</Typography>
+                    <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', fontWeight: 500 }}>
+                      {f.text}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+
+              {/* Quick prompt cards */}
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center', maxWidth: 500 }}>
+                {QUICK_PROMPTS.map((qp) => (
+                  <Box
+                    key={qp.label}
+                    onClick={() => !loading && sendMessage(qp.prompt)}
+                    sx={{
+                      px: 2,
+                      py: 1,
+                      borderRadius: 2,
+                      border: '1px solid rgba(143,164,184,0.12)',
+                      backgroundColor: 'rgba(143,164,184,0.05)',
+                      color: 'rgba(200,208,216,0.55)',
+                      fontSize: '0.78rem',
+                      cursor: loading ? 'default' : 'pointer',
+                      transition: 'all 0.2s ease',
+                      userSelect: 'none',
+                      '&:hover': {
+                        backgroundColor: 'rgba(143,164,184,0.10)',
+                        borderColor: 'rgba(143,164,184,0.25)',
+                        color: '#e8e0d0',
+                        transform: 'translateY(-1px)',
+                      },
+                    }}
+                  >
+                    {qp.label}
+                  </Box>
+                ))}
+              </Box>
             </Box>
           )}
 
@@ -323,50 +373,52 @@ function AiChat(): JSX.Element {
           ))}
         </Box>
 
-        {/* Persistent quick prompts — always visible */}
-        <Box
-          sx={{
-            px: { xs: 2, sm: 2.5 },
-            py: 1,
-            borderTop: '1px solid rgba(143,164,184,0.06)',
-            display: 'flex',
-            gap: 0.6,
-            overflowX: 'auto',
-            flexShrink: 0,
-            '&::-webkit-scrollbar': { display: 'none' },
-            scrollbarWidth: 'none',
-          }}
-        >
-          {QUICK_PROMPTS.map((qp) => (
-            <Box
-              key={qp.label}
-              onClick={() => !loading && sendMessage(qp.prompt)}
-              sx={{
-                px: 1.5,
-                py: 0.5,
-                borderRadius: '16px',
-                border: '1px solid rgba(143,164,184,0.12)',
-                backgroundColor: 'rgba(143,164,184,0.05)',
-                color: 'rgba(200,208,216,0.55)',
-                fontSize: '0.72rem',
-                cursor: loading ? 'default' : 'pointer',
-                transition: 'all 0.2s ease',
-                lineHeight: 1.4,
-                userSelect: 'none',
-                whiteSpace: 'nowrap',
-                flexShrink: 0,
-                opacity: loading ? 0.4 : 1,
-                '&:hover': {
-                  backgroundColor: 'rgba(143,164,184,0.1)',
-                  borderColor: 'rgba(143,164,184,0.25)',
-                  color: '#e8e0d0',
-                },
-              }}
-            >
-              {qp.label}
-            </Box>
-          ))}
-        </Box>
+        {/* Persistent quick prompts — only show after messages exist */}
+        {messages.length > 0 && (
+          <Box
+            sx={{
+              px: { xs: 2, sm: 2.5 },
+              py: 1,
+              borderTop: '1px solid rgba(143,164,184,0.06)',
+              display: 'flex',
+              gap: 0.6,
+              overflowX: 'auto',
+              flexShrink: 0,
+              '&::-webkit-scrollbar': { display: 'none' },
+              scrollbarWidth: 'none',
+            }}
+          >
+            {QUICK_PROMPTS.map((qp) => (
+              <Box
+                key={qp.label}
+                onClick={() => !loading && sendMessage(qp.prompt)}
+                sx={{
+                  px: 1.5,
+                  py: 0.5,
+                  borderRadius: '16px',
+                  border: '1px solid rgba(143,164,184,0.12)',
+                  backgroundColor: 'rgba(143,164,184,0.05)',
+                  color: 'rgba(200,208,216,0.55)',
+                  fontSize: '0.72rem',
+                  cursor: loading ? 'default' : 'pointer',
+                  transition: 'all 0.2s ease',
+                  lineHeight: 1.4,
+                  userSelect: 'none',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0,
+                  opacity: loading ? 0.4 : 1,
+                  '&:hover': {
+                    backgroundColor: 'rgba(143,164,184,0.1)',
+                    borderColor: 'rgba(143,164,184,0.25)',
+                    color: '#e8e0d0',
+                  },
+                }}
+              >
+                {qp.label}
+              </Box>
+            ))}
+          </Box>
+        )}
 
         {/* Input bar */}
         <Box
