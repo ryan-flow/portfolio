@@ -1,13 +1,17 @@
 import { useState } from 'react';
-import { Box, Container, Typography, Button } from '@mui/material';
+import { Box, Container, Typography, Button, Modal, IconButton } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
 import CheckIcon from '@mui/icons-material/Check';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import CloseIcon from '@mui/icons-material/Close';
 import { githubUser } from '../data/repos';
 
 function Contact(): JSX.Element {
   const [copied, setCopied] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
+
+  const resumeUrl = `${import.meta.env.BASE_URL}resume.pdf`;
 
   const handleCopyEmail = async () => {
     try {
@@ -15,7 +19,6 @@ function Contact(): JSX.Element {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // fallback
       const ta = document.createElement('textarea');
       ta.value = githubUser.email;
       document.body.appendChild(ta);
@@ -70,14 +73,13 @@ function Contact(): JSX.Element {
             }}
           >
             <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-              {/* Resume download */}
+              {/* Resume preview button */}
               <Button
                 variant="contained"
                 size="large"
                 fullWidth
                 startIcon={<PictureAsPdfIcon />}
-                href={`${import.meta.env.BASE_URL}resume.pdf`}
-                download
+                onClick={() => setPreviewOpen(true)}
                 sx={{
                   py: 2,
                   fontSize: '0.95rem',
@@ -94,7 +96,7 @@ function Contact(): JSX.Element {
                   transition: 'all 0.3s ease',
                 }}
               >
-                下载简历 (PDF)
+                预览简历
               </Button>
 
               <Button
@@ -140,6 +142,103 @@ function Contact(): JSX.Element {
           </Box>
         </Box>
       </Container>
+
+      {/* Resume preview modal */}
+      <Modal
+        open={previewOpen}
+        onClose={() => setPreviewOpen(false)}
+        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: { xs: 1, sm: 2 } }}
+      >
+        <Box
+          sx={{
+            position: 'relative',
+            width: '100%',
+            maxWidth: 600,
+            maxHeight: { xs: '90vh', sm: '85vh' },
+            backgroundColor: '#1a1a1e',
+            borderRadius: 3,
+            border: '1px solid rgba(143,164,184,0.15)',
+            boxShadow: '0 16px 48px rgba(0,0,0,0.6)',
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'hidden',
+          }}
+        >
+          {/* Modal header */}
+          <Box
+            sx={{
+              px: 2,
+              py: 1.5,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              borderBottom: '1px solid rgba(143,164,184,0.1)',
+              flexShrink: 0,
+            }}
+          >
+            <Typography sx={{ fontSize: '0.85rem', fontWeight: 600, color: '#e8e0d0' }}>
+              简历预览
+            </Typography>
+            <IconButton onClick={() => setPreviewOpen(false)} size="small" sx={{ color: 'rgba(255,255,255,0.5)' }}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </Box>
+
+          {/* PDF viewer */}
+          <Box
+            sx={{
+              flex: 1,
+              overflow: 'auto',
+              minHeight: 0,
+            }}
+          >
+            <iframe
+              src={resumeUrl}
+              style={{ width: '100%', height: '100%', minHeight: '60vh', border: 'none' }}
+              title="简历预览"
+            />
+          </Box>
+
+          {/* Download hint + button */}
+          <Box
+            sx={{
+              px: 2,
+              py: 1.5,
+              borderTop: '1px solid rgba(143,164,184,0.1)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 2,
+              flexShrink: 0,
+            }}
+          >
+            <Typography sx={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)' }}>
+              手机端长按图片可保存
+            </Typography>
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<PictureAsPdfIcon />}
+              href={resumeUrl}
+              download
+              sx={{
+                fontSize: '0.78rem',
+                fontWeight: 600,
+                background: 'linear-gradient(135deg, #8fa4b8, #a8bcc8)',
+                color: '#0a0a0a',
+                borderRadius: 1.5,
+                textTransform: 'none',
+                px: 2,
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #a0b8cc, #b8d0dc)',
+                },
+              }}
+            >
+              下载
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 }
