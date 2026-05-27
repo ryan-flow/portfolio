@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Box, Container, Typography, Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CheckIcon from '@mui/icons-material/Check';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { githubUser } from '../data/repos';
@@ -103,9 +102,11 @@ function Contact(): JSX.Element {
                 startIcon={<GitHubIcon />}
                 href={githubUser.githubUrl} target="_blank" rel="noopener noreferrer"
                 sx={{
-                  py: 1.5, fontSize: '0.82rem', fontWeight: 600,
+                  py: 1.5, fontSize: '0.78rem', fontWeight: 600,
                   borderColor: 'rgba(255,255,255,0.06)', color: 'text.primary', borderRadius: 2,
                   fontFamily: '"SF Mono", "Fira Code", monospace',
+                  whiteSpace: 'nowrap',
+                  minWidth: 0,
                   '&:hover': { borderColor: '#8fa4b8', backgroundColor: 'rgba(143, 164, 184, 0.06)', transform: 'translateY(-2px)' },
                   transition: 'all 0.3s ease',
                 }}
