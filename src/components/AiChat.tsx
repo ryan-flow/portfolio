@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Box, Container, Typography, IconButton, TextField, CircularProgress } from '@mui/material';
+import { Box, Typography, IconButton, TextField, CircularProgress } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
 const WORKER_URL = '/api/chat';
