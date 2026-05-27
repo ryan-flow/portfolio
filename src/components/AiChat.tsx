@@ -235,52 +235,20 @@ function AiChat(): JSX.Element {
                     maxWidth: 320,
                   }}
                 >
-                  关于项目经历、技术选型、或求职方向
+                  关于项目经历与技术选型
                 </Typography>
               </Box>
 
-              {/* Quick prompts */}
-              <Box
+              {/* Hint arrow pointing down to input area */}
+              <Typography
                 sx={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'center',
-                  gap: 0.8,
-                  maxWidth: 420,
+                  fontSize: '0.7rem',
+                  color: 'rgba(143,164,184,0.3)',
+                  animation: 'float 2.5s ease-in-out infinite',
                 }}
               >
-                {QUICK_PROMPTS.map((qp) => (
-                  <Box
-                    key={qp.label}
-                    onClick={() => sendMessage(qp.prompt)}
-                    sx={{
-                      px: 2,
-                      py: 0.8,
-                      borderRadius: '24px',
-                      border: '1px solid rgba(143,164,184,0.14)',
-                      backgroundColor: 'rgba(143,164,184,0.06)',
-                      color: 'rgba(200,208,216,0.65)',
-                      fontSize: { xs: '0.75rem', sm: '0.8rem' },
-                      cursor: 'pointer',
-                      transition: 'all 0.25s ease',
-                      lineHeight: 1.4,
-                      userSelect: 'none',
-                      whiteSpace: 'nowrap',
-                      '&:hover': {
-                        backgroundColor: 'rgba(143,164,184,0.12)',
-                        borderColor: 'rgba(143,164,184,0.3)',
-                        color: '#e8e0d0',
-                        transform: 'translateY(-1px)',
-                      },
-                      '&:active': {
-                        transform: 'translateY(0)',
-                      },
-                    }}
-                  >
-                    {qp.label}
-                  </Box>
-                ))}
-              </Box>
+                ↓ 试试下方快捷提问
+              </Typography>
             </Box>
           )}
 
