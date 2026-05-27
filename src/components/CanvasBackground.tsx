@@ -85,9 +85,10 @@ function CanvasBackground(): JSX.Element {
       for (let r = 0; r < ROWS; r++) {
         cells[r] = [];
         for (let c = 0; c < COLS; c++) {
+          const isM = window.innerWidth < 768;
           cells[r][c] = {
             char: chars[Math.floor(Math.random() * chars.length)],
-            brightness: 0.22 + Math.random() * 0.28,
+            brightness: isM ? (0.12 + Math.random() * 0.18) : (0.22 + Math.random() * 0.28),
             changeTimer: Math.floor(Math.random() * 120),
           };
         }
@@ -183,21 +184,35 @@ function CanvasBackground(): JSX.Element {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // Vignette — Xiaomi style: subtle, large transparent center, gentle falloff
+      // Vignette — mobile gets heavier edges
       const W = canvas.width;
       const H = canvas.height;
       const cx = W / 2;
       const cy = H / 2;
+      const isMobile = window.innerWidth < 768;
       const radius = Math.max(W, H) * 0.7;
 
-      const vg = ctx.createRadialGradient(cx, cy, radius * 0.35, cx, cy, radius);
-      vg.addColorStop(0, 'rgba(0,0,0,0)');
-      vg.addColorStop(0.45, 'rgba(0,0,0,0)');
-      vg.addColorStop(0.65, 'rgba(0,0,0,0.06)');
-      vg.addColorStop(0.8, 'rgba(0,0,0,0.18)');
-      vg.addColorStop(0.92, 'rgba(0,0,0,0.35)');
-      vg.addColorStop(1, 'rgba(0,0,0,0.50)');
-      ctx.fillStyle = vg;
+      if (isMobile) {
+        // Mobile: aggressive vignette, smaller transparent center
+        const vm = ctx.createRadialGradient(cx, cy, radius * 0.22, cx, cy, radius);
+        vm.addColorStop(0, 'rgba(0,0,0,0)');
+        vm.addColorStop(0.30, 'rgba(0,0,0,0)');
+        vm.addColorStop(0.50, 'rgba(0,0,0,0.08)');
+        vm.addColorStop(0.70, 'rgba(0,0,0,0.25)');
+        vm.addColorStop(0.85, 'rgba(0,0,0,0.50)');
+        vm.addColorStop(1, 'rgba(0,0,0,0.70)');
+        ctx.fillStyle = vm;
+      } else {
+        // Desktop: moderate vignette
+        const vd = ctx.createRadialGradient(cx, cy, radius * 0.35, cx, cy, radius);
+        vd.addColorStop(0, 'rgba(0,0,0,0)');
+        vd.addColorStop(0.45, 'rgba(0,0,0,0)');
+        vd.addColorStop(0.65, 'rgba(0,0,0,0.06)');
+        vd.addColorStop(0.8, 'rgba(0,0,0,0.18)');
+        vd.addColorStop(0.92, 'rgba(0,0,0,0.35)');
+        vd.addColorStop(1, 'rgba(0,0,0,0.50)');
+        ctx.fillStyle = vd;
+      }
       ctx.fillRect(0, 0, W, H);
 
       animId = requestAnimationFrame(draw);
