@@ -10,15 +10,14 @@ interface Cell {
 }
 
 const FONT_SIZE = 14;
-const LINE_H = 22;
 const VERT_STRETCH = 1.28;
 
 function getCharWidth(): number {
-  return window.innerWidth < 768 ? 14 : 12;
+  return window.innerWidth < 768 ? 11 : 12;
 }
 
 function getLineHeight(): number {
-  return window.innerWidth < 768 ? 18 : 22;
+  return window.innerWidth < 768 ? 15 : 22;
 }
 
 function CanvasBackground(): JSX.Element {
@@ -97,7 +96,6 @@ function CanvasBackground(): JSX.Element {
       frameCount++;
 
       if (reducedMotionRef.current) {
-        // Minimal static render — draw once every 60 frames
         if (frameCount % 60 !== 0) {
           animId = requestAnimationFrame(draw);
           return;
@@ -128,7 +126,6 @@ function CanvasBackground(): JSX.Element {
         return;
       }
 
-      // On mobile, skip every other frame to reduce GPU load
       if (window.innerWidth < 768 && frameCount % 2 !== 0) {
         animId = requestAnimationFrame(draw);
         return;
@@ -172,13 +169,11 @@ function CanvasBackground(): JSX.Element {
         }
       }
 
-      // 暗化覆盖（减轻）
       if (progress > 0) {
         ctx.fillStyle = `rgba(0, 0, 0, ${progress * 0.3})`;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // 四边暗角
       const W = canvas.width;
       const H = canvas.height;
       const edgeW = W * 0.28;
