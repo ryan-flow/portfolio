@@ -5,7 +5,6 @@ import SmartToyIcon from '@mui/icons-material/SmartToy';
 import SendIcon from '@mui/icons-material/Send';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 
-// Vercel Rewrites 代理 /api/chat → 腾讯云服务器
 const WORKER_URL = '/api/chat';
 
 interface Message {
@@ -13,17 +12,24 @@ interface Message {
   content: string;
 }
 
+const QUICK_PROMPTS = [
+  { label: '最有挑战的项目', prompt: '你做过的项目里，技术上最有挑战的是哪个？难在哪？' },
+  { label: '为什么选 AI 方向', prompt: '你为什么选择 AI 产品经理/应用开发方向？' },
+  { label: '一个人怎么做的', prompt: '这些项目是你一个人完成的吗？遇到不会的技术怎么解决？' },
+  { label: '成本控制', prompt: '你的项目在 API 调用和部署上怎么控制成本的？' },
+  { label: '和别人有什么不同', prompt: '跟同届应届生比，你觉得自己最大的优势是什么？' },
+];
+
 function AiChat(): JSX.Element {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: '你好！我是王子轩（Ryan）的 AI 助手。你可以问我关于他的技术栈、项目经历或求职方向的问题 👋' },
+    { role: 'assistant', content: '你好！我是王子轩的 AI 助手。你可以问我关于他的技术能力、项目经历或求职方向的任何问题 👋' },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
-  // Auto scroll to bottom
   useEffect(() => {
     if (listRef.current) {
       listRef.current.scrollTop = listRef.current.scrollHeight;
@@ -58,8 +64,8 @@ function AiChat(): JSX.Element {
     }
   }, []);
 
-  const sendMessage = useCallback(async () => {
-    const trimmed = input.trim();
+  const sendMessage = useCallback(async (text?: string) => {
+    const trimmed = (text ?? input).trim();
     if (!trimmed || loading) return;
 
     setInput('');
@@ -126,6 +132,10 @@ function AiChat(): JSX.Element {
     setOpen(false);
   };
 
+  const handleQuickPrompt = (prompt: string) => {
+    sendMessage(prompt);
+  };
+
   return (
     <>
       {/* Floating button */}
@@ -170,25 +180,23 @@ function AiChat(): JSX.Element {
             bottom: 24,
             right: 24,
             zIndex: 9999,
-            width: { xs: 'calc(100vw - 32px)', sm: 380 },
-            maxWidth: 380,
-            height: 520,
+            width: { xs: 'calc(100vw - 32px)', sm: 400 },
+            maxWidth: 400,
+            height: 560,
             maxHeight: 'calc(100vh - 80px)',
             display: 'flex',
             flexDirection: 'column',
             borderRadius: 3,
-            backgroundColor: 'rgba(14, 14, 16, 0.92)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(143, 164, 184, 0.12)',
-            boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
+            backgroundColor: 'rgba(10, 10, 12, 0.95)',
+            border: '1px solid rgba(143, 164, 184, 0.1)',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
             overflow: 'hidden',
           }}
         >
           {/* Header */}
           <Box
             sx={{
-              px: 2,
+              px: 2.5,
               py: 1.5,
               display: 'flex',
               alignItems: 'center',
@@ -198,12 +206,12 @@ function AiChat(): JSX.Element {
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <SmartToyIcon sx={{ color: '#8fa4b8', fontSize: 22 }} />
-              <Typography sx={{ color: '#e8e0d0', fontSize: '0.88rem', fontWeight: 600 }}>
-                AI 助手 · 王子轩
+              <SmartToyIcon sx={{ color: '#8fa4b8', fontSize: 20 }} />
+              <Typography sx={{ color: '#e8e0d0', fontSize: '0.85rem', fontWeight: 600 }}>
+                AI · 王子轩
               </Typography>
             </Box>
-            <IconButton size="small" onClick={handleClose} sx={{ color: 'rgba(255,255,255,0.35)' }}>
+            <IconButton size="small" onClick={handleClose} sx={{ color: 'rgba(255,255,255,0.3)' }}>
               <CloseIcon fontSize="small" />
             </IconButton>
           </Box>
@@ -214,14 +222,14 @@ function AiChat(): JSX.Element {
             sx={{
               flex: 1,
               overflowY: 'auto',
-              px: 2,
-              py: 1.5,
+              px: 2.5,
+              py: 2,
               display: 'flex',
               flexDirection: 'column',
-              gap: 1.5,
+              gap: 2,
               scrollBehavior: 'smooth',
-              '&::-webkit-scrollbar': { width: 4 },
-              '&::-webkit-scrollbar-thumb': { backgroundColor: 'rgba(143, 164, 184, 0.2)', borderRadius: 2 },
+              '&::-webkit-scrollbar': { width: 3 },
+              '&::-webkit-scrollbar-thumb': { backgroundColor: 'rgba(143, 164, 184, 0.15)', borderRadius: 2 },
             }}
           >
             {messages.map((msg, i) => (
@@ -229,46 +237,89 @@ function AiChat(): JSX.Element {
                 key={i}
                 sx={{
                   alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
-                  maxWidth: '85%',
+                  maxWidth: '90%',
                 }}
               >
                 <Box
                   sx={{
-                    px: 1.5,
-                    py: 1,
-                    borderRadius: 2,
+                    px: 2,
+                    py: 1.2,
+                    borderRadius: msg.role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
                     backgroundColor:
                       msg.role === 'user'
-                        ? 'rgba(143, 164, 184, 0.15)'
-                        : 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid',
-                    borderColor:
-                      msg.role === 'user'
-                        ? 'rgba(143, 164, 184, 0.20)'
-                        : 'rgba(255, 255, 255, 0.06)',
+                        ? 'rgba(143, 164, 184, 0.12)'
+                        : 'rgba(255, 255, 255, 0.03)',
                   }}
                 >
                   <Typography
                     sx={{
-                      color: '#e8e0d0',
-                      fontSize: '0.82rem',
-                      lineHeight: 1.65,
+                      color: msg.role === 'user' ? '#c8d0d8' : '#b8c0c8',
+                      fontSize: '0.85rem',
+                      lineHeight: 1.7,
                       whiteSpace: 'pre-wrap',
                       wordBreak: 'break-word',
                     }}
                   >
                     {msg.content}
                     {loading && i === messages.length - 1 && msg.role === 'assistant' && !msg.content && (
-                      <Box component="span" sx={{ display: 'inline-flex', gap: 0.3, ml: 0.5 }}>
-                        <Box component="span" sx={{ animation: 'dotPulse 1.4s infinite both', animationDelay: '0s', width: 4, height: 4, borderRadius: '50%', backgroundColor: '#8fa4b8', display: 'inline-block' }} />
-                        <Box component="span" sx={{ animation: 'dotPulse 1.4s infinite both', animationDelay: '0.2s', width: 4, height: 4, borderRadius: '50%', backgroundColor: '#8fa4b8', display: 'inline-block' }} />
-                        <Box component="span" sx={{ animation: 'dotPulse 1.4s infinite both', animationDelay: '0.4s', width: 4, height: 4, borderRadius: '50%', backgroundColor: '#8fa4b8', display: 'inline-block' }} />
+                      <Box component="span" sx={{ display: 'inline-flex', gap: 0.4, ml: 0.5, verticalAlign: 'middle' }}>
+                        {[0, 0.2, 0.4].map((d) => (
+                          <Box
+                            key={d}
+                            component="span"
+                            sx={{
+                              animation: 'dotPulse 1.4s infinite both',
+                              animationDelay: `${d}s`,
+                              width: 5,
+                              height: 5,
+                              borderRadius: '50%',
+                              backgroundColor: 'rgba(143, 164, 184, 0.5)',
+                              display: 'inline-block',
+                            }}
+                          />
+                        ))}
                       </Box>
                     )}
                   </Typography>
                 </Box>
               </Box>
             ))}
+
+            {/* Quick prompts - only show when no user messages yet */}
+            {messages.length === 1 && (
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 0.5 }}>
+                <Typography sx={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.72rem', px: 0.5 }}>
+                  试试问我：
+                </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8 }}>
+                  {QUICK_PROMPTS.map((qp) => (
+                    <Box
+                      key={qp.label}
+                      onClick={() => handleQuickPrompt(qp.prompt)}
+                      sx={{
+                        px: 1.5,
+                        py: 0.7,
+                        borderRadius: '20px',
+                        border: '1px solid rgba(143, 164, 184, 0.15)',
+                        backgroundColor: 'rgba(143, 164, 184, 0.05)',
+                        color: 'rgba(200, 208, 216, 0.7)',
+                        fontSize: '0.78rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease',
+                        lineHeight: 1.4,
+                        '&:hover': {
+                          backgroundColor: 'rgba(143, 164, 184, 0.12)',
+                          borderColor: 'rgba(143, 164, 184, 0.3)',
+                          color: '#e8e0d0',
+                        },
+                      }}
+                    >
+                      {qp.label}
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
+            )}
           </Box>
 
           {/* Input */}
@@ -276,7 +327,7 @@ function AiChat(): JSX.Element {
             sx={{
               px: 2,
               py: 1.5,
-              borderTop: '1px solid rgba(143, 164, 184, 0.08)',
+              borderTop: '1px solid rgba(143, 164, 184, 0.06)',
               display: 'flex',
               gap: 1,
               flexShrink: 0,
@@ -297,36 +348,37 @@ function AiChat(): JSX.Element {
                 sx: {
                   color: '#e8e0d0',
                   fontSize: '0.82rem',
-                  backgroundColor: 'rgba(255,255,255,0.04)',
-                  borderRadius: 1.5,
+                  backgroundColor: 'rgba(255,255,255,0.03)',
+                  borderRadius: 2,
                   px: 1.5,
                   py: 0.8,
-                  '&::placeholder': { color: 'rgba(255,255,255,0.25)' },
+                  '&::placeholder': { color: 'rgba(255,255,255,0.2)' },
                 },
               }}
               sx={{
                 '& .MuiInputBase-root': {
-                  backgroundColor: 'rgba(255,255,255,0.04)',
-                  borderRadius: 1.5,
+                  backgroundColor: 'rgba(255,255,255,0.03)',
+                  borderRadius: 2,
                 },
               }}
             />
             <IconButton
-              onClick={sendMessage}
+              onClick={() => sendMessage()}
               disabled={loading || !input.trim()}
               sx={{
                 alignSelf: 'flex-end',
-                width: 38,
-                height: 38,
-                backgroundColor: loading ? 'transparent' : 'rgba(143, 164, 184, 0.15)',
-                '&:hover': { backgroundColor: 'rgba(143, 164, 184, 0.25)' },
+                width: 36,
+                height: 36,
+                backgroundColor: loading || !input.trim() ? 'transparent' : 'rgba(143, 164, 184, 0.12)',
+                '&:hover': { backgroundColor: 'rgba(143, 164, 184, 0.22)' },
                 '&.Mui-disabled': { backgroundColor: 'transparent' },
+                transition: 'background-color 0.2s',
               }}
             >
               {loading ? (
-                <CircularProgress size={18} sx={{ color: '#8fa4b8' }} />
+                <CircularProgress size={16} sx={{ color: '#8fa4b8' }} />
               ) : (
-                <SendIcon sx={{ color: '#8fa4b8', fontSize: 18 }} />
+                <SendIcon sx={{ color: input.trim() ? '#8fa4b8' : 'rgba(143,164,184,0.3)', fontSize: 17, transition: 'color 0.2s' }} />
               )}
             </IconButton>
           </Box>
