@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { Box } from '@mui/material';
 import CanvasBackground from './components/CanvasBackground';
 import Hero from './components/Hero';
+import AiChat from './components/AiChat';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Timeline from './components/Timeline';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import AiChat from './components/AiChat';
 
 function App(): JSX.Element {
   useEffect(() => {
@@ -33,12 +33,12 @@ function App(): JSX.Element {
       <CanvasBackground />
       <Box sx={{ position: 'relative', zIndex: 1 }}>
         <Hero />
+        <AiChat />
         <Projects />
         <Skills />
         <Timeline />
         <Contact />
         <Footer />
-        <AiChat />
       </Box>
     </Box>
   );
