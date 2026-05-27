@@ -14,7 +14,11 @@ const LINE_H = 22;
 const VERT_STRETCH = 1.28;
 
 function getCharWidth(): number {
-  return window.innerWidth < 768 ? 18 : 12;
+  return window.innerWidth < 768 ? 14 : 12;
+}
+
+function getLineHeight(): number {
+  return window.innerWidth < 768 ? 18 : 22;
 }
 
 function CanvasBackground(): JSX.Element {
@@ -53,6 +57,7 @@ function CanvasBackground(): JSX.Element {
     let COLS = 0;
     let ROWS = 0;
     let CHAR_W = getCharWidth();
+    let LINE_H = getLineHeight();
     let frameCount = 0;
 
     const init = () => {
@@ -67,6 +72,7 @@ function CanvasBackground(): JSX.Element {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       CHAR_W = getCharWidth();
+      LINE_H = getLineHeight();
       COLS = Math.floor(w / CHAR_W) + 2;
       ROWS = Math.floor(h / LINE_H) + 2;
 
