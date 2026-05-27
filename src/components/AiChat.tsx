@@ -138,8 +138,8 @@ function AiChat(): JSX.Element {
         sx={{
           width: '100%',
           maxWidth: 800,
-          height: { xs: 'calc(100vh - 32px)', sm: 'calc(100vh - 48px)' },
-          maxHeight: { xs: 'calc(100vh - 32px)', sm: 'calc(100vh - 48px)' },
+          height: { xs: 'calc(100vh - 64px)', sm: 'calc(100vh - 48px)' },
+          maxHeight: { xs: 'calc(100vh - 64px)', sm: 'calc(100vh - 48px)' },
           display: 'flex',
           flexDirection: 'column',
           borderRadius: 3,
@@ -355,12 +355,64 @@ function AiChat(): JSX.Element {
           ))}
         </Box>
 
+        {/* Persistent quick prompts — always visible */}
+        <Box
+          sx={{
+            px: { xs: 2, sm: 2.5 },
+            py: 1,
+            borderTop: '1px solid rgba(143,164,184,0.06)',
+            display: 'flex',
+            gap: 0.6,
+            overflowX: 'auto',
+            flexShrink: 0,
+            '&::-webkit-scrollbar': { display: 'none' },
+            scrollbarWidth: 'none',
+          }}
+        >
+          {QUICK_PROMPTS.map((qp) => (
+            <Box
+              key={qp.label}
+              onClick={() => !loading && sendMessage(qp.prompt)}
+              sx={{
+                px: 1.5,
+                py: 0.5,
+                borderRadius: '16px',
+                border: '1px solid rgba(143,164,184,0.12)',
+                backgroundColor: 'rgba(143,164,184,0.05)',
+                color: 'rgba(200,208,216,0.55)',
+                fontSize: '0.72rem',
+                cursor: loading ? 'default' : 'pointer',
+                transition: 'all 0.2s ease',
+                lineHeight: 1.4,
+                userSelect: 'none',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+                opacity: loading ? 0.4 : 1,
+                '&:hover': {
+                  backgroundColor: 'rgba(143,164,184,0.1)',
+                  borderColor: 'rgba(143,164,184,0.25)',
+                  color: '#e8e0d0',
+                },
+              }}
+            >
+              {qp.label}
+            </Box>
+          ))}
+        </Box>
+
         {/* Input bar */}
         <Box
           sx={{
             px: { xs: 2, sm: 2.5 },
-            py: 1.5,
-            borderTop: '1px solid rgba(143,164,184,0.08)',
+            py: 1.2,
+            borderTop: '1px solid rgba(143,164,184,0.06)',
+            display: 'flex',
+            gap: 1,
+            alignItems: 'flex-end',
+            backgroundColor: 'rgba(10,10,10,0.4)',
+            flexShrink: 0,
+          }}
+        >
             display: 'flex',
             gap: 1,
             alignItems: 'flex-end',
@@ -372,7 +424,7 @@ function AiChat(): JSX.Element {
             fullWidth
             multiline
             maxRows={3}
-            placeholder="问关于王子轩的问题…"
+            placeholder="输入你想了解的内容…"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
