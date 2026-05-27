@@ -121,14 +121,14 @@ function AiChat(): JSX.Element {
 
   /* ── Liquid Glass shared styles ── */
   const glassOuter = {
-    background: 'linear-gradient(
+    background: `linear-gradient(
       135deg,
       rgba(255,255,255,0.12) 0%,
       rgba(255,255,255,0.04) 30%,
       rgba(255,255,255,0.01) 50%,
       rgba(255,255,255,0.06) 70%,
       rgba(255,255,255,0.10) 100%
-    )',
+    )`,
     backdropFilter: 'blur(40px) saturate(1.8) brightness(1.1)',
     WebkitBackdropFilter: 'blur(40px) saturate(1.8) brightness(1.1)',
     border: '1px solid rgba(255,255,255,0.18)',
@@ -149,12 +149,12 @@ function AiChat(): JSX.Element {
     left: 0,
     right: 0,
     height: '50%',
-    background: 'linear-gradient(
+    background: `linear-gradient(
       180deg,
       rgba(255,255,255,0.10) 0%,
       rgba(255,255,255,0.03) 40%,
       transparent 100%
-    )',
+    )`,
     borderRadius: 'inherit',
     pointerEvents: 'none' as const,
     zIndex: 0,
@@ -196,12 +196,12 @@ function AiChat(): JSX.Element {
             left: 0,
             right: 0,
             height: '45%',
-            background: 'linear-gradient(
+            background: `linear-gradient(
               180deg,
               rgba(255,255,255,0.09) 0%,
               rgba(255,255,255,0.03) 35%,
               transparent 100%
-            )',
+            )`,
             borderRadius: 'inherit',
             pointerEvents: 'none',
             zIndex: 0,
