@@ -1,13 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { Box } from '@mui/material';
 import CanvasBackground from './components/CanvasBackground';
 import Hero from './components/Hero';
 import AiChat from './components/AiChat';
 import Projects from './components/Projects';
-import About from './components/About';
-import Timeline from './components/Timeline';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import WhyMe from './components/WhyMe';
+
+const About = lazy(() => import('./components/About'));
+const Timeline = lazy(() => import('./components/Timeline'));
+const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
 
 function App(): JSX.Element {
   useEffect(() => {
@@ -35,10 +37,13 @@ function App(): JSX.Element {
         <Hero />
         <AiChat />
         <Projects />
-        <About />
-        <Timeline />
-        <Contact />
-        <Footer />
+        <WhyMe />
+        <Suspense fallback={null}>
+          <About />
+          <Timeline />
+          <Contact />
+          <Footer />
+        </Suspense>
       </Box>
     </Box>
   );

@@ -24,6 +24,7 @@ function CanvasBackground(): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const scrollRef = useRef(0);
   const reducedMotionRef = useRef(false);
+  const pausedRef = useRef(false);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -34,7 +35,10 @@ function CanvasBackground(): JSX.Element {
     const handleScroll = () => {
       const heroHeight = window.innerHeight;
       const scrollY = window.scrollY;
-      scrollRef.current = Math.min(1, scrollY / (heroHeight * 0.6));
+      const progress = Math.min(1, scrollY / (heroHeight * 0.6));
+      scrollRef.current = progress;
+      // Pause canvas when scrolled past 2x viewport — saves battery on mobile
+      pausedRef.current = progress >= 1;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -101,6 +105,12 @@ function CanvasBackground(): JSX.Element {
 
     const draw = () => {
       frameCount++;
+
+      // Skip frames when paused (scrolled past hero)
+      if (pausedRef.current) {
+        animId = requestAnimationFrame(draw);
+        return;
+      }
 
       if (reducedMotionRef.current) {
         if (frameCount % 60 !== 0) {
