@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Box } from '@mui/material';
 import CanvasBackground from './components/CanvasBackground';
-import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import AiChat from './components/AiChat';
 import About from './components/About';
@@ -33,7 +32,6 @@ function App(): JSX.Element {
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
       <CanvasBackground />
-      <Navbar />
       <Box sx={{ position: 'relative', zIndex: 1 }}>
         <Hero />
         <AiChat />
