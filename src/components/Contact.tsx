@@ -11,7 +11,8 @@ function Contact(): JSX.Element {
   const [copied, setCopied] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
 
-  const resumeUrl = `${import.meta.env.BASE_URL}resume.pdf`;
+  const resumeUrl = `${import.meta.env.BASE_URL}resume-preview.png`;
+  const resumePdfUrl = `${import.meta.env.BASE_URL}resume.pdf`;
   const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const handleCopyEmail = async () => {
@@ -32,9 +33,9 @@ function Contact(): JSX.Element {
   };
 
   const handleDownload = async () => {
-    if (isIOS) { window.open(resumeUrl, '_blank'); return; }
+    if (isIOS) { window.open(resumePdfUrl, '_blank'); return; }
     try {
-      const res = await fetch(resumeUrl);
+      const res = await fetch(resumePdfUrl);
       const blob = await res.blob();
       const blobUrl = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -70,12 +71,7 @@ function Contact(): JSX.Element {
             <IconButton onClick={() => setPreviewOpen(false)} size="small" sx={{ color: 'rgba(255,255,255,0.5)' }}><CloseIcon fontSize="small" /></IconButton>
           </Box>
           <Box sx={{ flex: 1, minHeight: 0, overflow: 'hidden', backgroundColor: '#fff' }}>
-            <object data={resumeUrl} type="application/pdf" style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}>
-              <Box sx={{ p: 3, textAlign: 'center', color: '#666' }}>
-                <Typography sx={{ fontSize: '0.85rem', mb: 2 }}>{'\u65e0\u6cd5\u52a0\u8f7d PDF \u9884\u89c8'}</Typography>
-                <Button variant="outlined" onClick={handleDownload} sx={{ fontSize: '0.8rem' }}>{'\u70b9\u51fb\u4e0b\u8f7d\u67e5\u770b'}</Button>
-              </Box>
-            </object>
+            <Box component="img" src={resumeUrl} alt="简历预览" sx={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
           </Box>
           <Box sx={{ px: 2, py: 1, borderTop: '1px solid rgba(143,164,184,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, backgroundColor: '#1a1a1e' }}>
             <Typography sx={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.35)' }}>{isIOS ? '\u70b9\u51fb\u4e0b\u8f7d\u5728\u65b0\u6807\u7b7e\u9875\u4e2d\u6253\u5f00' : '\u624b\u673a\u7aef\u957f\u6309\u53ef\u4fdd\u5b58'}</Typography>
