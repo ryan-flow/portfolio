@@ -145,3 +145,65 @@ body {
   0%, 100% { text-shadow: 0 0 8px rgba(126, 200, 232, 0.1); }
   50% { text-shadow: 0 0 20px rgba(126, 200, 232, 0.3), 0 0 40px rgba(126, 200, 232, 0.1); }
 }
+/* ===== CSS Scroll-Driven Animations ===== */
+@supports not (animation-timeline: view()) {
+  .scroll-title-left, .scroll-stagger-1, .scroll-stagger-2, .scroll-stagger-3, .scroll-elastic {
+    opacity: 1 !important; translate: none !important; scale: none !important; transform: none !important;
+  }
+}
+@supports not (animation-timeline: scroll()) {
+  .hero-parallax { opacity: 1 !important; translate: none !important; }
+}
+@supports (animation-timeline: scroll()) {
+  .hero-parallax {
+    animation: hero-fade-up linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0% 25%;
+  }
+  @keyframes hero-fade-up {
+    from { translate: 0 0; opacity: 1; }
+    to { translate: 0 -80px; opacity: 0; }
+  }
+}
+@supports (animation-timeline: view()) {
+  .scroll-title-left {
+    animation: slide-from-left linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+  @keyframes slide-from-left {
+    from { opacity: 0; translate: -30px 0; }
+    to { opacity: 1; translate: 0 0; }
+  }
+  .scroll-stagger-1, .scroll-stagger-2, .scroll-stagger-3 {
+    animation: fade-up-in linear both;
+    animation-timeline: view();
+  }
+  .scroll-stagger-1 { animation-range: entry 0% entry 45%; }
+  .scroll-stagger-2 { animation-range: entry 8% entry 50%; }
+  .scroll-stagger-3 { animation-range: entry 16% entry 55%; }
+  @keyframes fade-up-in {
+    from { opacity: 0; translate: 0 35px; }
+    to { opacity: 1; translate: 0 0; }
+  }
+  .scroll-timeline-line {
+    animation: draw-line-down linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 85%;
+  }
+  @keyframes draw-line-down {
+    from { clip-path: inset(0 0 100% 0); }
+    to { clip-path: inset(0 0 0% 0); }
+  }
+  .scroll-elastic {
+    animation: elastic-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
+  @keyframes elastic-in {
+    0% { opacity: 0; scale: 0.92; }
+    70% { opacity: 1; scale: 1.012; }
+    85% { scale: 0.997; }
+    100% { opacity: 1; scale: 1; }
+  }
+}

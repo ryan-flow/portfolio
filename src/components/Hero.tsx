@@ -72,7 +72,7 @@ function Hero(): JSX.Element {
         },
       }}
     >
-      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1, textAlign: 'center' }} className="hero-parallax">
         {/* Name typewriter */}
         <Box sx={{ minHeight: { xs: '4rem', sm: '5.5rem', md: '7rem' }, mb: 1, whiteSpace: 'nowrap' }}>
           <Typography
