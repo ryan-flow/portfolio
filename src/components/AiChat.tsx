@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { Box, Typography, IconButton, TextField, CircularProgress } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
-const WORKER_URL = '/api/chat';
+const WORKER_URL = 'http://106.55.55.54:8080/api/chat';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -204,7 +204,7 @@ function AiChat(): JSX.Element {
             },
           }}
         >
-          {/* Empty state — clean welcome */}
+          {/* Empty state */}
           {messages.length === 0 && (
             <Box
               sx={{
@@ -216,7 +216,6 @@ function AiChat(): JSX.Element {
                 gap: 5,
               }}
             >
-              {/* Greeting */}
               <Box sx={{ textAlign: 'center' }}>
                 <Typography
                   sx={{
@@ -240,7 +239,6 @@ function AiChat(): JSX.Element {
                 </Typography>
               </Box>
 
-              {/* Prompt cards — 2-column grid, clearly interactive */}
               <Box
                 sx={{
                   display: 'grid',
@@ -379,7 +377,7 @@ function AiChat(): JSX.Element {
           ))}
         </Box>
 
-        {/* Persistent quick prompts — only show after messages exist */}
+        {/* Persistent quick prompts */}
         {messages.length > 0 && (
           <Box
             sx={{

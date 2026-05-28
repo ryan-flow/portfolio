@@ -11,7 +11,8 @@ function Contact(): JSX.Element {
   const [copied, setCopied] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
 
-  const resumeUrl = `${import.meta.env.BASE_URL}resume.pdf`;
+  const resumeHtmlUrl = `${import.meta.env.BASE_URL}resume.html`;
+  const resumePdfUrl = `${import.meta.env.BASE_URL}resume.pdf`;
   const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const handleCopyEmail = async () => {
@@ -33,12 +34,11 @@ function Contact(): JSX.Element {
 
   const handleDownload = async () => {
     if (isIOS) {
-      // iOS Safari: blob download doesn't work, open PDF directly
-      window.open(resumeUrl, '_blank');
+      window.open(resumePdfUrl, '_blank');
       return;
     }
     try {
-      const res = await fetch(resumeUrl);
+      const res = await fetch(resumePdfUrl);
       const blob = await res.blob();
       const blobUrl = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -49,7 +49,7 @@ function Contact(): JSX.Element {
       document.body.removeChild(a);
       URL.revokeObjectURL(blobUrl);
     } catch {
-      window.open(resumeUrl, '_blank');
+      window.open(resumePdfUrl, '_blank');
     }
   };
 
@@ -205,7 +205,7 @@ function Contact(): JSX.Element {
             </IconButton>
           </Box>
 
-          {/* PDF viewer — iframe for cross-platform support */}
+          {/* Resume viewer — HTML for universal cross-platform support */}
           <Box
             sx={{
               flex: 1,
@@ -215,7 +215,7 @@ function Contact(): JSX.Element {
             }}
           >
             <iframe
-              src={resumeUrl}
+              src={resumeHtmlUrl}
               title="简历预览"
               style={{
                 width: '100%',
