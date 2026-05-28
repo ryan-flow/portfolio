@@ -17,12 +17,6 @@ const QUICK_PROMPTS = [
   { label: '和别人有什么不同', prompt: '跟同届应届生比，你觉得自己最大的优势是什么？' },
 ];
 
-const WELCOME_FEATURES = [
-  { icon: '💡', text: '技术选型与架构决策' },
-  { icon: '🚀', text: '项目经历与难点攻克' },
-  { icon: '🎯', text: '求职方向与职业规划' },
-];
-
 function AiChat(): JSX.Element {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -210,7 +204,7 @@ function AiChat(): JSX.Element {
             },
           }}
         >
-          {/* Empty state — welcome card */}
+          {/* Empty state — clean welcome */}
           {messages.length === 0 && (
             <Box
               sx={{
@@ -219,83 +213,95 @@ function AiChat(): JSX.Element {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: 4,
+                gap: 5,
               }}
             >
-              {/* Welcome heading */}
+              {/* Greeting */}
               <Box sx={{ textAlign: 'center' }}>
                 <Typography
                   sx={{
-                    fontSize: { xs: '1.3rem', sm: '1.6rem' },
+                    fontSize: { xs: '1.5rem', sm: '1.8rem' },
                     fontWeight: 700,
                     color: '#e8e0d0',
                     mb: 1,
+                    letterSpacing: '-0.01em',
                   }}
                 >
                   你好，随便问
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: { xs: '0.78rem', sm: '0.85rem' },
+                    fontSize: { xs: '0.82rem', sm: '0.88rem' },
                     color: 'rgba(255,255,255,0.3)',
                     lineHeight: 1.6,
-                    maxWidth: 360,
                   }}
                 >
                   关于项目经历、技术选型与求职方向
                 </Typography>
               </Box>
 
-              {/* Feature tags */}
-              <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
-                {WELCOME_FEATURES.map((f) => (
-                  <Box
-                    key={f.text}
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 0.6,
-                      px: 1.5,
-                      py: 0.8,
-                      borderRadius: 2,
-                      border: '1px solid rgba(143,164,184,0.10)',
-                      backgroundColor: 'rgba(143,164,184,0.04)',
-                    }}
-                  >
-                    <Typography sx={{ fontSize: '0.9rem' }}>{f.icon}</Typography>
-                    <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', fontWeight: 500 }}>
-                      {f.text}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-
-              {/* Quick prompt cards */}
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center', maxWidth: 500 }}>
+              {/* Prompt cards — 2-column grid, clearly interactive */}
+              <Box
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                  gap: 1.5,
+                  width: '100%',
+                  maxWidth: 480,
+                }}
+              >
                 {QUICK_PROMPTS.map((qp) => (
                   <Box
                     key={qp.label}
+                    component="button"
                     onClick={() => !loading && sendMessage(qp.prompt)}
+                    disabled={loading}
                     sx={{
+                      all: 'unset',
+                      boxSizing: 'border-box',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1,
                       px: 2,
-                      py: 1,
+                      py: 1.5,
                       borderRadius: 2,
-                      border: '1px solid rgba(143,164,184,0.12)',
-                      backgroundColor: 'rgba(143,164,184,0.05)',
-                      color: 'rgba(200,208,216,0.55)',
-                      fontSize: '0.78rem',
+                      border: '1px solid rgba(143,164,184,0.10)',
+                      backgroundColor: 'rgba(143,164,184,0.03)',
                       cursor: loading ? 'default' : 'pointer',
                       transition: 'all 0.2s ease',
-                      userSelect: 'none',
+                      opacity: loading ? 0.4 : 1,
                       '&:hover': {
-                        backgroundColor: 'rgba(143,164,184,0.10)',
-                        borderColor: 'rgba(143,164,184,0.25)',
-                        color: '#e8e0d0',
+                        backgroundColor: 'rgba(143,164,184,0.08)',
+                        borderColor: 'rgba(143,164,184,0.22)',
                         transform: 'translateY(-1px)',
+                      },
+                      '&:active': {
+                        transform: 'translateY(0)',
                       },
                     }}
                   >
-                    {qp.label}
+                    <Box
+                      sx={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: '50%',
+                        backgroundColor: '#8ba8c0',
+                        opacity: 0.5,
+                        flexShrink: 0,
+                      }}
+                    />
+                    <Typography
+                      sx={{
+                        fontSize: '0.8rem',
+                        color: 'rgba(255,255,255,0.55)',
+                        fontWeight: 500,
+                        textAlign: 'left',
+                        lineHeight: 1.4,
+                        '&:hover': { color: '#e8e0d0' },
+                      }}
+                    >
+                      {qp.label}
+                    </Typography>
                   </Box>
                 ))}
               </Box>
