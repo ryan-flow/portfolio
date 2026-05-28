@@ -125,9 +125,9 @@ function Projects(): JSX.Element {
                 rel="noopener noreferrer"
                 sx={{
                   flex: '0 0 auto',
-                  /* Mobile: 16:9 capsule card; Desktop: wide card */
+                  /* Mobile: 9:16 portrait card; Desktop: wide card */
                   width: { xs: 'calc(100vw - 80px)', md: 640 },
-                  aspectRatio: { xs: '16/9', md: 'unset' },
+                  aspectRatio: { xs: '9/16', md: 'unset' },
                   scrollSnapAlign: 'center',
                   textDecoration: 'none',
                   borderRadius: 3,
