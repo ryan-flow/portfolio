@@ -150,41 +150,6 @@ function AiChat(): JSX.Element {
           overflow: 'hidden',
         }}
       >
-        {/* Header */}
-        <Box
-          sx={{
-            px: { xs: 2.5, sm: 3.5 },
-            py: 1.8,
-            borderBottom: '1px solid rgba(143,164,184,0.08)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 1.2,
-            flexShrink: 0,
-          }}
-        >
-          <Typography
-            sx={{
-              fontFamily: '"SF Mono", "Fira Code", monospace',
-              fontSize: '0.75rem',
-              color: '#8ba8c0',
-              letterSpacing: '0.12em',
-              fontWeight: 600,
-            }}
-          >
-            AI CHAT
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: { xs: '0.95rem', sm: '1.05rem' },
-              fontWeight: 700,
-              color: '#e8e0d0',
-              lineHeight: 1.3,
-            }}
-          >
-            AI 对话
-          </Typography>
-        </Box>
-
         {/* Messages */}
         <Box
           ref={listRef}
