@@ -46,13 +46,13 @@ function About(): JSX.Element {
                 </Box>
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9, mb: 2 }}>
-                数据科学与大数据专业，AI Agent 开发者。善于利用 Claude Code 等 AI 编程工具高效构建全栈应用。
+                2026 届本科应届生，目标岗位 AI 应用开发工程师。独立交付 5 个全栈项目，覆盖 LLM 应用、对话推荐系统与创意编程工具。
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9, mb: 2 }}>
-                从微信小程序到 AI 对话系统，从数据库设计到推荐算法——我享受从零到一构建完整产品的过程。毕业设计融合了 CRS 推荐系统、知识图谱与 LLM 对话引擎，是对推荐系统与 AI 应用的一次全栈实践。
+                技术栈：Python + TypeScript 双栈，累计 33K+ 行代码。毕设 CRS 推荐系统获「优秀毕设」，独立完成 16 表数据库建模、12 个 API 端点、双前端（微信小程序 + React SPA）。
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9 }}>
-                熟悉 LangChain、ReAct 等 Agent 框架，具备 AI 应用从原型到落地的全链路开发能力。持续探索 AI Agent、LLM 应用与编程效率工具的创新边界。
+                擅长用 AI 工具加速开发流程：Claude Code 辅助编码、DeepSeek API 集成、Agentic Engineering 工作流。每个项目都独立部署上线，不是 demo，是能用的产品。
               </Typography>
             </Box>
           </Grid>

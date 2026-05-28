@@ -6,9 +6,9 @@ import { githubUser, repos } from '../data/repos';
 
 const name = githubUser.displayName;
 const chineseName = '王子轩';
-const tagline = 'LLM 集成 · 前端工程 · 推荐系统';
+const tagline = 'LLM 应用 · 全栈开发 · 推荐系统';
 const jobTarget = githubUser.jobTarget;
-const tags = ['LLM 应用', '推荐系统', '前端工程', '全栈交付'];
+const tags = ['LLM 应用', '推荐系统', '全栈交付'];
 
 function Hero(): JSX.Element {
   const [nameText, setNameText] = useState('');

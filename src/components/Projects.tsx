@@ -57,7 +57,7 @@ function Projects(): JSX.Element {
             PROJECTS
           </Typography>
           <Typography variant="h2" sx={{ fontSize: { xs: '1.6rem', md: '2.2rem' }, fontWeight: 700, mt: 0.5 }}>
-            开源项目
+            项目展示
           </Typography>
           <Typography sx={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.8rem', mt: 1 }}>
             {repos.length} 个项目 · 左右滑动浏览

@@ -11,7 +11,7 @@ interface Message {
 
 const QUICK_PROMPTS = [
   { label: '最有挑战的项目', prompt: '你做过的项目里，技术上最有挑战的是哪个？难在哪？' },
-  { label: '为什么选 AI 方向', prompt: '你为什么选择 AI 产品经理/应用开发方向？' },
+  { label: '为什么选 AI 方向', prompt: '你为什么选择 AI 应用开发作为求职方向？' },
   { label: '一个人怎么做的', prompt: '这些项目是你一个人完成的吗？遇到不会的技术怎么解决？' },
   { label: '成本控制', prompt: '你的项目在 API 调用和部署上怎么控制成本的？' },
   { label: '和别人有什么不同', prompt: '跟同届应届生比，你觉得自己最大的优势是什么？' },
