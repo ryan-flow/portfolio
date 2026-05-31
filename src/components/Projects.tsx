@@ -69,9 +69,6 @@ function Projects(): JSX.Element {
           <Typography variant="h2" sx={{ fontSize: { xs: '1.6rem', md: '2.2rem' }, fontWeight: 700, mt: 0.5 }}>
             项目展示
           </Typography>
-          <Typography sx={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.8rem', mt: 1 }}>
-            {repos.length} 个项目 · 左右滑动浏览
-          </Typography>
         </Box>
 
         <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -244,8 +241,9 @@ function Projects(): JSX.Element {
                       {repo.description}
                     </Typography>
 
+                    {/* Tech tags — show ALL, no slice, no +N */}
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 0.8 }}>
-                      {repo.techStack.slice(0, 3).map((tech) => (
+                      {repo.techStack.map((tech) => (
                         <Chip
                           key={tech}
                           label={tech}
@@ -262,18 +260,6 @@ function Projects(): JSX.Element {
                           }}
                         />
                       ))}
-                      {repo.techStack.length > 3 && (
-                        <Chip
-                          label={`+${repo.techStack.length - 3}`}
-                          size="small"
-                          sx={{
-                            background: 'rgba(255,255,255,0.03)',
-                            color: 'rgba(255,255,255,0.35)',
-                            fontSize: '0.55rem',
-                            height: 18,
-                          }}
-                        />
-                      )}
                     </Box>
 
                     <Box sx={{ display: 'flex', gap: 1.5, mt: 'auto' }}>
