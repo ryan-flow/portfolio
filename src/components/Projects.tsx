@@ -92,22 +92,24 @@ function Projects(): JSX.Element {
               py: { xs: 1, md: 2 },
               width: '100%',
               position: 'relative',
+              /* FIX: reduced gradient opacity from 0.7 to 0.35 and narrowed width
+                 to prevent dark divider lines on card edges */
               '&::before, &::after': {
                 content: '""',
                 position: 'absolute',
                 top: 0,
                 bottom: 0,
-                width: { xs: 36, md: 60 },
+                width: { xs: 28, md: 40 },
                 zIndex: 2,
                 pointerEvents: 'none',
               },
               '&::before': {
                 left: 0,
-                background: 'linear-gradient(to right, rgba(10,10,10,0.7), transparent)',
+                background: 'linear-gradient(to right, rgba(10,10,10,0.35), transparent)',
               },
               '&::after': {
                 right: 0,
-                background: 'linear-gradient(to left, rgba(10,10,10,0.7), transparent)',
+                background: 'linear-gradient(to left, rgba(10,10,10,0.35), transparent)',
               },
             }}
           >
@@ -127,7 +129,7 @@ function Projects(): JSX.Element {
                   borderRadius: 3,
                   border: '1px solid rgba(143,164,184,0.10)',
                   background: 'rgba(143,164,184,0.04)',
-                  backdropFilter: 'blur(16px)',
+                  /* FIX: removed backdrop-filter to prevent interaction with edge gradients */
                   overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
