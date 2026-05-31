@@ -117,18 +117,19 @@ function Projects(): JSX.Element {
                     scrollSnapAlign: 'center',
                     textDecoration: 'none',
                     borderRadius: '20px',
-                    background: 'rgba(255,255,255,0.03)',
-                    backdropFilter: 'blur(40px) saturate(180%)',
-                    WebkitBackdropFilter: 'blur(40px) saturate(180%)',
-                    border: '1px solid rgba(255,255,255,0.12)',
-                    boxShadow: '0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(255,255,255,0.03)',
+                    /* ✨ Apple glass: very light background, gentle blur for depth, no saturate */
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    border: '1px solid rgba(255,255,255,0.10)',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.06)',
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
                     transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
                     '&:hover': {
-                      border: '1px solid rgba(255,255,255,0.2)',
-                      boxShadow: '0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(139,168,192,0.08), inset 0 1px 0 rgba(255,255,255,0.12)',
+                      border: '1px solid rgba(255,255,255,0.18)',
+                      boxShadow: '0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.10)',
                     },
                   }}
                 >
@@ -151,8 +152,8 @@ function Projects(): JSX.Element {
                         aspectRatio: '9 / 16',
                         borderRadius: '20px',
                         overflow: 'hidden',
-                        border: '2px solid rgba(255,255,255,0.15)',
-                        boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.05)',
+                        border: '2px solid rgba(255,255,255,0.12)',
+                        boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
                         backgroundColor: '#0a0f14',
                         flexShrink: 0,
                         position: 'relative',
@@ -207,7 +208,7 @@ function Projects(): JSX.Element {
                       flexDirection: 'column',
                       overflow: 'hidden',
                       minWidth: 0,
-                      background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 100%)',
+                      background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.12) 100%)',
                     }}
                   >
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.6, mb: 0.3 }}>
@@ -241,7 +242,7 @@ function Projects(): JSX.Element {
                       {repo.description}
                     </Typography>
 
-                    {/* Tech tags — show ALL, no slice, no +N */}
+                    {/* Tech tags — show ALL */}
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 0.8 }}>
                       {repo.techStack.map((tech) => (
                         <Chip
@@ -249,13 +250,12 @@ function Projects(): JSX.Element {
                           label={tech}
                           size="small"
                           sx={{
-                            background: 'rgba(255,255,255,0.06)',
-                            color: 'rgba(255,255,255,0.7)',
+                            background: 'rgba(255,255,255,0.05)',
+                            color: 'rgba(255,255,255,0.65)',
                             border: '1px solid rgba(255,255,255,0.08)',
                             fontSize: '0.55rem',
                             fontWeight: 600,
                             height: 18,
-                            backdropFilter: 'blur(8px)',
                             '& .MuiChip-label': { px: 0.6 },
                           }}
                         />
@@ -314,7 +314,6 @@ function Projects(): JSX.Element {
                 height: 6,
                 borderRadius: 3,
                 backgroundColor: i === realIndex ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.15)',
-                backdropFilter: 'blur(8px)',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 boxShadow: i === realIndex ? '0 0 8px rgba(255,255,255,0.2)' : 'none',
