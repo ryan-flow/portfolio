@@ -65,7 +65,7 @@ export const repos: Repo[] = [
     techStack: ['Python', 'FastAPI', 'SQLAlchemy', 'Neo4j', 'React', 'TypeScript', '微信小程序'],
     icon: '🏛️',
     gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
-    image: '/projects/项目截图/CRS推荐系统平台.png',
+    image: '/projects/项目截图/CRS.jpg',
     previewUrl: 'http://106.55.55.54',
   },
   {
@@ -81,7 +81,7 @@ export const repos: Repo[] = [
     techStack: ['FastAPI', 'PydanticAI', 'ChromaDB', 'DeepSeek', 'React 18', 'WebSocket', 'JWT'],
     icon: '📋',
     gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
-    image: '/projects/项目截图/PRD.png',
+    image: '/projects/项目截图/PRD.jpg',
     previewUrl: 'http://106.55.55.54:8002/',
   },
   {
@@ -97,7 +97,7 @@ export const repos: Repo[] = [
     techStack: ['Next.js 16', 'TypeScript', 'DeepSeek API', 'PostgreSQL', 'Tailwind CSS 4', 'shadcn/ui'],
     icon: '🤖',
     gradient: 'linear-gradient(135deg, #0c1929, #0a2a3a)',
-    image: '/projects/项目截图/炼化自己.png',
+    image: '/projects/项目截图/炼化自己.jpg',
     previewUrl: 'https://refineyourself.asia',
   },
   {
@@ -113,7 +113,7 @@ export const repos: Repo[] = [
     techStack: ['React 19', 'TypeScript', 'Tailwind CSS', 'Chart.js', 'Framer Motion', 'i18next', 'PWA', 'Vitest'],
     icon: '🎮',
     gradient: 'linear-gradient(135deg, #0c1929, #1a1a3a)',
-    image: '/projects/项目截图/明日方舟人格测试.png',
+    image: '/projects/项目截图/人格测试.jpg',
     previewUrl: 'https://ryan-flow.github.io/arknights-personality-v2/',
   },
   {
@@ -129,7 +129,7 @@ export const repos: Repo[] = [
     techStack: ['DeepSeek API', 'Cloudflare Workers', 'Canvas 2D', 'SVG', 'Web Audio API', 'GitHub Pages'],
     icon: '🎨',
     gradient: 'linear-gradient(135deg, #0c1929, #2a1a1a)',
-    image: '/projects/项目截图/前端设计实验室.png', // TODO: update to ink-studio specific screenshot
+    image: '/projects/项目截图/墨韵ink.jpg',
     previewUrl: 'https://ryan-flow.github.io/ink-studio/',
   },
 ];
