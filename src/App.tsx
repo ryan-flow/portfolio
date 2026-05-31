@@ -55,21 +55,25 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+    <>
+      {/* CanvasBackground must be outside any container that might get a transform,
+          otherwise position:fixed breaks and the canvas "refreshes" on scroll */}
       <CanvasBackground />
-      <Box sx={{ position: 'relative', zIndex: 1 }}>
-        <Hero />
-        <AiChat />
-        <Projects />
-        <WhyMe />
-        <Suspense fallback={null}>
-          <About />
-          <Timeline />
-          <Contact />
-          <Footer />
-        </Suspense>
+      <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+        <Box sx={{ position: 'relative', zIndex: 1 }}>
+          <Hero />
+          <AiChat />
+          <Projects />
+          <WhyMe />
+          <Suspense fallback={null}>
+            <About />
+            <Timeline />
+            <Contact />
+            <Footer />
+          </Suspense>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
 
