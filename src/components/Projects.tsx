@@ -34,7 +34,6 @@ function Projects(): JSX.Element {
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-
     const updateDot = () => {
       if (!el) return;
       const cs = el.querySelectorAll<HTMLElement>('[data-card]');
@@ -44,12 +43,10 @@ function Projects(): JSX.Element {
       const idx = Math.round(el.scrollLeft / step);
       if (idx >= 0 && idx < repos.length) setRealIndex(idx);
     };
-
     el.addEventListener('scroll', updateDot, { passive: true });
     return () => el.removeEventListener('scroll', updateDot);
   }, []);
 
-  /* ── gradient overlay style (behind cards, never on top) ── */
   const edgeGradient = (side: 'left' | 'right') => ({
     position: 'absolute' as const,
     top: 0,
@@ -78,7 +75,6 @@ function Projects(): JSX.Element {
         </Box>
 
         <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-          {/* Arrows — desktop only */}
           <IconButton onClick={prev} disabled={realIndex === 0}
             sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', left: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 44, height: 44, border: '1px solid rgba(143,164,184,0.18)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.22)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&.Mui-disabled': { borderColor: 'rgba(143,164,184,0.06)', backgroundColor: 'rgba(10,10,10,0.25)' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' } }}>
             <ChevronLeftIcon />
@@ -88,13 +84,10 @@ function Projects(): JSX.Element {
             <ChevronRightIcon />
           </IconButton>
 
-          {/* Wrapper — gradients live HERE, NOT on scroll container */}
           <Box sx={{ position: 'relative', width: '100%' }}>
-            {/* Edge gradients — always static, always behind cards */}
             <Box sx={edgeGradient('left')} />
             <Box sx={edgeGradient('right')} />
 
-            {/* Scroll container — clean, no pseudo-elements */}
             <Box
               ref={scrollRef}
               sx={{
@@ -110,7 +103,6 @@ function Projects(): JSX.Element {
                 alignItems: 'stretch',
                 py: { xs: 1, md: 2 },
                 width: '100%',
-                /* Cards sit above gradients via z-index */
                 '& [data-card]': { position: 'relative', zIndex: 2 },
               }}
             >
@@ -142,44 +134,61 @@ function Projects(): JSX.Element {
                     },
                   }}
                 >
-                  {/* Image — full width */}
+                  {/* Phone mockup area */}
                   <Box
                     sx={{
                       width: '100%',
-                      aspectRatio: '9 / 16',
-                      overflow: 'hidden',
-                      backgroundColor: '#0a0f14',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      pt: { xs: 1.5, md: 2 },
+                      pb: { xs: 0.5, md: 1 },
+                      px: { xs: 1.5, md: 2 },
+                      backgroundColor: 'rgba(0,0,0,0.15)',
                     }}
                   >
-                    {repo.image ? (
-                      <Box
-                        component="img"
-                        src={assetUrl(repo.image)}
-                        alt={repo.displayName}
-                        sx={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                          objectPosition: 'center top',
-                          display: 'block',
-                        }}
-                      />
-                    ) : (
-                      <Box
-                        sx={{
-                          width: '100%',
-                          height: '100%',
-                          background: repo.gradient,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: '2.5rem',
-                          opacity: 0.3,
-                        }}
-                      >
-                        {repo.icon}
-                      </Box>
-                    )}
+                    <Box
+                      sx={{
+                        width: { xs: '75%', md: 180 },
+                        aspectRatio: '9 / 16',
+                        borderRadius: '14px',
+                        overflow: 'hidden',
+                        border: '2px solid rgba(143,164,184,0.15)',
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.03)',
+                        backgroundColor: '#0a0f14',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {repo.image ? (
+                        <Box
+                          component="img"
+                          src={assetUrl(repo.image)}
+                          alt={repo.displayName}
+                          sx={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            objectPosition: 'center top',
+                            display: 'block',
+                          }}
+                        />
+                      ) : (
+                        <Box
+                          sx={{
+                            width: '100%',
+                            height: '100%',
+                            background: repo.gradient,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '2.5rem',
+                            opacity: 0.3,
+                          }}
+                        >
+                          {repo.icon}
+                        </Box>
+                      )}
+                    </Box>
                   </Box>
 
                   {/* Info */}
@@ -296,7 +305,6 @@ function Projects(): JSX.Element {
           </Box>
         </Box>
 
-        {/* Dot indicators */}
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1.5, mt: { xs: 2, md: 4 } }}>
           {repos.map((_, i) => (
             <Box key={i} onClick={() => snapTo(i)}
