@@ -65,6 +65,7 @@ function Projects(): JSX.Element {
         </Box>
 
         <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+          {/* Arrows — desktop only */}
           <IconButton onClick={prev} disabled={realIndex === 0}
             sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', left: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 44, height: 44, border: '1px solid rgba(143,164,184,0.18)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.22)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&.Mui-disabled': { borderColor: 'rgba(143,164,184,0.06)', backgroundColor: 'rgba(10,10,10,0.25)' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' } }}>
             <ChevronLeftIcon />
@@ -74,6 +75,7 @@ function Projects(): JSX.Element {
             <ChevronRightIcon />
           </IconButton>
 
+          {/* Scroll container */}
           <Box
             ref={scrollRef}
             sx={{
@@ -84,7 +86,7 @@ function Projects(): JSX.Element {
               '&::-webkit-scrollbar': { display: 'none' },
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
-              px: { xs: '24px', md: 'calc(50vw - 120px)' },
+              px: { xs: '24px', md: 'calc(50vw - 130px)' },
               gap: { xs: 2, md: 2.5 },
               alignItems: 'stretch',
               py: { xs: 1, md: 2 },
@@ -119,7 +121,7 @@ function Projects(): JSX.Element {
                 rel="noopener noreferrer"
                 sx={{
                   flex: '0 0 auto',
-                  width: { xs: 200, md: 220 },
+                  width: { xs: 200, md: 240 },
                   scrollSnapAlign: 'center',
                   textDecoration: 'none',
                   borderRadius: 3,
@@ -138,61 +140,48 @@ function Projects(): JSX.Element {
                   },
                 }}
               >
+                {/* Image — full width, no side padding */}
                 <Box
                   sx={{
                     width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    p: { xs: 1.2, md: 1.5 },
-                    backgroundColor: 'rgba(0,0,0,0.15)',
-                    borderBottom: '1px solid rgba(143,164,184,0.08)',
+                    aspectRatio: '9 / 16',
+                    overflow: 'hidden',
+                    backgroundColor: '#0a0f14',
                   }}
                 >
-                  <Box
-                    sx={{
-                      width: 120,
-                      aspectRatio: '9 / 16',
-                      borderRadius: '12px',
-                      overflow: 'hidden',
-                      border: '2px solid rgba(143,164,184,0.12)',
-                      boxShadow: '0 4px 24px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.03)',
-                      backgroundColor: '#0a0f14',
-                      flexShrink: 0,
-                    }}
-                  >
-                    {repo.image ? (
-                      <Box
-                        component="img"
-                        src={assetUrl(repo.image)}
-                        alt={repo.displayName}
-                        loading="lazy"
-                        sx={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                          objectPosition: 'center top',
-                          display: 'block',
-                        }}
-                      />
-                    ) : (
-                      <Box
-                        sx={{
-                          width: '100%',
-                          height: '100%',
-                          background: repo.gradient,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: '2rem',
-                          opacity: 0.3,
-                        }}
-                      >
-                        {repo.icon}
-                      </Box>
-                    )}
-                  </Box>
+                  {repo.image ? (
+                    <Box
+                      component="img"
+                      src={assetUrl(repo.image)}
+                      alt={repo.displayName}
+                      loading="lazy"
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'center top',
+                        display: 'block',
+                      }}
+                    />
+                  ) : (
+                    <Box
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        background: repo.gradient,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '2.5rem',
+                        opacity: 0.3,
+                      }}
+                    >
+                      {repo.icon}
+                    </Box>
+                  )}
                 </Box>
 
+                {/* Info — same width as image */}
                 <Box
                   sx={{
                     flex: 1,
@@ -204,11 +193,11 @@ function Projects(): JSX.Element {
                   }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.2 }}>
-                    <GitHubIcon sx={{ fontSize: 12, color: '#8ba8c0', flexShrink: 0 }} />
+                    <GitHubIcon sx={{ fontSize: 13, color: '#8ba8c0', flexShrink: 0 }} />
                     <Typography
                       noWrap
                       sx={{
-                        fontSize: { xs: '0.78rem', md: '0.82rem' },
+                        fontSize: { xs: '0.78rem', md: '0.85rem' },
                         fontWeight: 700,
                         color: '#e8e0d0',
                         lineHeight: 1.3,
@@ -221,7 +210,7 @@ function Projects(): JSX.Element {
                   <Typography
                     sx={{
                       color: 'rgba(255,255,255,0.4)',
-                      fontSize: { xs: '0.6rem', md: '0.63rem' },
+                      fontSize: { xs: '0.6rem', md: '0.65rem' },
                       lineHeight: 1.45,
                       mb: 0.6,
                       display: '-webkit-box',
@@ -233,7 +222,7 @@ function Projects(): JSX.Element {
                     {repo.description}
                   </Typography>
 
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.3, mb: 0.6 }}>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.4, mb: 0.6 }}>
                     {repo.techStack.slice(0, 3).map((tech) => (
                       <Chip
                         key={tech}
@@ -243,10 +232,10 @@ function Projects(): JSX.Element {
                           backgroundColor: 'rgba(143,164,184,0.08)',
                           color: '#a8bcc8',
                           border: '1px solid rgba(143,164,184,0.14)',
-                          fontSize: '0.48rem',
+                          fontSize: '0.5rem',
                           fontWeight: 600,
-                          height: 15,
-                          '& .MuiChip-label': { px: 0.4 },
+                          height: 16,
+                          '& .MuiChip-label': { px: 0.5 },
                         }}
                       />
                     ))}
@@ -257,8 +246,8 @@ function Projects(): JSX.Element {
                         sx={{
                           backgroundColor: 'rgba(143,164,184,0.04)',
                           color: '#6a8498',
-                          fontSize: '0.48rem',
-                          height: 15,
+                          fontSize: '0.5rem',
+                          height: 16,
                         }}
                       />
                     )}
@@ -277,7 +266,7 @@ function Projects(): JSX.Element {
                           fontWeight: 600,
                         }}
                       >
-                        <LaunchIcon sx={{ fontSize: 9 }} /> 预览
+                        <LaunchIcon sx={{ fontSize: 10 }} /> 预览
                       </Box>
                     )}
                     <Box
@@ -296,7 +285,7 @@ function Projects(): JSX.Element {
                         textDecoration: 'none',
                       }}
                     >
-                      <GitHubIcon sx={{ fontSize: 9 }} /> 源码
+                      <GitHubIcon sx={{ fontSize: 10 }} /> 源码
                     </Box>
                   </Box>
                 </Box>
@@ -305,6 +294,7 @@ function Projects(): JSX.Element {
           </Box>
         </Box>
 
+        {/* Dot indicators */}
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1.5, mt: { xs: 2, md: 4 } }}>
           {repos.map((_, i) => (
             <Box key={i} onClick={() => snapTo(i)}
