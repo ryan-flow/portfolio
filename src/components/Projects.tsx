@@ -86,8 +86,8 @@ function Projects(): JSX.Element {
               '&::-webkit-scrollbar': { display: 'none' },
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
-              px: { xs: '16px', md: 'calc(50vw - 340px)' },
-              gap: { xs: 3, md: 4 },
+              px: { xs: '16px', md: 'calc(50vw - 140px)' },
+              gap: { xs: 2, md: 3 },
               alignItems: 'stretch',
               py: { xs: 1, md: 2 },
               width: '100%',
@@ -121,7 +121,7 @@ function Projects(): JSX.Element {
                 rel="noopener noreferrer"
                 sx={{
                   flex: '0 0 auto',
-                  width: { xs: 'calc(100vw - 32px)', md: 660 },
+                  width: { xs: 'calc(100vw - 32px)', md: 240 },
                   scrollSnapAlign: 'center',
                   textDecoration: 'none',
                   borderRadius: 3,
@@ -130,7 +130,7 @@ function Projects(): JSX.Element {
                   backdropFilter: 'blur(16px)',
                   overflow: 'hidden',
                   display: 'flex',
-                  flexDirection: { xs: 'column', md: 'row' },
+                  flexDirection: 'column',
                   transition: 'transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease',
                   boxShadow: '0 4px 24px rgba(0,0,0,0.2)',
                   '&:hover': {
@@ -140,24 +140,23 @@ function Projects(): JSX.Element {
                   },
                 }}
               >
-                {/* Phone mockup screenshot — left on desktop, top on mobile */}
+                {/* Phone mockup screenshot — full width on top */}
                 <Box
                   sx={{
-                    flex: { md: '0 0 auto' },
+                    width: '100%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    p: { xs: 2, md: 3 },
+                    p: 2,
                     backgroundColor: 'rgba(0,0,0,0.15)',
-                    borderRight: { xs: 'none', md: '1px solid rgba(143,164,184,0.08)' },
-                    borderBottom: { xs: '1px solid rgba(143,164,184,0.08)', md: 'none' },
+                    borderBottom: '1px solid rgba(143,164,184,0.08)',
                   }}
                 >
                   <Box
                     sx={{
-                      width: { xs: '60%', md: 180 },
+                      width: '100%',
                       aspectRatio: '9 / 16',
-                      borderRadius: '16px',
+                      borderRadius: '14px',
                       overflow: 'hidden',
                       border: '2px solid rgba(143,164,184,0.12)',
                       boxShadow: '0 4px 24px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.03)',
@@ -199,23 +198,21 @@ function Projects(): JSX.Element {
                   </Box>
                 </Box>
 
-                {/* Project info — right on desktop, bottom on mobile */}
+                {/* Project info — below image */}
                 <Box
                   sx={{
-                    flex: 1,
-                    p: { xs: 2, md: 3 },
+                    p: 2,
                     display: 'flex',
                     flexDirection: 'column',
                     overflow: 'hidden',
                     minWidth: 0,
-                    justifyContent: 'center',
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
-                    <GitHubIcon sx={{ fontSize: 15, color: '#8ba8c0', flexShrink: 0 }} />
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8, mb: 0.5 }}>
+                    <GitHubIcon sx={{ fontSize: 14, color: '#8ba8c0', flexShrink: 0 }} />
                     <Typography
                       sx={{
-                        fontSize: { xs: '0.95rem', md: '1rem' },
+                        fontSize: '0.88rem',
                         fontWeight: 700,
                         color: '#e8e0d0',
                         lineHeight: 1.3,
@@ -228,17 +225,20 @@ function Projects(): JSX.Element {
                   <Typography
                     sx={{
                       color: 'rgba(255,255,255,0.45)',
-                      fontSize: { xs: '0.72rem', md: '0.78rem' },
+                      fontSize: '0.7rem',
                       lineHeight: 1.6,
-                      mb: 1.2,
-                      flex: 1,
+                      mb: 1,
+                      display: '-webkit-box',
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
                     }}
                   >
                     {repo.description}
                   </Typography>
 
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 1.2 }}>
-                    {repo.techStack.slice(0, 4).map((tech) => (
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.4, mb: 1 }}>
+                    {repo.techStack.slice(0, 3).map((tech) => (
                       <Chip
                         key={tech}
                         label={tech}
@@ -247,22 +247,22 @@ function Projects(): JSX.Element {
                           backgroundColor: 'rgba(143,164,184,0.08)',
                           color: '#a8bcc8',
                           border: '1px solid rgba(143,164,184,0.14)',
-                          fontSize: '0.55rem',
+                          fontSize: '0.5rem',
                           fontWeight: 600,
-                          height: 18,
-                          '& .MuiChip-label': { px: 0.7 },
+                          height: 16,
+                          '& .MuiChip-label': { px: 0.5 },
                         }}
                       />
                     ))}
-                    {repo.techStack.length > 4 && (
+                    {repo.techStack.length > 3 && (
                       <Chip
-                        label={`+${repo.techStack.length - 4}`}
+                        label={`+${repo.techStack.length - 3}`}
                         size="small"
                         sx={{
                           backgroundColor: 'rgba(143,164,184,0.04)',
                           color: '#6a8498',
-                          fontSize: '0.55rem',
-                          height: 18,
+                          fontSize: '0.5rem',
+                          height: 16,
                         }}
                       />
                     )}
@@ -275,13 +275,13 @@ function Projects(): JSX.Element {
                         sx={{
                           display: 'inline-flex',
                           alignItems: 'center',
-                          gap: 0.3,
+                          gap: 0.2,
                           color: '#8fa4b8',
-                          fontSize: '0.65rem',
+                          fontSize: '0.6rem',
                           fontWeight: 600,
                         }}
                       >
-                        <LaunchIcon sx={{ fontSize: 12 }} /> 预览
+                        <LaunchIcon sx={{ fontSize: 11 }} /> 预览
                       </Box>
                     )}
                     <Box
@@ -293,14 +293,14 @@ function Projects(): JSX.Element {
                       sx={{
                         display: 'inline-flex',
                         alignItems: 'center',
-                        gap: 0.3,
+                        gap: 0.2,
                         color: '#8ba8c0',
-                        fontSize: '0.65rem',
+                        fontSize: '0.6rem',
                         fontWeight: 500,
                         textDecoration: 'none',
                       }}
                     >
-                      <GitHubIcon sx={{ fontSize: 12 }} /> 源码
+                      <GitHubIcon sx={{ fontSize: 11 }} /> 源码
                     </Box>
                   </Box>
                 </Box>
