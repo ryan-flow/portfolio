@@ -119,18 +119,20 @@ function Projects(): JSX.Element {
                     width: { xs: 260, md: 320 },
                     scrollSnapAlign: 'center',
                     textDecoration: 'none',
-                    borderRadius: 3,
-                    border: '1px solid rgba(143,164,184,0.10)',
-                    background: 'rgba(143,164,184,0.04)',
+                    borderRadius: 5,
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)',
+                    backdropFilter: 'blur(40px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(255,255,255,0.03)',
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
-                    transition: 'transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease',
-                    boxShadow: '0 4px 24px rgba(0,0,0,0.2)',
+                    transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                     '&:hover': {
-                      transform: 'translateY(-3px)',
-                      borderColor: 'rgba(143,164,184,0.25)',
-                      boxShadow: '0 8px 40px rgba(0,0,0,0.35)',
+                      transform: 'translateY(-6px) scale(1.02)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      boxShadow: '0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(139,168,192,0.08), inset 0 1px 0 rgba(255,255,255,0.12)',
                     },
                   }}
                 >
@@ -144,19 +146,28 @@ function Projects(): JSX.Element {
                       pt: { xs: 1.5, md: 2 },
                       pb: { xs: 0.5, md: 1 },
                       px: { xs: 1.5, md: 2 },
-                      backgroundColor: 'rgba(0,0,0,0.15)',
+                      background: 'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 100%)',
                     }}
                   >
                     <Box
                       sx={{
                         width: { xs: '75%', md: 180 },
                         aspectRatio: '9 / 16',
-                        borderRadius: '14px',
+                        borderRadius: '16px',
                         overflow: 'hidden',
-                        border: '2px solid rgba(143,164,184,0.15)',
-                        boxShadow: '0 4px 20px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.03)',
+                        border: '2.5px solid rgba(255,255,255,0.15)',
+                        boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.05)',
                         backgroundColor: '#0a0f14',
                         flexShrink: 0,
+                        position: 'relative',
+                        '&::after': {
+                          content: '""',
+                          position: 'absolute',
+                          inset: 0,
+                          borderRadius: 'inherit',
+                          background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 40%)',
+                          pointerEvents: 'none',
+                        },
                       }}
                     >
                       {repo.image ? (
@@ -200,17 +211,19 @@ function Projects(): JSX.Element {
                       flexDirection: 'column',
                       overflow: 'hidden',
                       minWidth: 0,
+                      background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 100%)',
                     }}
                   >
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.6, mb: 0.3 }}>
-                      <GitHubIcon sx={{ fontSize: 14, color: '#8ba8c0', flexShrink: 0 }} />
+                      <GitHubIcon sx={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', flexShrink: 0 }} />
                       <Typography
                         noWrap
                         sx={{
                           fontSize: { xs: '0.85rem', md: '0.92rem' },
                           fontWeight: 700,
-                          color: '#e8e0d0',
+                          color: '#f0ebe0',
                           lineHeight: 1.3,
+                          textShadow: '0 1px 2px rgba(0,0,0,0.3)',
                         }}
                       >
                         {repo.displayName}
@@ -219,7 +232,7 @@ function Projects(): JSX.Element {
 
                     <Typography
                       sx={{
-                        color: 'rgba(255,255,255,0.4)',
+                        color: 'rgba(255,255,255,0.45)',
                         fontSize: { xs: '0.65rem', md: '0.7rem' },
                         lineHeight: 1.5,
                         mb: 0.8,
@@ -239,12 +252,13 @@ function Projects(): JSX.Element {
                           label={tech}
                           size="small"
                           sx={{
-                            backgroundColor: 'rgba(143,164,184,0.08)',
-                            color: '#a8bcc8',
-                            border: '1px solid rgba(143,164,184,0.14)',
+                            background: 'rgba(255,255,255,0.06)',
+                            color: 'rgba(255,255,255,0.7)',
+                            border: '1px solid rgba(255,255,255,0.08)',
                             fontSize: '0.55rem',
                             fontWeight: 600,
                             height: 18,
+                            backdropFilter: 'blur(8px)',
                             '& .MuiChip-label': { px: 0.6 },
                           }}
                         />
@@ -254,8 +268,8 @@ function Projects(): JSX.Element {
                           label={`+${repo.techStack.length - 3}`}
                           size="small"
                           sx={{
-                            backgroundColor: 'rgba(143,164,184,0.04)',
-                            color: '#6a8498',
+                            background: 'rgba(255,255,255,0.03)',
+                            color: 'rgba(255,255,255,0.35)',
                             fontSize: '0.55rem',
                             height: 18,
                           }}
@@ -271,7 +285,7 @@ function Projects(): JSX.Element {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: 0.25,
-                            color: '#8fa4b8',
+                            color: 'rgba(255,255,255,0.55)',
                             fontSize: '0.6rem',
                             fontWeight: 600,
                           }}
@@ -289,10 +303,12 @@ function Projects(): JSX.Element {
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: 0.25,
-                          color: '#8ba8c0',
+                          color: 'rgba(255,255,255,0.55)',
                           fontSize: '0.6rem',
                           fontWeight: 500,
                           textDecoration: 'none',
+                          transition: 'color 0.2s',
+                          '&:hover': { color: 'rgba(255,255,255,0.8)' },
                         }}
                       >
                         <GitHubIcon sx={{ fontSize: 11 }} /> 源码
@@ -312,9 +328,11 @@ function Projects(): JSX.Element {
                 width: i === realIndex ? 22 : 6,
                 height: 6,
                 borderRadius: 3,
-                backgroundColor: i === realIndex ? '#8ba8c0' : 'rgba(255,255,255,0.12)',
+                backgroundColor: i === realIndex ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.15)',
+                backdropFilter: 'blur(8px)',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
+                boxShadow: i === realIndex ? '0 0 8px rgba(255,255,255,0.2)' : 'none',
               }}
             />
           ))}
