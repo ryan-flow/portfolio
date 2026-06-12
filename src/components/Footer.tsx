@@ -21,7 +21,7 @@ function Footer(): JSX.Element {
             rel="noopener noreferrer"
             sx={{ color: 'rgba(255,255,255,0.2)', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
           >
-            粤ICP备XXXXXXXX号
+            粤ICP备2026068218号
           </Link>
         </Typography>
       </Container>
