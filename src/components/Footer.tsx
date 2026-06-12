@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Typography, Link } from '@mui/material';
 
 function Footer(): JSX.Element {
   return (
@@ -13,6 +13,16 @@ function Footer(): JSX.Element {
         </Box>
         <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.65rem' }}>
           &copy; {new Date().getFullYear()} Zixuan Wang · Built with ❤️
+        </Typography>
+        <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.6rem', mt: 1, display: 'block' }}>
+          <Link
+            href="https://beian.miit.gov.cn/"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{ color: 'rgba(255,255,255,0.2)', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
+          >
+            粤ICP备XXXXXXXX号
+          </Link>
         </Typography>
       </Container>
     </Box>
