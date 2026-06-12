@@ -10,7 +10,7 @@
 
 AI 应用开发工程师 · 专注 LLM 集成 + 前端工程 + 推荐系统 · 2026 届应届生 · 广州
 
-🔗 **Live**: [oldking-yes.github.io/portfolio](https://oldking-yes.github.io/portfolio)
+🔗 **Live**: [ryanflow.cloud](https://ryanflow.cloud)
 
 ---
 
@@ -19,29 +19,30 @@ AI 应用开发工程师 · 专注 LLM 集成 + 前端工程 + 推荐系统 · 2
 - **深色主题** — 沉浸式暗色视觉，低疲劳浏览
 - **响应式布局** — 桌面 / 平板 / 手机三端适配
 - **MUI + Tailwind** — Material Design 组件 + 原子化样式
-- **SPA 架构** — React Router 单页应用，丝滑切换
+- **AI 对话** — 集成 DeepSeek AI，访客可直接与 AI 聊天了解项目
+- **Vercel 部署** — 前端 + 后端 API 全部部署在 Vercel
 
 ## 📁 展示项目
 
 | 项目 | 说明 | 技术栈 |
 |------|------|--------|
-| [CRS 推荐系统平台](https://github.com/oldking-yes/heritage-crs-platform) | CRS 对话推荐 + Neo4j 知识图谱 + AI 数字人 | Python, FastAPI, React, Neo4j |
-| [PRD Agent RAG](https://github.com/oldking-yes/prd-agent-rag) | RAG + Agent 驱动的产品需求文档生成 | FastAPI, PydanticAI, ChromaDB, DeepSeek |
-| [AI 人格克隆](https://github.com/oldking-yes/refine-yourself) | DeepSeek 驱动的五层人格画像与数字分身 | Next.js, Supabase, DeepSeek |
-| [AI 人格测试引擎](https://github.com/oldking-yes/arknights-personality-v2) | 沉浸式人格评测 × 世界观叙事 | React, Chart.js, Framer Motion, PWA |
-| [墨韵 · AI 水墨](https://github.com/oldking-yes/ink-studio) | AI 驱动的水墨诗画生成器 | Canvas, Cloudflare Workers, DeepSeek |
+| [CRS 推荐系统平台](https://github.com/ryan-flow/heritage-crs-platform) | CRS 对话推荐 + Neo4j 知识图谱 + AI 数字人 | Python, FastAPI, React, Neo4j |
+| [PRD Agent RAG](https://github.com/ryan-flow/prd-agent-rag) | RAG + Agent 驱动的产品需求文档生成 | FastAPI, PydanticAI, ChromaDB, DeepSeek |
+| [AI 人格克隆](https://github.com/ryan-flow/refine-yourself) | DeepSeek 驱动的五层人格画像与数字分身 | Next.js, Supabase, DeepSeek |
+| [AI 人格测试引擎](https://github.com/ryan-flow/arknights-personality-v2) | 沉浸式人格评测 × 世界观叙事 | React, Chart.js, Framer Motion, PWA |
+| [墨韵 · AI 水墨](https://github.com/ryan-flow/ink-studio) | AI 驱动的水墨诗画生成器 | Canvas, Cloudflare Workers, DeepSeek |
 
 ## 🛠️ 技术栈
 
-- **框架**: React 18 + TypeScript + Vite
-- **样式**: Tailwind CSS + MUI (Material-UI)
-- **路由**: React Router v6
-- **部署**: GitHub Pages + GitHub Actions
+- **前端**: React 18 + TypeScript + Vite + Tailwind CSS + MUI
+- **后端**: FastAPI + DeepSeek API
+- **AI**: DeepSeek V4 Flash（流式 SSE 响应）
+- **部署**: Vercel（前端 + 后端 API）
 
 ## 🚀 本地开发
 
 ```bash
-git clone https://github.com/oldking-yes/portfolio.git
+git clone https://github.com/ryan-flow/portfolio.git
 cd portfolio
 npm install
 npm run dev
@@ -54,7 +55,7 @@ npm run build
 npm run preview  # 本地预览生产版本
 ```
 
-推送 main 分支后，GitHub Pages 自动部署。
+推送 main 分支后，Vercel 自动部署。
 
 ## 📄 License
 
