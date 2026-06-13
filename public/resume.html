@@ -1,178 +1,273 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>王子轩 - 个人简历</title>
-<style>
-  @page { size: A4; margin: 0; }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: "SF Mono", "Fira Code", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-    color: #1a1a2e; background: #fff; line-height: 1.6; font-size: 10pt; overflow-x: hidden;
-  }
-  .page { width: 210mm; min-height: 297mm; padding: 12mm 16mm; background: #fff; margin: 0 auto; position: relative; }
-  @media screen and (max-width: 800px) {
-    .page { transform-origin: top center; transform: scale(var(--scale, 0.5)); width: 210mm; margin-bottom: calc(-297mm * (1 - var(--scale, 0.5))); }
-  }
-  /* 头部 */
-  .header { display: flex; gap: 12px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #1a1a2e; }
-  .photo { width: 65px; height: 80px; border: 1.5px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 8pt; color: #999; flex-shrink: 0; }
-  .header-right { flex: 1; }
-  .job-title { font-size: 11pt; color: #555; letter-spacing: 2px; margin-bottom: 2px; }
-  .name { font-size: 20pt; font-weight: 700; color: #1a1a2e; margin-bottom: 2px; }
-  .basic-info { font-size: 8.5pt; color: #444; margin-bottom: 3px; }
-  .contact-row { font-size: 8pt; color: #555; display: flex; gap: 12px; flex-wrap: wrap; }
-  /* 二维码 */
-  .qr-area { position: absolute; top: 12mm; right: 16mm; text-align: center; }
-  .qr-area img { width: 65px; height: 65px; border: 1px solid #ddd; border-radius: 3px; }
-  .qr-area .qr-text { font-size: 7pt; color: #666; margin-top: 3px; font-family: "Microsoft YaHei", "SimHei", "Noto Sans SC", sans-serif; }
-  /* 章节 */
-  .section { margin-top: 10px; }
-  .section-title { font-size: 11pt; font-weight: 700; color: #1a1a2e; border-bottom: 1.5px solid #1a1a2e; padding-bottom: 2px; margin-bottom: 6px; letter-spacing: 1px; }
-  .summary { font-size: 8.5pt; color: #333; line-height: 1.6; }
-  .adv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; font-size: 8pt; color: #333; }
-  .adv-item { display: flex; gap: 5px; line-height: 1.4; }
-  .adv-item .star { color: #1a1a2e; font-weight: bold; }
-  /* 项目 */
-  .proj { margin-bottom: 8px; }
-  .proj-head { display: flex; justify-content: space-between; align-items: baseline; }
-  .proj-name { font-size: 9.5pt; font-weight: 700; color: #1a1a2e; }
-  .proj-meta { font-size: 7.5pt; color: #666; }
-  .proj-url { font-size: 7.5pt; color: #2563eb; margin: 1px 0; }
-  .proj-tech { font-size: 7pt; color: #888; margin: 2px 0; }
-  .proj-desc { font-size: 7.5pt; color: #444; line-height: 1.45; }
-  .proj-desc li { margin-bottom: 1px; }
-  /* 教育 */
-  .edu { display: flex; justify-content: space-between; font-size: 8.5pt; }
-  .edu-name { font-weight: 700; }
-  /* 技能 */
-  .skills { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 16px; font-size: 7.5pt; color: #444; }
-  .skill-row { display: flex; gap: 3px; }
-  .skill-label { color: #888; }
-</style>
+  <meta charset="UTF-8" />
+  <title>王子轩 — 简历</title>
+  <style>
+    @font-face { font-family: "Noto Sans SC"; src: local("Noto Sans SC"), local("WenQuanYi Zen Hei"); font-weight: 400; }
+    @font-face { font-family: "Noto Sans SC"; src: local("Noto Sans SC Bold"), local("WenQuanYi Zen Hei"); font-weight: 700; }
+
+    :root {
+      --accent:      #003891;
+      --accent-deep: #002664;
+      --tag-bg:      #eef2f9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Noto Sans SC", "WenQuanYi Zen Hei", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 10.5pt;
+      color: #222;
+      background: #f0f0f0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: #fff;
+      margin: 0 auto;
+      border-top: 4px solid var(--accent);
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 28px 8px;
+      background: #f8f9fb;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .header-photo {
+      width: 80px; height: 110px;
+      border: 1px solid #d1d5db;
+      flex-shrink: 0;
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      color: #9ca3af; font-size: 9pt;
+    }
+    .header-info { flex: 1; }
+    .header-track { font-size: 8pt; letter-spacing: 0.18em; color: #6b7280; text-transform: uppercase; margin-bottom: 3px; }
+    .header-name  { font-size: 20pt; font-weight: 700; letter-spacing: 0.18em; color: #111; margin-bottom: 3px; }
+    .header-basic { font-size: 10pt; color: #6b7280; margin-bottom: 8px; }
+    .header-basic span { margin-right: 6px; }
+    .header-contacts { display: flex; gap: 8px; flex-wrap: wrap; }
+    .contact-item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 10pt; color: #374151;
+      border: 1px solid #d1d5db; border-radius: 4px;
+      padding: 1px 7px; background: #fff;
+    }
+
+    /* ── Main ── */
+    .content { padding: 10px 28px 12px; }
+    .section { margin-bottom: 8px; }
+    .section-title {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 11pt; font-weight: 700;
+      color: var(--accent-deep);
+      border-bottom: 1.5px solid var(--accent);
+      padding-bottom: 2px; margin-bottom: 5px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Statement ── */
+    .statement {
+      font-size: 10pt; color: #374151;
+      line-height: 1.75;
+      padding: 6px 12px;
+      background: #fafafa;
+      border-left: 3px solid var(--accent);
+    }
+
+    /* ── Entry ── */
+    .entry { margin-bottom: 8px; }
+    .entry-header { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
+    .entry-company { font-weight: 700; font-size: 10.5pt; color: #111; }
+    .entry-role    { color: #6b7280; flex: 1; text-align: center; font-size: 9pt; }
+    .entry-date    { color: #9ca3af; font-size: 8.5pt; white-space: nowrap; }
+    .entry-desc    { font-size: 10pt; color: #374151; line-height: 1.7; margin: 2px 0 3px 0; }
+    .entry-desc a { color: #003891; }
+
+    .entry-bullets { margin: 0; padding-left: 0; list-style: none; }
+    .entry-bullets li {
+      position: relative;
+      font-size: 10pt; color: #374151;
+      line-height: 1.75; margin-bottom: 1px;
+      padding-left: 14px;
+    }
+    .entry-bullets li::before {
+      content: ""; position: absolute;
+      left: 1px; top: 0.62em;
+      width: 5px; height: 5px;
+      background: var(--accent);
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+    }
+    .entry-bullets li strong { color: #111; }
+    .entry-bullets em { font-style: normal; color: var(--accent-deep); font-weight: 600; }
+
+    /* ── Education ── */
+    .edu-row { display: flex; align-items: baseline; margin-bottom: 3px; }
+    .edu-school { font-weight: 600; width: 180px; flex-shrink: 0; color: #111; font-size: 10pt; }
+    .edu-degree { color: #6b7280; flex: 1; font-size: 9pt; }
+    .edu-date   { color: #9ca3af; font-size: 8.5pt; white-space: nowrap; }
+
+    /* ── Skills ── */
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 20px; }
+    .skill-item {
+      font-size: 10pt; color: #374151;
+      line-height: 1.7;
+      display: flex; gap: 5px; align-items: baseline;
+    }
+    .skill-item::before { content: "▸"; color: var(--accent); flex-shrink: 0; font-size: 8pt; }
+    .skill-item strong { color: #111; }
+
+    /* ── Highlights ── */
+    .highlights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 20px; }
+    .highlight-item {
+      font-size: 10pt; color: #374151;
+      line-height: 1.7;
+      padding-left: 14px;
+      position: relative;
+    }
+    .highlight-item::before {
+      content: "★"; position: absolute;
+      left: 0; color: var(--accent); font-size: 8pt;
+    }
+    .highlight-item strong { color: #111; }
+
+    @page { size: A4; margin: 0; }
+
+    @media print {
+      body { background: #fff; padding: 0; margin: 0; }
+      .page { box-shadow: none; width: 210mm; min-height: 297mm; margin: 0; }
+      .section, .entry, .edu-row { page-break-inside: avoid; }
+    }
+  </style>
 </head>
 <body>
 <div class="page">
-  <!-- 头部：证件照 + 信息 + 二维码 -->
+
+  <!-- ── HEADER ── -->
   <div class="header">
-    <div class="photo">证件照</div>
-    <div class="header-right">
-      <div class="job-title">A I  产品经理 ·  A I  P R O D U C T  M A N A G E R</div>
-      <div class="name">王子轩</div>
-      <div class="basic-info">男· 23岁· 广州</div>
-      <div class="contact-row">
-        <span>152-1982-8480</span>
-        <span>2919178903@qq.com</span>
-        <span>github.com/ryan-flow</span>
+    <div class="header-photo">证件照</div>
+      <div style="position:absolute;top:10px;right:20px;text-align:center;">
+        <img src="ryanflow-cloud-qr.png" style="width:65px;height:65px;border:1px solid #ddd;border-radius:3px;" />
+        <div style="font-size:7pt;color:#666;margin-top:3px;font-family:'Microsoft YaHei','SimHei','Noto Sans SC',sans-serif;">扫码查看我的网站</div>
+      </div>
+    <div class="header-info">
+      <div class="header-track">AI 产品经理 · AI PRODUCT MANAGER</div>
+      <div class="header-name">王子轩</div>
+      <div class="header-basic">
+        <span>男</span>·
+        <span>23岁</span>·
+        <span>广州</span>
+      </div>
+      <div class="header-contacts">
+        <span class="contact-item">152-1982-8480</span>
+        <span class="contact-item">2919178903@qq.com</span>
+        <span class="contact-item">github.com/ryan-flow</span>
       </div>
     </div>
   </div>
-  <!-- 二维码 -->
-  <div class="qr-area">
-    <img src="ryanflow-cloud-qr.png" />
-    <div class="qr-text">扫码查看我的网站</div>
-  </div>
 
-  <!-- 个人总结 -->
-  <div class="section">
-    <div class="section-title">个人总结</div>
-    <div class="summary">大数据专业出身，具备技术背景的产品思维，能准确判断AI技术落地边界与工程可行性。独立完成3个AI产品0→1落地，覆盖用户调研、竞品分析、功能定义、交互设计、效果评估全链路。擅长Agentic Engineering驱动的高效交付，将产品从想法到上线的周期压缩到周级别。</div>
-  </div>
+  <div class="content">
 
-  <!-- 核心优势 -->
-  <div class="section">
-    <div class="section-title">核心优势</div>
-    <div class="adv-grid">
-      <div class="adv-item"><span class="star">★</span><span>技术型产品思维：大数据专业背景，能与开发团队无障碍沟通，准确评估AI技术落地可行性与边界</span></div>
-      <div class="adv-item"><span class="star">★</span><span>全栈交付能力：独立完成需求定义→PRD→原型→前后端→部署上线全流程，不依赖外部团队</span></div>
-      <div class="adv-item"><span class="star">★</span><span>AI工具深度使用：熟练使用Claude Code/Cursor等AI开发工具，Vibe Coding快速验证产品假设</span></div>
-      <div class="adv-item"><span class="star">★</span><span>数据驱动决策：构建用户画像量化体系，基于行为数据驱动产品迭代，避免主观臆断</span></div>
+    <!-- ── 个人总结 ── -->
+    <div class="section">
+      <div class="section-title">个人总结</div>
+      <div class="statement">大数据专业出身，具备技术背景的产品思维，能准确判断AI技术落地边界与工程可行性。独立完成3个AI产品0→1落地，覆盖用户调研、竞品分析、功能定义、交互设计、效果评估全链路。擅长Agentic Engineering驱动的高效交付，将产品从想法到上线的周期压缩到周级别。</div>
     </div>
-  </div>
 
-  <!-- 项目经历 -->
-  <div class="section">
-    <div class="section-title">项目经历</div>
-
-    <div class="proj">
-      <div class="proj-head">
-        <span class="proj-name">CRS 非遗AI数字人推荐平台</span>
-        <span class="proj-meta">产品 & 全栈开发 · 毕业设计 &nbsp; 2025.01 — 2025.06</span>
+    <!-- ── 核心优势 ── -->
+    <div class="section">
+      <div class="section-title">核心优势</div>
+      <div class="highlights-grid">
+        <div class="highlight-item"><strong>技术型产品思维：</strong>大数据专业背景，能与开发团队无障碍沟通，准确评估AI技术落地可行性与边界</div>
+        <div class="highlight-item"><strong>全栈交付能力：</strong>独立完成需求定义→PRD→原型→前后端→部署上线全流程，不依赖外部团队</div>
+        <div class="highlight-item"><strong>AI工具深度使用：</strong>熟练使用Claude Code/Cursor等AI开发工具，Vibe Coding快速验证产品假设</div>
+        <div class="highlight-item"><strong>数据驱动决策：</strong>构建用户画像量化体系，基于行为数据驱动产品迭代，避免主观臆断</div>
       </div>
-      <div class="proj-url">heritage.refineyourself.asia</div>
-      <div class="proj-tech">React 19 / TypeScript / FastAPI / PostgreSQL / 豆包TTS / 知识图谱 / 微信小程序</div>
-      <div class="proj-desc"><ul>
-        <li>竞品调研发现传统推荐系统"被动浏览"体验差，提出「让推荐系统主动开口说话」策略，设计分阶段追问式交互，引导用户逐步完善偏好画像</li>
-        <li>构建用户画像量化体系（显式偏好+隐式行为+对话语义），驱动推荐策略从探索→混合→精准自动切换</li>
-        <li>设计13套提问模板按冷启动/信息收集/精准推荐三阶段匹配，单次会话平均交互轮次6+轮，用户完成率显著提升</li>
-        <li>全流程落地：需求文档→PRD→原型→前后端→小程序→管理后台→爬虫→部署，知识库收录111条非遗内容</li>
-      </ul></div>
     </div>
 
-    <div class="proj">
-      <div class="proj-head">
-        <span class="proj-name">PRD-RAG 智能需求文档生成工具</span>
-        <span class="proj-meta">独立项目 &nbsp; 2025.03 — 2025.06</span>
+    <!-- ── 项目经历 ── -->
+    <div class="section">
+      <div class="section-title">项目经历</div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-company">CRS 非遗AI数字人推荐平台</span>
+          <span class="entry-role">产品 & 全栈开发 · 毕业设计</span>
+          <span class="entry-date">2025.01 — 2025.06</span>
+        </div>
+        <div class="entry-desc"><a href="https://heritage.refineyourself.asia">heritage.refineyourself.asia</a></div>
+        <div class="entry-desc">React 19 / TypeScript / FastAPI / PostgreSQL / 豆包TTS / 知识图谱 / 微信小程序</div>
+        <ul class="entry-bullets">
+          <li>竞品调研发现传统推荐系统"被动浏览"体验差，提出「让推荐系统主动开口说话」策略，设计分阶段追问式交互，引导用户逐步完善偏好画像</li>
+          <li>构建用户画像量化体系（显式偏好+隐式行为+对话语义），驱动推荐策略从探索→混合→精准自动切换</li>
+          <li>设计13套提问模板按冷启动/信息收集/精准推荐三阶段匹配，单次会话平均交互轮次6+轮，用户完成率显著提升</li>
+          <li>全流程落地：需求文档→PRD→原型→前后端→小程序→管理后台→爬虫→部署，知识库收录111条非遗内容</li>
+        </ul>
       </div>
-      <div class="proj-url">prd.ryanflow.cloud</div>
-      <div class="proj-tech">Python / FastAPI / PydanticAI / ChromaDB / DeepSeek V4-Flash / React SPA / SSE</div>
-      <div class="proj-desc"><ul>
-        <li>调研Notion AI、ChatGPT Custom GPTs等竞品，发现从模糊想法到结构化PRD缺少专用工具，设计三阶段追问式交互流程（理解→澄清→生成）</li>
-        <li>内置RAG效果评估模块，展示检索片段、来源、相似度，让AI输出可溯源可验证，建立用户信任</li>
-        <li>选型PydanticAI替代LangChain，利用agent.iter()实现流式输出与工具调用解耦，单次对话成本仅¥0.006</li>
-      </ul></div>
-    </div>
 
-    <div class="proj">
-      <div class="proj-head">
-        <span class="proj-name">炼化自己 · AI数字分身生成器</span>
-        <span class="proj-meta">独立项目 &nbsp; 2025.05 — 2025.06</span>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-company">PRD-RAG 智能需求文档生成工具</span>
+          <span class="entry-role">独立项目</span>
+          <span class="entry-date">2025.03 — 2025.06</span>
+        </div>
+        <div class="entry-desc"><a href="https://prd.ryanflow.cloud">prd.ryanflow.cloud</a></div>
+        <div class="entry-desc">Python / FastAPI / PydanticAI / ChromaDB / DeepSeek V4-Flash / React SPA / SSE</div>
+        <ul class="entry-bullets">
+          <li>调研Notion AI、ChatGPT Custom GPTs等竞品，发现从模糊想法到结构化PRD缺少专用工具，设计三阶段追问式交互流程（理解→澄清→生成）</li>
+          <li>内置RAG效果评估模块，展示检索片段、来源、相似度，让AI输出可溯源可验证，建立用户信任</li>
+          <li>选型PydanticAI替代LangChain，利用agent.iter()实现流式输出与工具调用解耦，单次对话成本仅¥0.006</li>
+        </ul>
       </div>
-      <div class="proj-url">refine-yourself.vercel.app</div>
-      <div class="proj-tech">Next.js 16 / TypeScript / Tailwind CSS 4 / shadcn/ui / Supabase / DeepSeek API / Vercel</div>
-      <div class="proj-desc"><ul>
-        <li>洞察"数字分身"社交需求，设计上传聊天记录→AI提炼人格→生成分享链接的三步流程，用户零门槛创建可对话的数字分身</li>
-        <li>隐私优先产品设计：原始聊天记录仅用于AI分析后即丢弃，数据库只存人格描述文本，消除用户隐私顾虑</li>
-        <li>一键分享机制生成唯一链接，支持微信/WhatsApp/Telegram多平台聊天记录导入，降低使用门槛</li>
-      </ul></div>
-    </div>
-  </div>
 
-  <!-- 教育背景 -->
-  <div class="section">
-    <div class="section-title">教育背景</div>
-    <div class="edu">
-      <span class="edu-name">仲恺农业工程学院 &nbsp; 数据科学与大数据技术 · 本科</span>
-      <span>2022.09 — 2026.06</span>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-company">炼化自己 · AI数字分身生成器</span>
+          <span class="entry-role">独立项目</span>
+          <span class="entry-date">2025.05 — 2025.06</span>
+        </div>
+        <div class="entry-desc"><a href="https://refine-yourself.vercel.app">refine-yourself.vercel.app</a></div>
+        <div class="entry-desc">Next.js 16 / TypeScript / Tailwind CSS 4 / shadcn/ui / Supabase / DeepSeek API / Vercel</div>
+        <ul class="entry-bullets">
+          <li>洞察"数字分身"社交需求，设计上传聊天记录→AI提炼人格→生成分享链接的三步流程，用户零门槛创建可对话的数字分身</li>
+          <li>隐私优先产品设计：原始聊天记录仅用于AI分析后即丢弃，数据库只存人格描述文本，消除用户隐私顾虑</li>
+          <li>一键分享机制生成唯一链接，支持微信/WhatsApp/Telegram多平台聊天记录导入，降低使用门槛</li>
+        </ul>
+      </div>
     </div>
-  </div>
 
-  <!-- 技能 -->
-  <div class="section">
-    <div class="section-title">技能</div>
-    <div class="skills">
-      <div class="skill-row"><span class="skill-label">▸产品方法论：</span>需求分析 · 竞品调研 · PRD撰写 · 数据驱动</div>
-      <div class="skill-row"><span class="skill-label">▸AI技术理解：</span>LLM Agent · RAG检索 · TTS合成 · 知识图谱</div>
-      <div class="skill-row"><span class="skill-label">▸设计工具：</span>Figma</div>
-      <div class="skill-row"><span class="skill-label">▸技术工具链：</span>Python · React · SQL · Git</div>
-      <div class="skill-row"><span class="skill-label">▸AI工具：</span>Claude Code · Cursor · ChatGPT · DeepSeek</div>
+    <!-- ── 教育背景 ── -->
+    <div class="section">
+      <div class="section-title">教育背景</div>
+      <div class="edu-row">
+        <span class="edu-school">仲恺农业工程学院</span>
+        <span class="edu-degree">数据科学与大数据技术 · 本科</span>
+        <span class="edu-date">2022.09 — 2026.06</span>
+      </div>
     </div>
+
+    <!-- ── 技能 ── -->
+    <div class="section" style="margin-bottom:0;">
+      <div class="section-title">技能</div>
+      <div class="skills-grid">
+        <div class="skill-item"><strong>产品方法论：</strong>需求分析 · 竞品调研 · PRD撰写 · 数据驱动</div>
+        <div class="skill-item"><strong>AI技术理解：</strong>LLM Agent · RAG检索 · TTS合成 · 知识图谱</div>
+        <div class="skill-item"><strong>设计工具：</strong>Figma</div>
+        <div class="skill-item"><strong>技术工具链：</strong>Python · React · SQL · Git</div>
+        <div class="skill-item"><strong>AI工具：</strong>Claude Code · Cursor · ChatGPT · DeepSeek</div>
+      </div>
+    </div>
+
   </div>
 </div>
-<script>
-(function() {
-  var page = document.getElementById('page');
-  function rescale() {
-    var vw = window.innerWidth || document.documentElement.clientWidth;
-    if (vw < 800) {
-      var scale = Math.min(1, (vw - 16) / 793);
-      page.style.setProperty('--scale', scale);
-    }
-  }
-  rescale();
-  window.addEventListener('resize', rescale);
-})();
-</script>
 </body>
 </html>
