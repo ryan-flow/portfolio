@@ -5,155 +5,341 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>王子轩 - 个人简历</title>
 <style>
-  @page { size: A4; margin: 0; }
+  @page {
+    size: A4;
+    margin: 0;
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: "SF Mono", "Fira Code", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-    color: #1a1a2e; background: #fff; line-height: 1.6; font-size: 10pt;
+    color: #1a1a2e;
+    background: #fff;
+    line-height: 1.6;
+    font-size: 10pt;
+    overflow-x: hidden;
   }
-  .page { width: 210mm; min-height: 297mm; padding: 15mm 18mm; background: #fff; margin: 0 auto; }
-  .header { display: flex; justify-content: space-between; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 2px solid #1a1a2e; position: relative; }
-  .header-left { display: flex; align-items: center; gap: 15px; }
-  .photo-box { width: 70px; height: 85px; border: 1.5px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 9pt; color: #888; }
-  .header-info { flex: 1; }
-  .title { font-size: 12pt; color: #666; letter-spacing: 2px; margin-bottom: 4px; }
-  .name { font-size: 20pt; font-weight: 700; color: #1a1a2e; margin-bottom: 3px; }
-  .info { font-size: 8.5pt; color: #444; margin-bottom: 2px; }
-  .contact { font-size: 8pt; color: #555; display: flex; gap: 15px; margin-top: 4px; }
-  .qr-area { position: absolute; top: 0; right: 0; text-align: center; }
-  .qr-area img { width: 65px; height: 65px; border: 1px solid #ddd; border-radius: 3px; }
-  .qr-area .qr-text { font-size: 7pt; color: #666; margin-top: 3px; font-family: "Microsoft YaHei", "SimHei", "Noto Sans SC", sans-serif; }
-  .section { margin-top: 12px; }
-  .section-title { font-size: 11pt; font-weight: 700; color: #1a1a2e; border-bottom: 1.5px solid #1a1a2e; padding-bottom: 3px; margin-bottom: 8px; letter-spacing: 1px; }
-  .summary { font-size: 9pt; color: #333; line-height: 1.7; }
-  .advantages { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; font-size: 8.5pt; color: #333; }
-  .adv-item { display: flex; gap: 6px; line-height: 1.5; }
-  .adv-item .star { color: #1a1a2e; font-weight: bold; }
-  .project { margin-bottom: 10px; }
-  .project-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3px; }
-  .project-name { font-size: 10pt; font-weight: 700; color: #1a1a2e; }
-  .project-meta { font-size: 8pt; color: #666; }
-  .project-url { font-size: 8pt; color: #2563eb; margin-bottom: 2px; }
-  .project-tech { font-size: 7.5pt; color: #888; margin-bottom: 3px; }
-  .project-desc { font-size: 8pt; color: #444; line-height: 1.5; }
-  .project-desc li { margin-bottom: 2px; }
-  .edu { display: flex; justify-content: space-between; font-size: 9pt; }
-  .edu-name { font-weight: 700; }
-  .skills { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; font-size: 8pt; color: #444; }
-  .skill-row { display: flex; gap: 4px; }
-  .skill-label { color: #888; }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm 18mm;
+    background: #fff;
+    margin: 0 auto;
+  }
+  /* Auto-scale for small viewports (embedded/iframe) */
+  @media screen and (max-width: 800px) {
+    .page {
+      transform-origin: top center;
+      transform: scale(var(--scale, 0.5));
+      width: 210mm;
+      margin-bottom: calc(-297mm * (1 - var(--scale, 0.5)));
+    }
+  }
+  .header { position: relative;
+    text-align: center;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #1a1a2e;
+  }
+  .name {
+    font-size: 22pt;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #1a1a2e;
+  }
+  .name-sub {
+    font-size: 9pt;
+    color: #555;
+    margin-top: 2px;
+  }
+  .contact-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 8px;
+    font-size: 8.5pt;
+    color: #444;
+    flex-wrap: wrap;
+  }
+  .contact-row a {
+    color: #2563eb;
+    text-decoration: none;
+  }
+  .target {
+    margin-top: 8px;
+    font-size: 9pt;
+    color: #2563eb;
+    font-weight: 600;
+  }
+  .section {
+    margin-top: 16px;
+  }
+  .section-title {
+    font-size: 11pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #1a1a2e;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 8px;
+  }
+  .edu-item {
+    margin-bottom: 6px;
+  }
+  .edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .edu-school {
+    font-weight: 700;
+    font-size: 10pt;
+  }
+  .edu-period {
+    font-size: 8.5pt;
+    color: #666;
+    font-family: "SF Mono", "Fira Code", monospace;
+  }
+  .edu-detail {
+    font-size: 8.5pt;
+    color: #555;
+    margin-top: 1px;
+  }
+  .skill-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .skill-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .skill-label {
+    font-weight: 700;
+    font-size: 7.5pt;
+    color: #555;
+    min-width: 30px;
+    padding-top: 1px;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .skill-tag {
+    font-size: 7.5pt;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  .tag-expert { background: #1a1a2e; color: #fff; }
+  .tag-advanced { background: #e8e8ee; color: #333; border: 1px solid #ccc; }
+  .tag-intermediate { background: #f5f5f5; color: #666; border: 1px solid #ddd; }
+  .project-item {
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border-left: 2px solid #e0e0e0;
+  }
+  .project-name {
+    font-weight: 700;
+    font-size: 10pt;
+  }
+  .project-meta {
+    font-size: 8pt;
+    color: #666;
+  }
+  .project-desc {
+    font-size: 8.5pt;
+    color: #444;
+    margin-top: 2px;
+  }
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin-top: 4px;
+  }
+  .project-tech span {
+    font-size: 7pt;
+    background: #f0f0f5;
+    color: #555;
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+  .exp-item {
+    margin-bottom: 8px;
+  }
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .exp-role {
+    font-weight: 700;
+    font-size: 10pt;
+  }
+  .exp-period {
+    font-size: 8.5pt;
+    color: #666;
+    font-family: "SF Mono", "Fira Code", monospace;
+  }
+  .exp-company {
+    font-size: 8.5pt;
+    color: #555;
+  }
+  .exp-desc {
+    font-size: 8.5pt;
+    color: #444;
+    margin-top: 2px;
+  }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
 </style>
 </head>
 <body>
-<div class="page">
+<div class="page" id="page">
   <div class="header">
-    <div class="header-left">
-      <div class="photo-box">证件照</div>
-      <div class="header-info">
-        <div class="title">A I  产品经理 ·  A I  P R O D U C T  M A N A G E R</div>
-        <div class="name">王子轩</div>
-        <div class="info">男· 23岁· 广州</div>
-        <div class="contact">
-          <span>152-1982-8480</span>
-          <span>2919178903@qq.com</span>
-          <span>github.com/ryan-flow</span>
-        </div>
-      </div>
+    <div class="name">王子轩</div>
+    <div class="name-sub">Zixuan Wang</div>
+    <div class="contact-row">
+      <span>📧 2919178903@qq.com</span>
+      <span>🔗 github.com/ryan-flow</span>
     </div>
-    <div class="qr-area">
-      <img src="ryanflow-cloud-qr.png" />
-      <div class="qr-text">扫码查看我的网站</div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">个人总结</div>
-    <div class="summary">
-      大数据专业出身，具备技术背景的产品思维，能准确判断AI技术落地边界与工程可行性。独立完成3个AI产品0→1落地，覆盖用户调研、竞品分析、功能定义、交互设计、效果评估全链路。擅长Agentic Engineering驱动的高效交付，将产品从想法到上线的周期压缩到周级别。
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">核心优势</div>
-    <div class="advantages">
-      <div class="adv-item"><span class="star">★</span><span>技术型产品思维：大数据专业背景，能与开发团队无障碍沟通，准确评估AI技术落地可行性与边界</span></div>
-      <div class="adv-item"><span class="star">★</span><span>全栈交付能力：独立完成需求定义→PRD→原型→前后端→部署上线全流程，不依赖外部团队</span></div>
-      <div class="adv-item"><span class="star">★</span><span>AI工具深度使用：熟练使用Claude Code/Cursor等AI开发工具，Vibe Coding快速验证产品假设</span></div>
-      <div class="adv-item"><span class="star">★</span><span>数据驱动决策：构建用户画像量化体系，基于行为数据驱动产品迭代，避免主观臆断</span></div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">项目经历</div>
-    
-    <div class="project">
-      <div class="project-header">
-        <span class="project-name">CRS 非遗AI数字人推荐平台</span>
-        <span class="project-meta">产品 & 全栈开发 · 毕业设计 &nbsp; 2025.01 — 2025.06</span>
-      </div>
-      <div class="project-url">heritage.refineyourself.asia</div>
-      <div class="project-tech">React 19 / TypeScript / FastAPI / PostgreSQL / 豆包TTS / 知识图谱 / 微信小程序</div>
-      <div class="project-desc">
-        <ul>
-          <li>竞品调研发现传统推荐系统"被动浏览"体验差，提出「让推荐系统主动开口说话」策略，设计分阶段追问式交互，引导用户逐步完善偏好画像</li>
-          <li>构建用户画像量化体系（显式偏好+隐式行为+对话语义），驱动推荐策略从探索→混合→精准自动切换</li>
-          <li>设计13套提问模板按冷启动/信息收集/精准推荐三阶段匹配，单次会话平均交互轮次6+轮，用户完成率显著提升</li>
-          <li>全流程落地：需求文档→PRD→原型→前后端→小程序→管理后台→爬虫→部署，知识库收录111条非遗内容</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="project">
-      <div class="project-header">
-        <span class="project-name">PRD-RAG 智能需求文档生成工具</span>
-        <span class="project-meta">独立项目 &nbsp; 2025.03 — 2025.06</span>
-      </div>
-      <div class="project-url">prd.ryanflow.cloud</div>
-      <div class="project-tech">Python / FastAPI / PydanticAI / ChromaDB / DeepSeek V4-Flash / React SPA / SSE</div>
-      <div class="project-desc">
-        <ul>
-          <li>调研Notion AI、ChatGPT Custom GPTs等竞品，发现从模糊想法到结构化PRD缺少专用工具，设计三阶段追问式交互流程（理解→澄清→生成）</li>
-          <li>内置RAG效果评估模块，展示检索片段、来源、相似度，让AI输出可溯源可验证，建立用户信任</li>
-          <li>选型PydanticAI替代LangChain，利用agent.iter()实现流式输出与工具调用解耦，单次对话成本仅¥0.006</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="project">
-      <div class="project-header">
-        <span class="project-name">炼化自己 · AI数字分身生成器</span>
-        <span class="project-meta">独立项目 &nbsp; 2025.05 — 2025.06</span>
-      </div>
-      <div class="project-url">refine-yourself.vercel.app</div>
-      <div class="project-tech">Next.js 16 / TypeScript / Tailwind CSS 4 / shadcn/ui / Supabase / DeepSeek API / Vercel</div>
-      <div class="project-desc">
-        <ul>
-          <li>洞察"数字分身"社交需求，设计上传聊天记录→AI提炼人格→生成分享链接的三步流程，用户零门槛创建可对话的数字分身</li>
-          <li>隐私优先产品设计：原始聊天记录仅用于AI分析后即丢弃，数据库只存人格描述文本，消除用户隐私顾虑</li>
-          <li>一键分享机制生成唯一链接，支持微信/WhatsApp/Telegram多平台聊天记录导入，降低使用门槛</li>
-        </ul>
-      </div>
+    <div class="target">AI Agent 开发 / 全栈工程师 · 寻求 2026 校招 / 实习机会</div>
+    <div style="position:absolute;top:8px;right:12px;text-align:center;">
+      <img src="ryanflow-cloud-qr.png" style="width:65px;height:65px;border:1px solid #ddd;border-radius:4px;" />
+      <div style="font-size:7pt;color:#666;margin-top:3px;font-family:'Microsoft YaHei','SimHei','Noto Sans SC',sans-serif;">扫码查看我的网站</div>
     </div>
   </div>
 
   <div class="section">
     <div class="section-title">教育背景</div>
-    <div class="edu">
-      <span class="edu-name">仲恺农业工程学院 &nbsp; 数据科学与大数据技术 · 本科</span>
-      <span>2022.09 — 2026.06</span>
+    <div class="edu-item">
+      <div class="edu-header">
+        <span class="edu-school">数据科学与大数据技术 · 本科</span>
+        <span class="edu-period">2022 — 2026</span>
+      </div>
+      <div class="edu-detail">
+        主修：数据科学导论、机器学习、数据库系统原理、软件工程、Python 程序设计、大数据技术<br>
+        毕业设计：基于 CRS 对话推荐与 Neo4j 知识图谱的非遗文化传播系统（优秀毕设）
+      </div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-title">技能</div>
-    <div class="skills">
-      <div class="skill-row"><span class="skill-label">▸产品方法论：</span>需求分析 · 竞品调研 · PRD撰写 · 数据驱动</div>
-      <div class="skill-row"><span class="skill-label">▸AI技术理解：</span>LLM Agent · RAG检索 · TTS合成 · 知识图谱</div>
-      <div class="skill-row"><span class="skill-label">▸设计工具：</span>Figma</div>
-      <div class="skill-row"><span class="skill-label">▸技术工具链：</span>Python · React · SQL · Git</div>
-      <div class="skill-row"><span class="skill-label">▸AI工具：</span>Claude Code · Cursor · ChatGPT · DeepSeek</div>
+    <div class="section-title">技术能力</div>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <span class="skill-label">精通</span>
+        <div class="skill-tags">
+          <span class="skill-tag tag-expert">React</span>
+          <span class="skill-tag tag-expert">TypeScript</span>
+          <span class="skill-tag tag-expert">Python</span>
+          <span class="skill-tag tag-expert">Tailwind CSS</span>
+          <span class="skill-tag tag-expert">Vite</span>
+          <span class="skill-tag tag-expert">DeepSeek API</span>
+          <span class="skill-tag tag-expert">Prompt Engineering</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <span class="skill-label">熟练</span>
+        <div class="skill-tags">
+          <span class="skill-tag tag-advanced">Next.js</span>
+          <span class="skill-tag tag-advanced">FastAPI</span>
+          <span class="skill-tag tag-advanced">SQL</span>
+          <span class="skill-tag tag-advanced">SQLAlchemy</span>
+          <span class="skill-tag tag-advanced">Supabase</span>
+          <span class="skill-tag tag-advanced">PostgreSQL</span>
+          <span class="skill-tag tag-advanced">微信小程序</span>
+          <span class="skill-tag tag-advanced">Vercel</span>
+          <span class="skill-tag tag-advanced">GitHub Pages</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <span class="skill-label">熟悉</span>
+        <div class="skill-tags">
+          <span class="skill-tag tag-intermediate">Neo4j</span>
+          <span class="skill-tag tag-intermediate">Chart.js</span>
+          <span class="skill-tag tag-intermediate">Framer Motion</span>
+          <span class="skill-tag tag-intermediate">PWA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">项目经历</div>
+
+    <div class="project-item">
+      <div class="project-name">CRS 推荐系统平台 <span style="font-size:8pt;color:#888;">— 优秀毕设</span></div>
+      <div class="project-desc">
+        基于 ASK-REC 引擎的多轮对话推荐系统，置信度三维状态机保障推荐质量。五级回退策略（本地KB→豆包LLM→网络搜索）确保 100% 回答覆盖。Neo4j 存储 200+ 非遗知识节点，推荐解释可溯源。独立负责数据库建模（16 表）、API 设计（12 端点）、双前端（微信小程序 + React SPA，21 页面）。
+      </div>
+      <div class="project-tech">
+        <span>Python</span><span>FastAPI</span><span>SQLAlchemy</span><span>Neo4j</span><span>React</span><span>TypeScript</span><span>微信小程序</span>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-name">AI 人格克隆 (refine-yourself)</div>
+      <div class="project-desc">
+        完整 SaaS 产品：上传聊天记录 → DeepSeek 提炼五层人格画像（身份/行为规则/表达风格/决策模式/对话样本）→ 生成分享链接 → 公开对话。预置 12 个名人角色。Supabase PostgreSQL + RLS 安全策略，原始数据即用即弃。Vercel OG Image 11 种主题社交卡片。独立域名 refineyourself.asia。
+      </div>
+      <div class="project-tech">
+        <span>Next.js 16</span><span>TypeScript</span><span>DeepSeek API</span><span>Supabase</span><span>PostgreSQL</span><span>Tailwind CSS</span><span>shadcn/ui</span>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-name">AI 人格测试引擎 (Arknights Personality)</div>
+      <div class="project-desc">
+        React 19 + TypeScript 全栈前端。20 道深度剧情题（Framer Motion 动画 + corruption 乱码特效）。欧氏距离五维匹配算法 + Chart.js 雷达图，含 vitest 单元测试。642 行 Canvas 分享引擎支持微信/小红书/B站三平台排版。CP 兼容度卡（18 组配对+双语标签）+ 罗德岛身份档案。i18next 中英双语 + PWA 离线安装。
+      </div>
+      <div class="project-tech">
+        <span>React 19</span><span>TypeScript</span><span>Tailwind CSS</span><span>Chart.js</span><span>Framer Motion</span><span>i18next</span><span>PWA</span><span>Vitest</span>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-name">墨韵 · AI 水墨 (ink-studio)</div>
+      <div class="project-desc">
+        AI 驱动的水墨诗画生成器。用户输入关键词 → DeepSeek 自动生成题画诗 → Canvas 2D 实时渲染（4 种模板 + 印章 + PNG 导出）。SVG 动态水墨场景 + Web Audio 古琴音景。纯静态 GitHub Pages + Cloudflare Worker 边缘计算架构。
+      </div>
+      <div class="project-tech">
+        <span>DeepSeek API</span><span>Cloudflare Workers</span><span>Canvas 2D</span><span>SVG</span><span>Web Audio API</span><span>GitHub Pages</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">实践经历</div>
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-role">独立开发者</span>
+        <span class="exp-period">2023 — 至今</span>
+      </div>
+      <div class="exp-company">个人全栈开发</div>
+      <div class="exp-desc">
+        主导 4 个全栈项目的全流程开发，涵盖 AI 对话推荐、LLM 应用、创意编程工具等领域。独立完成数据库建模、API 设计、前后端开发与云端部署。累计 77+ 源文件、26+ 组件、12+ API 端点的完整产品交付经验。
+      </div>
     </div>
   </div>
 </div>
+<script>
+// Auto-scale page to fit viewport width (for iframe/embedded use)
+(function() {
+  var page = document.getElementById('page');
+  function rescale() {
+    var vw = window.innerWidth || document.documentElement.clientWidth;
+    if (vw < 800) {
+      var scale = Math.min(1, (vw - 16) / 793); // 210mm ≈ 793px at 96dpi
+      page.style.setProperty('--scale', scale);
+    }
+  }
+  rescale();
+  window.addEventListener('resize', rescale);
+})();
+</script>
 </body>
 </html>
