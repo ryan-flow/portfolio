@@ -98,7 +98,7 @@ export const repos: Repo[] = [
     icon: '🤖',
     gradient: 'linear-gradient(135deg, #0c1929, #0a2a3a)',
     image: '/projects/项目截图/炼化自己.jpg',
-    previewUrl: 'https://refineyourself.asia',
+    previewUrl: 'https://refine.ryanflow.cloud',
   },
   {
     name: 'arknights-personality-v2',
