@@ -66,7 +66,7 @@ export const repos: Repo[] = [
     icon: '🏛️',
     gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
     image: '/projects/项目截图/CRS.jpg',
-    previewUrl: 'http://106.55.55.54',
+    previewUrl: 'https://heritage.refineyourself.asia',
   },
   {
     name: 'prd-agent-rag',
@@ -82,7 +82,7 @@ export const repos: Repo[] = [
     icon: '📋',
     gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
     image: '/projects/项目截图/PRD.jpg',
-    previewUrl: 'http://106.55.55.54:8002/',
+    previewUrl: 'https://prd.ryanflow.cloud',
   },
   {
     name: 'refine-yourself',
