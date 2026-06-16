@@ -66,7 +66,7 @@ export const repos: Repo[] = [
     icon: '🏛️',
     gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
     image: '/projects/项目截图/CRS.jpg',
-    previewUrl: 'http://106.55.55.54',
+    previewUrl: 'https://heritage.refineyourself.asia',
   },
   {
     name: 'prd-agent-rag',
@@ -82,7 +82,7 @@ export const repos: Repo[] = [
     icon: '📋',
     gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
     image: '/projects/项目截图/PRD.jpg',
-    previewUrl: 'http://106.55.55.54:8002/',
+    previewUrl: 'https://heritage.refineyourself.asia:8002/',
   },
   {
     name: 'refine-yourself',
@@ -176,10 +176,10 @@ export const githubUser = {
   username: 'ryan-flow',
   displayName: 'Zixuan Wang',
   avatarUrl: 'https://avatars.githubusercontent.com/u/54438040?v=4',
-  bio: '数据科学与大数据专业 · AI 应用开发工程师 · 专注 LLM 集成 + 前端工程 + 推荐系统',
-  tagline: 'AI 应用开发工程师 · LLM 集成 · 前端工程 · 推荐系统',
+  bio: '数据科学与大数据专业 · AI 产品经理 · 专注 LLM 集成 + 前端工程 + 推荐系统',
+  tagline: 'AI 产品经理 · LLM 集成 · 前端工程 · 推荐系统',
   githubUrl: 'https://github.com/ryan-flow',
   email: '2919178903@qq.com',
-  jobTarget: 'AI 应用开发工程师 · 2026 · 广州',
+  jobTarget: 'AI 产品经理 · 2026 · 广州',
   resumeUrl: '/resume.pdf',
 };
