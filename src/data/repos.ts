@@ -82,7 +82,7 @@ export const repos: Repo[] = [
     icon: '📋',
     gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
     image: '/projects/项目截图/PRD.jpg',
-    previewUrl: 'https://heritage.refineyourself.asia:8002/',
+    previewUrl: 'https://prd.ryanflow.cloud',
   },
   {
     name: 'refine-yourself',
