@@ -66,7 +66,7 @@ export const repos: Repo[] = [
     icon: '🏛️',
     gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
     image: '/projects/项目截图/CRS.jpg',
-    previewUrl: 'https://heritage.refineyourself.asia',
+    previewUrl: 'http://106.55.55.54',
   },
   {
     name: 'prd-agent-rag',
@@ -82,7 +82,7 @@ export const repos: Repo[] = [
     icon: '📋',
     gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
     image: '/projects/项目截图/PRD.jpg',
-    previewUrl: 'https://prd.ryanflow.cloud',
+    previewUrl: 'http://106.55.55.54:8002/',
   },
   {
     name: 'refine-yourself',
@@ -98,7 +98,7 @@ export const repos: Repo[] = [
     icon: '🤖',
     gradient: 'linear-gradient(135deg, #0c1929, #0a2a3a)',
     image: '/projects/项目截图/炼化自己.jpg',
-    previewUrl: 'https://refine.ryanflow.cloud',
+    previewUrl: 'https://refineyourself.asia',
   },
   {
     name: 'arknights-personality-v2',
