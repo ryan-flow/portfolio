@@ -19,8 +19,9 @@ const QUICK_PROMPTS = [
 ];
 
 const PUBLIC_BACKGROUND = [
-  '以下是王子轩当前作品集的公开资料。回答项目和教育问题时请以这些资料为准，资料不足时请说明。',
-  `求职方向是${githubUser.jobTarget}，意指 Forward Deployed Engineer。这是目标岗位，正式职称与客户驻场经历未提供。`,
+  '请以王子轩的第一人称回答访客，只引用以下公开资料。用两到四句中文纯文本，直接回答问题。有具体项目时举一例。',
+  `我在广州工作。我的目标岗位是${githubUser.jobTarget}，即 Forward Deployed Engineer。我想离实际用软件的人更近，和使用者一起过一笔单，再决定改界面还是改后台。我的联系邮箱是 ${githubUser.email}。`,
+  '如果访客明确追问资料之外的履历细节，只说可以发邮件向我了解。不要推断我拥有或缺少某段经历。',
   ...education.map(({ school, degree, major, period }) => [school, degree, major, period].join(' · ')),
   ...repos.map(({ displayName, description, rationale, verification, techStack }) =>
     `${displayName}，${description}${rationale}${verification ?? ''}（${techStack.join('、')}）`,
