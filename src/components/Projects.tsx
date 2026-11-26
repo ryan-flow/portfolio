@@ -1,365 +1,170 @@
-import { useRef, useEffect, useState, useCallback } from 'react';
-import { Box, Container, Typography, Chip, IconButton } from '@mui/material';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import { useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { Container, IconButton } from '@mui/material';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import LaunchIcon from '@mui/icons-material/Launch';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import gsap from 'gsap';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-import { repos } from '../data/repos';
+import { repos, type Repo } from '../data/repos';
+import './projects.css';
 
-gsap.registerPlugin(ScrollToPlugin);
+function ProjectVisual({ repo, decorative = false }: { repo: Repo; decorative?: boolean }) {
+  if (repo.image) {
+    return <img src={import.meta.env.BASE_URL + repo.image.replace(/^\//, '')}
+      alt={decorative ? '' : repo.imageAlt} loading="lazy" decoding="async" />;
+  }
+  return (
+    <ol className="project-workflow" aria-label="立减金处理流程">
+      {repo.steps?.map(step => <li key={step}>{step}</li>)}
+    </ol>
+  );
+}
 
-function assetUrl(path: string): string {
-  const base = import.meta.env.BASE_URL ?? '/';
-  return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
+function scrollToProject(card: HTMLElement, stage: HTMLElement, enhanced: boolean, behavior: ScrollBehavior) {
+  const copy = card.querySelector<HTMLElement>('.project-copy');
+  if (!enhanced || !copy) {
+    card.scrollIntoView({ block: 'start', behavior });
+    return;
+  }
+  const stageTop = parseFloat(getComputedStyle(stage).top);
+  const copyTop = window.matchMedia('(min-width: 860px)').matches
+    ? stageTop + Math.max(12, (stage.querySelector('.project-stage-art')!.clientHeight - copy.offsetHeight) / 2)
+    : stageTop + stage.offsetHeight + 20;
+  window.scrollBy({ top: copy.getBoundingClientRect().top - copyTop, behavior });
 }
 
 function Projects(): JSX.Element {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [realIndex, setRealIndex] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const current = repos[active];
 
-  const animation = useRef<gsap.core.Tween | null>(null);
-  const updateDot = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el || animation.current) return;
-    const cards = Array.from(el.querySelectorAll<HTMLElement>('[data-card]'));
-    const center = el.getBoundingClientRect().left + el.clientWidth / 2;
-    let nearest = 0;
-    let best = Infinity;
-    cards.forEach((card, i) => {
-      const box = card.getBoundingClientRect();
-      const distance = Math.abs(box.left + box.width / 2 - center);
-      if (distance < best) {
-        best = distance;
-        nearest = i;
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const stage = stageRef.current;
+    const rail = railRef.current;
+    if (!section || !stage || !rail) return;
+    const cards = Array.from(rail.querySelectorAll<HTMLElement>('[data-card]'));
+    const fits = window.matchMedia('(min-height: 560px)');
+    let near = false;
+    let loading = false;
+    let disposed = false;
+    let restoreMotion: (() => void) | undefined;
+
+    const prepareGallery = () => {
+      if (fits.matches) section.dataset.scrollGallery = 'true';
+      else delete section.dataset.scrollGallery;
+      if (!fits.matches || !near || loading) return;
+      loading = true;
+      // 作品区接近视口时才取滚动插件，同时预载被其他卡片遮住的图片。
+      for (const img of stage.querySelectorAll('img')) img.loading = 'eager';
+      import('./projectsMotion').then(({ mountProjectMotion }) => {
+        if (!disposed) restoreMotion = mountProjectMotion(section, stage, rail, setActive);
+      }).catch(() => {
+        if (!disposed) {
+          fits.removeEventListener('change', prepareGallery);
+          delete section.dataset.scrollGallery;
+        }
+      });
+    };
+    prepareGallery();
+    fits.addEventListener('change', prepareGallery);
+    const prefetch = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      near = true;
+      prepareGallery();
+      prefetch.disconnect();
+    }, { rootMargin: '500px 0px' });
+    prefetch.observe(section);
+
+    const followAnchor = () => {
+      if (window.location.hash === '#projects') {
+        section.scrollIntoView({ block: 'start', behavior: 'instant' });
+        return;
       }
-    });
-    setRealIndex(nearest);
+      const card = cards.find(item => '#' + item.id === window.location.hash);
+      if (card) {
+        setActive(cards.indexOf(card));
+        scrollToProject(card, stage, !!section.dataset.scrollGallery, 'instant');
+      }
+    };
+    // 直接打开作品链接时，浏览器首次定位可能早于 React 创建锚点。
+    const frame = requestAnimationFrame(followAnchor);
+    window.addEventListener('hashchange', followAnchor);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('hashchange', followAnchor);
+      disposed = true;
+      prefetch.disconnect();
+      fits.removeEventListener('change', prepareGallery);
+      restoreMotion?.();
+      delete section.dataset.scrollGallery;
+    };
   }, []);
 
-  const snapTo = useCallback((idx: number) => {
-    const el = scrollRef.current;
-    const target = el?.querySelectorAll<HTMLElement>('[data-card]')[idx];
-    if (!el || !target) return;
-    animation.current?.kill();
-    const offset = target.getBoundingClientRect().left - el.getBoundingClientRect().left + el.scrollLeft;
-    const left = Math.max(0, Math.min(el.scrollWidth - el.clientWidth, offset - (el.clientWidth - target.offsetWidth) / 2));
-    setRealIndex(idx);
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      el.scrollTo({ left, behavior: 'instant' });
-      return;
-    }
-    // 手势打断时间线时交还原生吸附，并校准当前圆点。
-    const finish = () => {
-      animation.current = null;
-      el.style.removeProperty('scroll-snap-type');
-      updateDot();
-    };
-    animation.current = gsap.to(el, {
-      duration: 0.43, ease: 'power2.out',
-      scrollTo: { x: left, autoKill: true },
-      onComplete: finish, onInterrupt: finish,
-    });
-  }, [updateDot]);
+  function goTo(index: number) {
+    const stage = stageRef.current;
+    const target = railRef.current?.querySelectorAll<HTMLElement>('[data-card]')[index];
+    if (!stage || !target) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    scrollToProject(target, stage, !!sectionRef.current?.dataset.scrollGallery, reduced ? 'instant' : 'smooth');
+  }
 
-  const prev = () => snapTo(realIndex - 1);
-  const next = () => snapTo(realIndex + 1);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const interrupt = () => animation.current?.kill();
-    el.addEventListener('scroll', updateDot, { passive: true });
-    el.addEventListener('pointerdown', interrupt, { passive: true });
-    el.addEventListener('wheel', interrupt, { passive: true });
-    const resize = new ResizeObserver(updateDot);
-    resize.observe(el);
-    return () => {
-      resize.disconnect();
-      el.removeEventListener('scroll', updateDot);
-      el.removeEventListener('pointerdown', interrupt);
-      el.removeEventListener('wheel', interrupt);
-      interrupt();
-    };
-  }, [updateDot]);
-
-  const handleKey = (event: React.KeyboardEvent<HTMLElement>) => {
-    const index = { ArrowLeft: realIndex - 1, ArrowRight: realIndex + 1, Home: 0, End: repos.length - 1 }[event.key];
-    if (index === undefined || event.altKey || event.ctrlKey || event.metaKey) return;
+  function handleKey(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
+    const index = { ArrowUp: active - 1, ArrowDown: active + 1, Home: 0, End: repos.length - 1 }[event.key];
+    if (index === undefined || index < 0 || index >= repos.length) return;
     event.preventDefault();
-    const bounded = Math.max(0, Math.min(repos.length - 1, index));
-    const target = event.target;
-    if (target instanceof HTMLElement && target.matches('[data-project-dot]')) {
-      event.currentTarget.querySelectorAll<HTMLButtonElement>('[data-project-dot]')[bounded]?.focus({ preventScroll: true });
-    }
-    snapTo(bounded);
-  };
-
-  const edgeGradient = (side: 'left' | 'right') => ({
-    position: 'absolute' as const,
-    top: 0,
-    bottom: 0,
-    width: { xs: 28, md: 40 },
-    zIndex: 1,
-    pointerEvents: 'none' as const,
-    ...(side === 'left'
-      ? { left: 0, background: 'linear-gradient(to right, rgba(10,10,10,0.5), transparent)' }
-      : { right: 0, background: 'linear-gradient(to left, rgba(10,10,10,0.5), transparent)' }),
-  });
+    goTo(index);
+  }
 
   return (
-    <Box component="section" id="projects" aria-labelledby="projects-title" onKeyDown={handleKey} sx={{ py: { xs: 4, md: 8 } }}>
-      <Container maxWidth={false} sx={{ px: { xs: 0, md: 2 } }}>
-        <Box sx={{ textAlign: 'center', mb: { xs: 2, md: 5 } }} className="reveal">
-          <Typography variant="overline" sx={{ color: '#8ba8c0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
-            PROJECTS
-          </Typography>
-          <Typography variant="h2" id="projects-title" sx={{ fontSize: { xs: '1.6rem', md: '2.2rem' }, fontWeight: 700, mt: 0.5 }}>
-            项目展示
-          </Typography>
-        </Box>
-
-        <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-          <IconButton aria-label="上一个项目" onClick={prev} disabled={realIndex === 0}
-            sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', left: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 44, height: 44, border: '1px solid rgba(143,164,184,0.18)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.22)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&.Mui-disabled': { borderColor: 'rgba(143,164,184,0.06)', backgroundColor: 'rgba(10,10,10,0.25)' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' } }}>
-            <ChevronLeftIcon />
-          </IconButton>
-          <IconButton aria-label="下一个项目" onClick={next} disabled={realIndex === repos.length - 1}
-            sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', right: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 44, height: 44, border: '1px solid rgba(143,164,184,0.18)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.22)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&.Mui-disabled': { borderColor: 'rgba(143,164,184,0.06)', backgroundColor: 'rgba(10,10,10,0.25)' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' } }}>
-            <ChevronRightIcon />
-          </IconButton>
-
-          <Box sx={{ position: 'relative', width: '100%' }}>
-            <Box sx={edgeGradient('left')} />
-            <Box sx={edgeGradient('right')} />
-
-            <Box
-              ref={scrollRef}
-              sx={{
-                display: 'flex',
-                overflowX: 'auto',
-                scrollSnapType: 'x mandatory',
-                WebkitOverflowScrolling: 'touch',
-                '&::-webkit-scrollbar': { display: 'none' },
-                msOverflowStyle: 'none',
-                scrollbarWidth: 'none',
-                px: { xs: '24px', md: 'calc(50vw - 160px)' },
-                gap: { xs: 2.5, md: 3 },
-                alignItems: 'stretch',
-                py: { xs: 1, md: 2 },
-                width: '100%',
-                '& [data-card]': { position: 'relative', zIndex: 2 },
-              }}
-            >
-              {repos.map((repo) => (
-                <Box
-                  key={repo.name}
-                  data-card={repo.name}
-                  component="a"
-                  aria-label={repo.displayName + " · " + repo.linkLabel}
-                  href={repo.previewUrl || repo.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                    flex: '0 0 auto',
-                    width: { xs: 260, md: 320 },
-                    scrollSnapAlign: 'center',
-                    textDecoration: 'none',
-                    borderRadius: '20px',
-                    /* ✨ Apple glass: very light background, gentle blur for depth, no saturate */
-                    background: 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
-                    border: '1px solid rgba(255,255,255,0.10)',
-                    boxShadow: '0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.06)',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
-                    '&:hover': {
-                      border: '1px solid rgba(255,255,255,0.18)',
-                      boxShadow: '0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.10)',
-                    },
-                  }}
-                >
-                  {/* Phone mockup area */}
-                  <Box
-                    sx={{
-                      width: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      pt: { xs: 1.5, md: 2 },
-                      pb: { xs: 0.5, md: 1 },
-                      px: { xs: 1.5, md: 2 },
-                      background: 'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 100%)',
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        width: { xs: '75%', md: 180 },
-                        aspectRatio: '9 / 16',
-                        borderRadius: '20px',
-                        overflow: 'hidden',
-                        border: '2px solid rgba(255,255,255,0.12)',
-                        boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-                        backgroundColor: '#0a0f14',
-                        flexShrink: 0,
-                        position: 'relative',
-                        '&::after': {
-                          content: '""',
-                          position: 'absolute',
-                          inset: 0,
-                          borderRadius: 'inherit',
-                          background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 40%)',
-                          pointerEvents: 'none',
-                        },
-                      }}
-                    >
-                      {repo.image ? (
-                        <Box
-                          component="img"
-                          src={assetUrl(repo.image)}
-                          alt={repo.imageAlt || repo.displayName}
-                          loading="lazy"
-                          decoding="async"
-                          sx={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            objectPosition: 'center top',
-                            display: 'block',
-                          }}
-                        />
-                      ) : (
-                        <Box component="ol" aria-label="微信立减金流程" sx={{
-                          m: 0, px: 2, py: 3, width: '100%', height: '100%', listStyle: 'none',
-                          display: 'grid', alignContent: 'space-evenly', background: 'linear-gradient(155deg, #24363e, #10191e)',
-                        }}>
-                          {repo.steps?.map(step => (
-                            <Box key={step} component="li" sx={{ borderLeft: '2px solid #8fa4b8', pl: 1.25, py: .5, fontSize: '.82rem', color: '#d9e1e7', fontWeight: 600 }}>
-                              {step}
-                            </Box>
-                          ))}
-                        </Box>
-                      )}
-                    </Box>
-                  </Box>
-
-                  {/* Info */}
-                  <Box
-                    sx={{
-                      flex: 1,
-                      p: { xs: 1.2, md: 1.5 },
-                      display: 'flex',
-                      flexDirection: 'column',
-                      overflow: 'hidden',
-                      minWidth: 0,
-                      background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.12) 100%)',
-                    }}
-                  >
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.6, mb: 0.3 }}>
-                      {repo.url ? <GitHubIcon sx={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', flexShrink: 0 }} />
-                        : <LaunchIcon sx={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', flexShrink: 0 }} />}
-                      <Typography
-                        noWrap
-                        sx={{
-                          fontSize: { xs: '0.85rem', md: '0.92rem' },
-                          fontWeight: 700,
-                          color: '#f0ebe0',
-                          lineHeight: 1.3,
-                          textShadow: '0 1px 2px rgba(0,0,0,0.3)',
-                        }}
-                      >
-                        {repo.displayName}
-                      </Typography>
-                    </Box>
-
-                    <Typography
-                      sx={{
-                        color: 'rgba(255,255,255,0.45)',
-                        fontSize: { xs: '0.65rem', md: '0.7rem' },
-                        lineHeight: 1.5,
-                        mb: 0.8,
-                        display: '-webkit-box',
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden',
-                      }}
-                    >
-                      {repo.description}
-                    </Typography>
-
-                    {/* Tech tags — show ALL */}
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 0.8 }}>
-                      {repo.techStack.map((tech) => (
-                        <Chip
-                          key={tech}
-                          label={tech}
-                          size="small"
-                          sx={{
-                            background: 'rgba(255,255,255,0.05)',
-                            color: 'rgba(255,255,255,0.65)',
-                            border: '1px solid rgba(255,255,255,0.08)',
-                            fontSize: '0.55rem',
-                            fontWeight: 600,
-                            height: 18,
-                            '& .MuiChip-label': { px: 0.6 },
-                          }}
-                        />
-                      ))}
-                    </Box>
-
-                    <Box sx={{ display: 'flex', gap: 1.5, mt: 'auto' }}>
-                      {repo.previewUrl && (
-                        <Box
-                          component="span"
-                          sx={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: 0.25,
-                            color: 'rgba(255,255,255,0.55)',
-                            fontSize: '0.6rem',
-                            fontWeight: 600,
-                          }}
-                        >
-                          <LaunchIcon sx={{ fontSize: 11 }} /> {repo.linkLabel}
-                        </Box>
-                      )}
-                      {repo.url && (
-                        <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', gap: .25, color: 'rgba(255,255,255,0.55)', fontSize: '.6rem', fontWeight: 500 }}>
-                          <GitHubIcon sx={{ fontSize: 11 }} /> {repo.linkLabel}
-                        </Box>
-                      )}
-                    </Box>
-                  </Box>
-                </Box>
+    <section id="projects" ref={sectionRef} className="portfolio-projects" aria-labelledby="projects-title">
+      <Container maxWidth="lg">
+        <h2 id="projects-title" className="project-heading">项目展示</h2>
+        <div className="project-gallery">
+          <div ref={stageRef} className="project-stage">
+            <a className="project-stage-art" href={current.previewUrl || current.url} target="_blank" rel="noopener noreferrer"
+              tabIndex={-1} aria-label={current.displayName + ' · ' + current.linkLabel}>
+              {repos.map((repo, i) => (
+                <div key={repo.name} data-project-panel={repo.name} data-current={i === active} aria-hidden="true">
+                  <div className="project-media"><ProjectVisual repo={repo} decorative /></div>
+                </div>
               ))}
-            </Box>
-          </Box>
-        </Box>
-
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1.5, mt: { xs: 2, md: 4 } }}>
-          {repos.map((repo, i) => (
-            <Box key={repo.name} component="button" type="button" data-project-dot="" aria-label={"切换到" + repo.displayName} aria-current={i === realIndex ? "true" : undefined} onClick={() => snapTo(i)}
-              sx={{
-                position: 'relative', border: 0, padding: 0,
-                '&::after': { content: '""', position: 'absolute', inset: '-9px -5px' },
-                '&:focus-visible': { outline: '2px solid #abc3d9', outlineOffset: 3 },
-                width: i === realIndex ? 22 : 6,
-                height: 6,
-                borderRadius: 3,
-                backgroundColor: i === realIndex ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.15)',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                boxShadow: i === realIndex ? '0 0 8px rgba(255,255,255,0.2)' : 'none',
-              }}
-            />
-          ))}
-        </Box>
+            </a>
+            <div className="project-stage-footer">
+              <span>{current.displayName}</span>
+              <div className="project-controls" role="group" aria-label="上下切换项目" onKeyDown={handleKey}>
+                <IconButton aria-label="上一个项目" aria-disabled={active === 0} onClick={() => goTo(active - 1)}>
+                  <KeyboardArrowUpIcon />
+                </IconButton>
+                <IconButton aria-label="下一个项目" aria-disabled={active === repos.length - 1} onClick={() => goTo(active + 1)}>
+                  <KeyboardArrowDownIcon />
+                </IconButton>
+              </div>
+            </div>
+          </div>
+          <div className="project-rail" ref={railRef}>
+            {repos.map(repo => (
+              <article className="project-card" id={'work-' + repo.name} data-card={repo.name} key={repo.name}>
+                <a className="project-inline-art" href={repo.previewUrl || repo.url} target="_blank" rel="noopener noreferrer"
+                  aria-label={repo.displayName + ' · ' + repo.linkLabel}>
+                  <div className="project-media"><ProjectVisual repo={repo} /></div>
+                </a>
+                <div className="project-copy">
+                  <h3>{repo.displayName}</h3>
+                  <p className="project-summary">{repo.description}</p>
+                  <p className="project-note">{repo.rationale}</p>
+                  <ul className="project-stack" aria-label="使用技术">{repo.techStack.map(item => <li key={item}>{item}</li>)}</ul>
+                  <a className="project-link" href={repo.previewUrl || repo.url} target="_blank" rel="noopener noreferrer">
+                    {repo.linkLabel} <LaunchIcon aria-hidden="true" />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
       </Container>
-    </Box>
+    </section>
   );
 }
 

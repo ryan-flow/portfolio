@@ -56,8 +56,8 @@ export const repos: Repo[] = [
     techStack: ['Next.js', 'GSAP', 'TypeScript'],
     previewUrl: 'https://laveda.cc/',
     linkLabel: '访问官网',
-    image: '/projects/work/laveda-mobile.webp',
-    imageAlt: 'LAVEDA 企业官网的移动端工作台',
+    image: '/projects/work/brand-workspace.webp',
+    imageAlt: 'LAVEDA 官网的工程协作工作台、流程画布与工具窗口',
   },
   {
     name: 'finance-oa',
@@ -110,8 +110,8 @@ export const repos: Repo[] = [
     techStack: ['Next.js', 'React', 'TypeScript'],
     previewUrl: 'https://laveda.cc/products/vanby/',
     linkLabel: '查看万表案例',
-    image: '/projects/work/vanby-mobile.webp',
-    imageAlt: '万表网站移动端的腕表主视觉与商品入口',
+    image: '/projects/work/vanby.webp',
+    imageAlt: '万表网站首页的腕表主视觉、品牌导航与咨询入口',
   },
   {
     name: 'heritage-crs-platform',
@@ -121,8 +121,8 @@ export const repos: Repo[] = [
     techStack: ['Python', 'FastAPI', 'React', '微信小程序'],
     url: 'https://github.com/ryan-flow/heritage-crs-platform',
     linkLabel: '查看源码',
-    image: '/projects/项目截图/CRS.jpg',
-    imageAlt: '非遗数字人导览的对话入口',
+    image: '/projects/work/heritage.webp',
+    imageAlt: '非遗数字导览首页上的数字人和开始对话按钮',
   },
 ];
 
