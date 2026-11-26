@@ -1,1 +1,23 @@
-{"rewrites":[{"source":"/api/chat","destination":"http://106.55.55.54:8080/api/chat"},{"source":"/api/chat/(.*)","destination":"http://106.55.55.54:8080/api/chat/$1"}]}
+{
+  "rewrites": [
+    {
+      "source": "/api/chat",
+      "destination": "http://106.55.55.54:8080/api/chat"
+    },
+    {
+      "source": "/api/chat/(.*)",
+      "destination": "http://106.55.55.54:8080/api/chat/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/resume.pdf",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"Zixuan-Wang-FDE-CV.pdf\"; filename*=UTF-8''%E7%8E%8B%E5%AD%90%E8%BD%A9-FDE-%E7%AE%80%E5%8E%86.pdf"
+        }
+      ]
+    }
+  ]
+}
