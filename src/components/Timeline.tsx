@@ -8,33 +8,30 @@ import { education } from '../data/repos';
 const projectCards = [
   {
     icon: <BuildIcon sx={{ fontSize: 22 }} />,
-    title: 'CRS 推荐系统平台',
-    role: '毕业设计 · 优秀毕设',
-    period: '2025',
-    subtitle: 'Python · FastAPI · Neo4j · React',
+    title: '财务归档与凭证回读',
+    role: '业务流程自动化',
+    period: '2026',
     description:
-      '基于 ASK-REC 引擎的多轮对话推荐系统。置信度三维状态机（显式偏好+隐式行为+交互数据）保障推荐质量，五级回退策略确保 100% 回答覆盖。Neo4j 存储 200+ 非遗知识节点，推荐解释可溯源。独立负责数据库建模（16 表）、API 设计（12 端点）、双前端（微信小程序 + React SPA，21 页面）。',
-    techStack: ['Python', 'FastAPI', 'SQLAlchemy', 'Neo4j', 'React', 'TypeScript', '微信小程序'],
+      '把写前查重、附件上传和写后回读分别记录。中断后按台账续办，不确定的匹配留给人工复核。',
+    techStack: ['Python', 'Playwright', 'SQLite'],
   },
   {
     icon: <SmartToyIcon sx={{ fontSize: 22 }} />,
-    title: 'PRD Agent RAG',
-    role: '独立项目',
-    period: '2025',
-    subtitle: 'FastAPI · PydanticAI · ChromaDB · DeepSeek',
+    title: '投流助手版本交付',
+    role: '桌面应用发行',
+    period: '2026',
     description:
-      'AI 驱动产品需求文档生成系统。FastAPI + PydanticAI Agent 编排，ChromaDB 向量知识库内置 JTBD 框架、RICE 排序等产品方法论。WebSocket 流式对话 + Markdown 实时渲染，JWT 邮箱注册登录。双域名部署（Zeabur 后端 + Vercel 前端）。',
-    techStack: ['FastAPI', 'PydanticAI', 'ChromaDB', 'DeepSeek', 'React 18', 'WebSocket', 'JWT'],
+      'Windows 会员版在两台设备验证升级，检查原数据、账号权限、正常业务页面和重启。',
+    techStack: ['Electron', 'React', 'Node.js'],
   },
   {
     icon: <BrushIcon sx={{ fontSize: 22 }} />,
-    title: 'AI 人格克隆 · 炼化自己',
-    role: '独立项目',
-    period: '2025',
-    subtitle: 'Next.js 16 · TypeScript · Supabase · DeepSeek',
+    title: 'LAVEDA 官网交互与发布',
+    role: '网站设计与开发',
+    period: '2026',
     description:
-      '完整 SaaS 产品（77 源文件 / 26 组件 / 5 API）：上传聊天记录 → DeepSeek 提炼五层人格画像 → 生成分享链接 → 公开对话。预置 12 个名人角色，Supabase RLS 安全策略，Vercel OG Image 11 种主题社交卡片渲染。独立域名 refineyourself.asia。',
-    techStack: ['Next.js 16', 'TypeScript', 'DeepSeek API', 'Supabase', 'PostgreSQL', 'Tailwind CSS 4', 'shadcn/ui'],
+      '实现随原生滚动归位的字标。发布时核对静态资源、桌面和手机视口，并保留减少动态的读法。',
+    techStack: ['Next.js', 'TypeScript', 'GSAP'],
   },
 ];
 
@@ -47,7 +44,7 @@ function Timeline(): JSX.Element {
             variant="overline"
             sx={{ color: '#8ba8c0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}
           >
-            BACKGROUND
+            工作与学习
           </Typography>
           <Typography variant="h2" sx={{ fontSize: { xs: '1.6rem', md: '2rem' }, fontWeight: 700, mt: 0.5 }}>
             教育背景 / 项目经历

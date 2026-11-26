@@ -5,7 +5,7 @@ function Footer(): JSX.Element {
     <Box component="footer" sx={{ py: 4, borderTop: '1px solid rgba(255,255,255,0.04)' }}>
       <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 1.5 }}>
-          {['Vite', 'React', 'MUI', 'Tailwind'].map((t) => (
+          {['Vite 8', 'React', 'MUI', 'Tailwind', 'GSAP'].map((t) => (
             <Typography key={t} variant="caption" sx={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.6rem', px: 1, py: 0.3, border: '1px solid rgba(255,255,255,0.04)', borderRadius: 1 }}>
               {t}
             </Typography>

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Box, Typography, IconButton, TextField, CircularProgress } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import { education, repos } from '../data/repos';
 
 const WORKER_URL = '/api/chat';
 
@@ -10,12 +11,20 @@ interface Message {
 }
 
 const QUICK_PROMPTS = [
-  { label: '最有挑战的项目', prompt: '你做过的项目里，技术上最有挑战的是哪个？难在哪？' },
-  { label: '为什么选 AI 方向', prompt: '你为什么选择 AI 应用开发作为求职方向？' },
-  { label: '一个人怎么做的', prompt: '这些项目是你一个人完成的吗？遇到不会的技术怎么解决？' },
-  { label: '成本控制', prompt: '你的项目在 API 调用和部署上怎么控制成本的？' },
-  { label: '和别人有什么不同', prompt: '跟同届应届生比，你觉得自己最大的优势是什么？' },
+  { label: '近期项目', prompt: '你近期做了哪些项目？各自解决什么问题？' },
+  { label: '财务流程自动化', prompt: '财务 OA 收集助手怎样关联审批资料和凭证附件？' },
+  { label: '网站与桌面应用', prompt: '你做过哪些网站和桌面应用？各自服务什么场景？' },
+  { label: '常用技术', prompt: '你常用哪些技术？分别用在了哪些项目？' },
+  { label: '本科与毕业设计', prompt: '你的本科背景是什么？毕业设计做了什么？' },
 ];
+
+const PUBLIC_BACKGROUND = [
+  '以下是王子轩当前作品集的公开资料。回答项目和教育问题时请以这些资料为准，资料不足时请说明。',
+  ...education.map(({ school, degree, major, period }) => [school, degree, major, period].join(' · ')),
+  ...repos.map(({ displayName, description, rationale, techStack }) =>
+    `${displayName}，${description}${rationale}（${techStack.join('、')}）`,
+  ),
+].join('\n');
 
 function AiChat(): JSX.Element {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -76,7 +85,9 @@ function AiChat(): JSX.Element {
       const res = await fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: trimmed }),
+        body: JSON.stringify({
+          message: `${PUBLIC_BACKGROUND}\n\n访客提问\n${trimmed}`,
+        }),
         signal: controller.signal,
       });
 
@@ -113,7 +124,8 @@ function AiChat(): JSX.Element {
   }, [input, loading, parseSSEStream]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    const { isComposing, keyCode } = e.nativeEvent;
+    if (e.key === 'Enter' && !e.shiftKey && !isComposing && keyCode !== 229) {
       e.preventDefault();
       sendMessage();
     }
@@ -227,7 +239,7 @@ function AiChat(): JSX.Element {
                     letterSpacing: '-0.01em',
                   }}
                 >
-                  你好，随便问
+                  你好，想了解什么？
                 </Typography>
                 <Typography
                   sx={{
@@ -236,7 +248,7 @@ function AiChat(): JSX.Element {
                     lineHeight: 1.6,
                   }}
                 >
-                  关于项目经历、技术选型与求职方向
+                  可以问我的工作项目、常用技术或本科背景
                 </Typography>
               </Box>
 

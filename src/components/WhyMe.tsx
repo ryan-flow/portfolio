@@ -2,22 +2,22 @@ import { Box, Container, Typography } from '@mui/material';
 
 const highlights = [
   {
-    num: '4',
-    unit: '个',
-    label: '全栈项目独立交付',
-    desc: '从数据库建模到前端部署，端到端闭环',
+    num: '证据',
+    unit: '链',
+    label: '模型输出可追溯',
+    desc: 'GEO 保存模型回答与引用，便于回查每次检测结果。',
   },
   {
-    num: '0→1',
+    num: '幂等',
     unit: '',
-    label: 'AI 产品落地经验',
-    desc: '不是 demo，是能用的产品',
+    label: '账单可以安全重跑',
+    desc: '立减金核销用账单校验与幂等归并，补齐遗漏记录。',
   },
   {
-    num: '33K',
-    unit: '+',
-    label: '行代码',
-    desc: 'Python + TypeScript 双栈，持续产出',
+    num: '边界',
+    unit: '',
+    label: '说明验收覆盖范围',
+    desc: '交付记录区分公开展示、内测，以及实际业务验收。',
   },
 ];
 
@@ -42,7 +42,7 @@ function WhyMe(): JSX.Element {
               fontFamily: '"SF Mono", "Fira Code", monospace',
             }}
           >
-            WHY ME
+            开发与交付
           </Typography>
           <Typography
             variant="h2"
@@ -53,7 +53,7 @@ function WhyMe(): JSX.Element {
               color: '#e8e0d0',
             }}
           >
-            同届生里，我能多做这些
+            工作方法
           </Typography>
         </Box>
 

@@ -3,14 +3,13 @@ export interface Repo {
   displayName: string;
   description: string;
   rationale: string;
-  language: string;
-  stars: number;
-  url: string;
-  previewUrl?: string;
   techStack: string[];
-  icon: string;
-  gradient: string;
+  url?: string;
+  previewUrl?: string;
+  linkLabel: string;
   image?: string;
+  imageAlt?: string;
+  steps?: string[];
 }
 
 export interface Education {
@@ -31,106 +30,99 @@ export interface Experience {
 
 export const education: Education[] = [
   {
-    school: '数据科学与大数据技术',
+    school: '仲恺农业工程学院',
     degree: '本科',
-    major: '数据科学方向',
-    period: '2022 - 2026',
-    description:
-      '主修课程：数据科学导论、机器学习、数据库系统原理、软件工程、Python 程序设计、大数据技术。毕业设计：基于 CRS 对话推荐与 Neo4j 知识图谱的非遗文化传播系统（优秀毕设）。',
+    major: '数据科学与大数据技术',
+    period: '2022.09 – 2026.06',
   },
 ];
 
 export const experiences: Experience[] = [
   {
-    company: '个人全栈开发',
-    role: '独立开发者',
-    period: '2023 - 至今',
-    description:
-      '主导 4 个全栈项目的全流程开发，涵盖 AI 对话推荐、LLM 应用、创意编程工具等领域。独立完成数据库建模、API 设计、前后端开发与云端部署。累计 77+ 源文件、26+ 组件、12+ API 端点的完整产品交付经验。',
-    techStack: ['React', 'TypeScript', 'Python', 'FastAPI', 'Next.js', 'Supabase', 'Neo4j'],
+    company: '广州',
+    role: 'AI 应用与全栈开发',
+    period: '目前',
+    description: '开发企业网站、财务自动化流程和桌面业务工具。',
+    techStack: ['Python', 'TypeScript', 'React', 'PostgreSQL'],
   },
 ];
 
 export const repos: Repo[] = [
   {
+    name: 'laveda',
+    displayName: 'LAVEDA 企业官网',
+    description: '用一张可以滚动探索的工作台，介绍公司的 AI 服务和产品。',
+    rationale: '我负责官网设计与前端开发。桌面端把字标归位和工作台换屏绑定在同一段滚动上，触屏端收起透视效果。',
+    techStack: ['Next.js', 'GSAP', 'TypeScript'],
+    previewUrl: 'https://laveda.cc/',
+    linkLabel: '访问官网',
+    image: '/projects/work/laveda-mobile.webp',
+    imageAlt: 'LAVEDA 企业官网的移动端工作台',
+  },
+  {
+    name: 'finance-oa',
+    displayName: '财务 OA 收集助手',
+    description: '把多套 OA 的审批资料与金蝶凭证关联，供财务人员归档和复核。',
+    rationale: '上传前检查已有附件，写入后重新读取对应凭证。中断的任务可以接着处理，匹配不上的单据交给人工复核。',
+    techStack: ['Python', 'Playwright', 'SQLite'],
+    previewUrl: 'https://laveda.cc/products/oa/#oa-case',
+    linkLabel: '查看产品案例',
+    image: '/projects/work/oa.webp',
+    imageAlt: '财务助手按来源列出审批资料、附件和处理状态',
+  },
+  {
+    name: 'ad-assistant',
+    displayName: 'LAVEDA AI 投流助手',
+    description: '把选品、预算比较和投后复盘放进同一个桌面应用。',
+    rationale: '账号与会员授权分开处理。Windows 和 Mac 都有受邀测试包，Windows 会员版在两台业务设备上验证了升级和重启。',
+    techStack: ['Electron', 'React', 'Node.js'],
+    previewUrl: 'https://laveda.cc/touliu/',
+    linkLabel: '查看投流助手',
+    image: '/projects/work/marketing.webp',
+    imageAlt: '投放方案中的预算与预测对比',
+  },
+  {
+    name: 'geo',
+    displayName: 'GEO 品牌曝光检测',
+    description: '从买家的问题出发，查看 AI 回答有没有提到品牌、推荐了什么、引用了哪些来源。',
+    rationale: '检测问题可以修改，后台任务分别请求模型并保存回答和引用。内测覆盖了 DeepSeek 批量任务与豆包单题。',
+    techStack: ['Next.js', 'Fastify', 'PostgreSQL', 'pg-boss'],
+    previewUrl: 'https://laveda.cc/products/geo/',
+    linkLabel: '查看 GEO 案例',
+    image: '/projects/work/geo.webp',
+    imageAlt: 'GEO 检测页的模型选择与品牌需求表单',
+  },
+  {
+    name: 'voucher',
+    displayName: '微信立减金中台',
+    description: '运营配置活动并发券，财务从同一批订单核对核销和账单。',
+    rationale: '批次同步在多实例间互斥并限速。核销回调验证签名，再通过补拉日账单和去重处理遗漏记录。',
+    techStack: ['Java 17', 'Spring Boot', 'Redis', 'Quartz'],
+    previewUrl: 'https://laveda.cc/products/coupon/',
+    linkLabel: '查看立减金案例',
+    steps: ['同步券批次', '活动发券', '核销回调', '账单核对'],
+  },
+  {
+    name: 'vanby',
+    displayName: '万表 Vanby 网站案例',
+    description: '为公司官网制作腕表客户案例，展示桌面和手机上的目录与咨询入口。',
+    rationale: '分别选取桌面和手机画面，首页卡片强调腕表主视觉，案例详情保留品牌导航和顾问入口。',
+    techStack: ['Next.js', 'React', 'TypeScript'],
+    previewUrl: 'https://laveda.cc/products/vanby/',
+    linkLabel: '查看万表案例',
+    image: '/projects/work/vanby-mobile.webp',
+    imageAlt: '万表网站移动端的腕表主视觉与商品入口',
+  },
+  {
     name: 'heritage-crs-platform',
-    displayName: 'CRS 推荐系统平台',
-    description:
-      '毕设 | ASK-REC 对话推荐引擎 + Neo4j 知识图谱 + 双前端（小程序/React Web）全栈落地。',
-    rationale:
-      '[全栈系统·毕设] 基于 ASK-REC 引擎的多轮对话推荐，置信度三维状态机（显式偏好+隐式行为+交互数据）保障推荐质量。五级回退策略（本地KB→豆包LLM→网络搜索）确保100%回答覆盖。Neo4j 存储 200+ 非遗知识节点，推荐解释可溯源。独立负责数据库建模（16表）、API 设计（12端点）、双前端（小程序 + React SPA，21页面）。',
-    language: 'Python',
-    stars: 0,
+    displayName: '非遗文化智能导览平台',
+    description: '毕业设计。访客和数字人对话，按兴趣找到相关的非遗内容和活动。',
+    rationale: '系统结合显式偏好、浏览记录和对话语义，决定何时继续追问、何时直接推荐。Web 和微信小程序共用后端。',
+    techStack: ['Python', 'FastAPI', 'React', '微信小程序'],
     url: 'https://github.com/ryan-flow/heritage-crs-platform',
-    techStack: ['Python', 'FastAPI', 'SQLAlchemy', 'Neo4j', 'React', 'TypeScript', '微信小程序'],
-    icon: '🏛️',
-    gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
+    linkLabel: '查看源码',
     image: '/projects/项目截图/CRS.jpg',
-    previewUrl: 'https://heritage.refineyourself.asia',
-  },
-  {
-    name: 'prd-agent-rag',
-    displayName: 'PRD Agent RAG',
-    description:
-      'AI 驱动产品需求文档生成——输入粗糙产品想法 → Agent 追问关键问题 + RAG 检索方法论 → 完整结构化 PRD。',
-    rationale:
-      '[RAG+Agent] FastAPI + PydanticAI Agent 编排，ChromaDB 向量知识库内置 JTBD 框架、RICE 排序等产品方法论。WebSocket 流式对话 + Markdown 实时渲染。JWT 邮箱注册登录，双域名部署（Zeabur 后端 + Vercel 前端）。独立域名 prd.ryanflow.cloud。',
-    language: 'Python',
-    stars: 0,
-    url: 'https://github.com/ryan-flow/prd-agent-rag',
-    techStack: ['FastAPI', 'PydanticAI', 'ChromaDB', 'DeepSeek', 'React', 'WebSocket', 'JWT'],
-    icon: '📋',
-    gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
-    image: '/projects/项目截图/PRD.jpg',
-    previewUrl: 'https://prd.ryanflow.cloud',
-  },
-  {
-    name: 'refine-yourself',
-    displayName: 'AI 人格克隆',
-    description:
-      '上传聊天记录 → DeepSeek AI 分析 → 五层人格画像 → 可对话的数字分身。Next.js 16 + PostgreSQL 全栈产品。',
-    rationale:
-      '[LLM应用] 完整 SaaS 产品流程（77 源文件/26 组件/5 API）：上传 .txt → DeepSeek 提炼五层人格（身份/行为规则/表达风格/决策模式/对话样本）→ 生成分享链接 → 公开对话。预置 12 个名人角色（Elon Musk/罗翔/李白等）。PostgreSQL + RLS 安全策略，原始数据即用即弃。Vercel OG Image 11 种主题社交卡片渲染。独立域名 refineyourself.asia。',
-    language: 'TypeScript',
-    stars: 0,
-    url: 'https://github.com/ryan-flow/refine-yourself',
-    techStack: ['Next.js', 'TypeScript', 'DeepSeek', 'PostgreSQL', 'Tailwind CSS', 'shadcn/ui'],
-    icon: '🤖',
-    gradient: 'linear-gradient(135deg, #0c1929, #0a2a3a)',
-    image: '/projects/项目截图/炼化自己.jpg',
-    previewUrl: 'https://refineyourself.asia',
-  },
-  {
-    name: 'arknights-personality-v2',
-    displayName: 'AI 人格测试引擎',
-    description:
-      '沉浸式人格评测 × 明日方舟世界观——20 道战术情境题 → 5 维雷达图 → 16 位干员匹配。',
-    rationale:
-      '[工程实践] React 19 + TypeScript 全栈前端，20 道深度剧情题（Framer Motion 动画 + corruption 乱码特效）。欧氏距离五维匹配算法 + Chart.js 雷达图，含 vitest 单元测试。642 行 Canvas 分享引擎支持微信/小红书/B站三平台排版。CP 兼容度卡（18 组配对+双语标签）+ 罗德岛身份档案。i18next 中英双语 + PWA 离线安装（v3.0）。',
-    language: 'TypeScript',
-    stars: 1,
-    url: 'https://github.com/ryan-flow/arknights-personality-v2',
-    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Chart.js', 'Framer Motion', 'i18next', 'Vitest'],
-    icon: '🎮',
-    gradient: 'linear-gradient(135deg, #0c1929, #1a1a3a)',
-    image: '/projects/项目截图/人格测试.jpg',
-    previewUrl: 'https://ryan-flow.github.io/arknights-personality-v2/',
-  },
-  {
-    name: 'ink-studio',
-    displayName: '墨韵 · AI 水墨',
-    description:
-      'AI 驱动的水墨诗画生成器——输入关键词 → DeepSeek 创作诗句 → Canvas 实时渲染为水墨画。',
-    rationale:
-      '[AI创意] Cloudflare Worker 代理 DeepSeek API，用户输入关键词（如「秋思」）→ AI 自动生成题画诗 → Canvas 2D 实时渲染（4 种模板 + 印章 + PNG 导出）。SVG 动态水墨场景 + Web Audio 古琴音景。纯静态 GitHub Pages + Worker 边缘计算架构。',
-    language: 'HTML',
-    stars: 0,
-    url: 'https://github.com/ryan-flow/ink-studio',
-    techStack: ['DeepSeek', 'Cloudflare Workers', 'Canvas 2D', 'Web Audio API', 'GitHub Pages'],
-    icon: '🎨',
-    gradient: 'linear-gradient(135deg, #0c1929, #2a1a1a)',
-    image: '/projects/项目截图/墨韵ink.jpg',
-    previewUrl: 'https://ryan-flow.github.io/ink-studio/',
+    imageAlt: '非遗数字人导览的对话入口',
   },
 ];
 
@@ -176,10 +168,10 @@ export const githubUser = {
   username: 'ryan-flow',
   displayName: 'Zixuan Wang',
   avatarUrl: 'https://avatars.githubusercontent.com/u/54438040?v=4',
-  bio: '数据科学与大数据专业 · AI 产品经理 · 专注 LLM 集成 + 前端工程 + 推荐系统',
-  tagline: 'AI 产品经理 · LLM 集成 · 前端工程 · 推荐系统',
+  bio: '在广州做 AI 应用、企业网站与业务自动化。',
+  tagline: 'AI 应用开发 · 全栈工程',
   githubUrl: 'https://github.com/ryan-flow',
   email: '2919178903@qq.com',
-  jobTarget: 'AI 产品经理 · 2026 · 广州',
+  jobTarget: 'AI 应用与全栈开发 · 广州',
   resumeUrl: '/resume.pdf',
 };

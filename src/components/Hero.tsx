@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { Box, Container, Typography, Button, Chip, Stack } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { githubUser, repos } from '../data/repos';
+import { githubUser } from '../data/repos';
 
 const name = githubUser.displayName;
 const chineseName = '王子轩';
-const tagline = 'LLM 应用 · 全栈开发 · 推荐系统';
-const jobTarget = githubUser.jobTarget;
-const tags = ['LLM 应用', '推荐系统', '全栈交付'];
+const tagline = '企业 AI 应用 · 全栈开发';
+const location = '目前在广州工作';
+const tags = ['流程自动化', '桌面工具', '企业网站'];
 
 function Hero(): JSX.Element {
   const [nameText, setNameText] = useState('');
@@ -164,7 +164,7 @@ function Hero(): JSX.Element {
               letterSpacing: '0.03em',
             }}
           >
-            {repos.length} 个项目 · 全栈闭环 · 可部署
+            参与需求梳理、开发与上线验收
           </Typography>
 
           <Box
@@ -189,7 +189,7 @@ function Hero(): JSX.Element {
                 letterSpacing: '0.02em',
               }}
             >
-              {jobTarget}
+              {location}
             </Typography>
           </Box>
 

@@ -2,19 +2,19 @@ import { Box, Container, Typography, Grid2 as Grid } from '@mui/material';
 
 const directions = [
   {
-    num: '01',
-    title: 'AI Agent 开发',
-    desc: '熟悉 LangChain、ReAct 框架与 AI 编程工具链，具备 AI 应用从原型设计到生产落地的全链路能力。',
+    topic: '模型',
+    title: '模型接入',
+    desc: '连接模型 API，用异步任务保存处理进度、回答与引用。',
   },
   {
-    num: '02',
-    title: '全栈开发',
-    desc: 'React + FastAPI + SQLAlchemy 全栈开发，微信小程序生态，从数据库到前端的端到端实现。',
+    topic: '应用',
+    title: '网页与桌面端',
+    desc: '用 React 和 Next.js 构建网站，用 Electron 交付桌面工具。',
   },
   {
-    num: '03',
-    title: '推荐系统与数据工程',
-    desc: 'CRS 对话推荐引擎、知识图谱构建、五级回退策略问答——完整的数据驱动推荐系统实践经验。',
+    topic: '流程',
+    title: '数据采集与归档',
+    desc: '用 Python、Playwright 和 SQLite 处理审批资料、附件和归档台账。',
   },
 ];
 
@@ -30,7 +30,7 @@ function About(): JSX.Element {
                 variant="overline"
                 sx={{ color: '#8ba8c0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace', mb: 1, display: 'block' }}
               >
-                ABOUT
+                关于我
               </Typography>
               <Typography
                 variant="h2"
@@ -40,19 +40,19 @@ function About(): JSX.Element {
                   mb: 2,
                 }}
               >
-                全栈构建
+                企业应用
                 <Box component="span" sx={{ background: 'linear-gradient(135deg, #8fa4b8, #a8bcc8)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  {' '}· AI 驱动
+                  {' '}与系统集成
                 </Box>
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9, mb: 2 }}>
-                2026 届本科应届生，目标岗位 AI 应用开发工程师。独立交付 5 个全栈项目，覆盖 LLM 应用、对话推荐系统与创意编程工具。
+                我在广州做软件，参与企业网站、业务工具和桌面应用的开发与交付。
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9, mb: 2 }}>
-                技术栈：Python + TypeScript 双栈，累计 33K+ 行代码。毕设 CRS 推荐系统获「优秀毕设」，独立完成 16 表数据库建模、12 个 API 端点、双前端（微信小程序 + React SPA）。
+                开发时会先理清使用者的操作步骤、已有数据和业务规则，再确定界面及接口。
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9 }}>
-                擅长用 AI 工具加速开发流程：Claude Code 辅助编码、DeepSeek API 集成、Agentic Engineering 工作流。每个项目都独立部署上线，不是 demo，是能用的产品。
+                工作之外，我喜欢游戏，也对 AI 人格和对话角色感兴趣。
               </Typography>
             </Box>
           </Grid>
@@ -86,10 +86,10 @@ function About(): JSX.Element {
                 }}
               >
                 <Typography variant="body2" sx={{ position: 'relative', zIndex: 1, color: '#8ba8c0', fontFamily: '"SF Mono", "Fira Code", monospace', fontSize: '0.7rem', mb: 0.5 }}>
-                  PHILOSOPHY
+                  项目使用的语言
                 </Typography>
                 <Typography variant="h4" sx={{ position: 'relative', zIndex: 1, fontSize: '1rem', fontWeight: 600, color: 'text.primary', lineHeight: 1.7 }}>
-                  用 AI 加速构建 · 追求全栈闭环 · 持续交付
+                  TypeScript · Python · Java
                 </Typography>
               </Box>
 
@@ -124,7 +124,7 @@ function About(): JSX.Element {
                 >
                   <Box sx={{ position: 'relative', zIndex: 1 }}>
                     <Typography variant="body2" sx={{ color: '#8ba8c0', fontFamily: 'monospace', fontSize: '0.75rem', mb: 1 }}>
-                      {dir.num}
+                      {dir.topic}
                     </Typography>
                     <Typography variant="h4" sx={{ fontSize: '1rem', fontWeight: 600, mb: 1, color: 'text.primary' }}>
                       {dir.title}
