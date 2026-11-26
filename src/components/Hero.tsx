@@ -6,9 +6,13 @@ import { githubUser } from '../data/repos';
 
 const name = githubUser.displayName;
 const chineseName = '王子轩';
-const tagline = '企业 AI 应用 · 全栈开发';
+const tagline = '求职方向 · ' + githubUser.jobTarget;
 const location = '目前在广州工作';
-const tags = ['流程自动化', '桌面工具', '企业网站'];
+const tags = [
+  { label: '财务归档', project: 'finance-oa' },
+  { label: '投放预算', project: 'ad-assistant' },
+  { label: 'AI 品牌检测', project: 'geo' },
+];
 
 function Hero(): JSX.Element {
   const [nameText, setNameText] = useState('');
@@ -147,8 +151,8 @@ function Hero(): JSX.Element {
           transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
         }}>
           <Stack direction="row" spacing={1} sx={{ mb: 3, justifyContent: 'center', flexWrap: 'wrap', gap: 0.5 }}>
-            {tags.map((tag) => (
-              <Chip key={tag} label={tag} size="small" sx={{
+            {tags.map(({ label, project }) => (
+              <Chip key={project} label={label} component="a" href={'#work-' + project} clickable size="small" sx={{
                 backgroundColor: 'rgba(143, 164, 184, 0.08)', color: '#a0b8cc',
                 border: '1px solid rgba(143, 164, 184, 0.18)', fontWeight: 600, fontSize: '0.8rem', height: 26,
               }} />
@@ -164,7 +168,7 @@ function Hero(): JSX.Element {
               letterSpacing: '0.03em',
             }}
           >
-            参与需求梳理、开发与上线验收
+            {githubUser.bio}
           </Typography>
 
           <Box
@@ -195,13 +199,13 @@ function Hero(): JSX.Element {
 
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Button variant="contained" size="large" endIcon={<KeyboardArrowDownIcon />}
-              href="#ai-chat"
+              href="#projects"
               sx={{ background: 'linear-gradient(135deg, #8fa4b8, #a8bcc8)', color: '#0a0a0a', fontWeight: 700, px: 4,
                 '&:hover': { background: 'linear-gradient(135deg, #a0b8cc, #b8d0dc)', transform: 'translateY(-2px)', boxShadow: '0 8px 24px rgba(143, 164, 184, 0.30)' },
                 transition: 'all 0.3s ease',
               }}
             >
-              和 AI 聊聊
+              看项目案例
             </Button>
             <Button variant="outlined" size="large" startIcon={<GitHubIcon />}
               href={githubUser.githubUrl} target="_blank" rel="noopener noreferrer"

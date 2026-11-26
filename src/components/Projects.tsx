@@ -120,7 +120,7 @@ function Projects(): JSX.Element {
   return (
     <section id="projects" ref={sectionRef} className="portfolio-projects" aria-labelledby="projects-title">
       <Container maxWidth="lg">
-        <h2 id="projects-title" className="project-heading">项目展示</h2>
+        <h2 id="projects-title" className="project-heading">项目案例</h2>
         <div className="project-gallery">
           <div ref={stageRef} className="project-stage">
             <a className="project-stage-art" href={current.previewUrl || current.url} target="_blank" rel="noopener noreferrer"
@@ -154,6 +154,7 @@ function Projects(): JSX.Element {
                   <h3>{repo.displayName}</h3>
                   <p className="project-summary">{repo.description}</p>
                   <p className="project-note">{repo.rationale}</p>
+                  {repo.verification && <p className="project-verification">{repo.verification}</p>}
                   <ul className="project-stack" aria-label="使用技术">{repo.techStack.map(item => <li key={item}>{item}</li>)}</ul>
                   <a className="project-link" href={repo.previewUrl || repo.url} target="_blank" rel="noopener noreferrer">
                     {repo.linkLabel} <LaunchIcon aria-hidden="true" />

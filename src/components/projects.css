@@ -86,6 +86,14 @@
 .project-summary, .project-note { margin: 10px 0 0; line-height: 1.72; }
 .project-summary { color: #dedbd5; }
 .project-note { color: #afaead; font-size: .92rem; }
+.project-verification {
+  margin: 13px 0 0;
+  padding-inline-start: 10px;
+  border-inline-start: 2px solid #718998;
+  color: #c2d2dc;
+  font-size: .85rem;
+  line-height: 1.65;
+}
 .project-stack {
   display: flex;
   flex-wrap: wrap;

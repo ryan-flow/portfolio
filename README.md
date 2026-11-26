@@ -1,63 +1,38 @@
-# 王子轩 · AI 应用开发工程师 · 求职作品集
+# 王子轩 · 求职作品集
 
-<p align="center">
-  <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black" />
-  <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" />
-  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwind-css&logoColor=white" />
-  <img src="https://img.shields.io/badge/MUI-007FFF?style=flat-square&logo=mui&logoColor=white" />
-</p>
+我在广州做全栈开发，求职方向是前线部署全栈工程师（Forward Deployed Engineer）。作品集记录了我怎样和财务、投手及品牌运营一起把业务规则做进软件，以及交付后怎样核对结果。
 
-AI 应用开发工程师 · 专注 LLM 集成 + 前端工程 + 推荐系统 · 2026 届应届生 · 广州
+[个人站](https://ryanflow.cloud/) · [网页版简历](https://ryanflow.cloud/resume.html) · [PDF 简历](https://ryanflow.cloud/resume.pdf)
 
-🔗 **Live**: [ryanflow.cloud](https://ryanflow.cloud)
+## 工作作品
 
----
+| 项目 | 我负责的工作 |
+| --- | --- |
+| [财务 OA 收集助手](https://ryanflow.cloud/#work-finance-oa) | 多套 OA 归档、金蝶凭证匹配及附件上传后的回读校验 |
+| [LAVEDA AI 投流助手](https://ryanflow.cloud/#work-ad-assistant) | 锁定商品预算、比较分配方案及桌面端投期保存 |
+| [GEO 品牌曝光检测](https://ryanflow.cloud/#work-geo) | 多模型任务队列、按题保存原回答与引用 |
+| [微信立减金中台](https://ryanflow.cloud/#work-voucher) | 同步微信券批次，以核销回调和次日账单对账 |
+| [LAVEDA 企业官网](https://ryanflow.cloud/#work-laveda) | 官网设计、GSAP 滚动交互和移动端布局 |
+| [万表 Vanby 官网案例页](https://ryanflow.cloud/#work-vanby) | 产品图的选取、响应式展示及案例页制作 |
 
-## ✨ 设计特点
+本科毕业设计是[非遗文化智能导览平台](https://github.com/ryan-flow/heritage-crs-platform)，包含对话推荐、网页和微信小程序。
 
-- **深色主题** — 沉浸式暗色视觉，低疲劳浏览
-- **响应式布局** — 桌面 / 平板 / 手机三端适配
-- **MUI + Tailwind** — Material Design 组件 + 原子化样式
-- **AI 对话** — 集成 DeepSeek AI，访客可直接与 AI 聊天了解项目
-- **Vercel 部署** — 前端 + 后端 API 全部部署在 Vercel
+## 本地开发
 
-## 📁 展示项目
+使用 Node.js 24，从仓库根目录运行以下命令。
 
-| 项目 | 说明 | 技术栈 |
-|------|------|--------|
-| [CRS 推荐系统平台](https://github.com/ryan-flow/heritage-crs-platform) | CRS 对话推荐 + Neo4j 知识图谱 + AI 数字人 | Python, FastAPI, React, Neo4j |
-| [PRD Agent RAG](https://github.com/ryan-flow/prd-agent-rag) | RAG + Agent 驱动的产品需求文档生成 | FastAPI, PydanticAI, ChromaDB, DeepSeek |
-| [AI 人格克隆](https://github.com/ryan-flow/refine-yourself) | DeepSeek 驱动的五层人格画像与数字分身 | Next.js, Supabase, DeepSeek |
-| [AI 人格测试引擎](https://github.com/ryan-flow/arknights-personality-v2) | 沉浸式人格评测 × 世界观叙事 | React, Chart.js, Framer Motion, PWA |
-| [墨韵 · AI 水墨](https://github.com/ryan-flow/ink-studio) | AI 驱动的水墨诗画生成器 | Canvas, Cloudflare Workers, DeepSeek |
-
-## 🛠️ 技术栈
-
-- **前端**: React 18 + TypeScript + Vite + Tailwind CSS + MUI
-- **后端**: FastAPI + DeepSeek API
-- **AI**: DeepSeek V4 Flash（流式 SSE 响应）
-- **部署**: Vercel（前端 + 后端 API）
-
-## 🚀 本地开发
-
-```bash
-git clone https://github.com/ryan-flow/portfolio.git
-cd portfolio
-npm install
+```sh
+npm ci
 npm run dev
 ```
 
-## 📦 构建部署
+项目使用 React、TypeScript、Vite、MUI 和 GSAP。项目资料在 `src/data/repos.ts`，纵向作品展示在 `src/components/Projects.tsx`。
 
-```bash
+## 构建与部署
+
+```sh
 npm run build
-npm run preview  # 本地预览生产版本
+npm run preview
 ```
 
-推送 main 分支后，Vercel 自动部署。
-
-## 📄 License
-
-MIT
-<!-- rebuild -->
+正式站使用 Vercel。首页通过同源 `/api/chat` 访问流式问答服务。网页版简历、按同一页面导出的 PDF 及预览图位于 `public/`。

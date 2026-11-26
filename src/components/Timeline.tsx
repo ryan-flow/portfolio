@@ -1,37 +1,37 @@
 import { Box, Container, Typography, Chip } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
 import BuildIcon from '@mui/icons-material/Build';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
-import BrushIcon from '@mui/icons-material/Brush';
+import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumberOutlined';
+import DesktopWindowsOutlinedIcon from '@mui/icons-material/DesktopWindowsOutlined';
 import { education } from '../data/repos';
 
 const projectCards = [
   {
-    icon: <BuildIcon sx={{ fontSize: 22 }} />,
-    title: '财务归档与凭证回读',
-    role: '业务流程自动化',
-    period: '2026',
+    icon: <ConfirmationNumberOutlinedIcon sx={{ fontSize: 22 }} />,
+    title: '券批次自动同步上线',
+    role: '微信立减金中台',
+    period: '2026.09',
     description:
-      '把写前查重、附件上传和写后回读分别记录。中断后按台账续办，不确定的匹配留给人工复核。',
-    techStack: ['Python', 'Playwright', 'SQLite'],
+      '正在发放的批次频繁更新，已结束的批次降低频率。上线后，用同步日志和微信返回的批次数据核对了实际执行结果。',
+    techStack: ['Java', 'Spring Boot', 'Redis'],
   },
   {
-    icon: <SmartToyIcon sx={{ fontSize: 22 }} />,
-    title: '投流助手版本交付',
-    role: '桌面应用发行',
-    period: '2026',
+    icon: <DesktopWindowsOutlinedIcon sx={{ fontSize: 22 }} />,
+    title: '在业务电脑上升级投流助手',
+    role: 'LAVEDA AI 投流助手',
+    period: '2026.10',
     description:
-      'Windows 会员版在两台设备验证升级，检查原数据、账号权限、正常业务页面和重启。',
+      '两台 Windows 业务电脑安装了会员版。升级前后逐项核对账号权限和旧数据，重启后再次打开原有商品和投期。',
     techStack: ['Electron', 'React', 'Node.js'],
   },
   {
-    icon: <BrushIcon sx={{ fontSize: 22 }} />,
-    title: 'LAVEDA 官网交互与发布',
-    role: '网站设计与开发',
-    period: '2026',
+    icon: <BuildIcon sx={{ fontSize: 22 }} />,
+    title: '修正被当成付款的备注行',
+    role: '财务 OA 收集助手',
+    period: '2026.11',
     description:
-      '实现随原生滚动归位的字标。发布时核对静态资源、桌面和手机视口，并保留减少动态的读法。',
-    techStack: ['Next.js', 'TypeScript', 'GSAP'],
+      '审批明细里有金额为零的说明行，采集时被误当成付款。我把说明保留在原件里，只按实际付款归档，用两笔原单重跑并完成归档。',
+    techStack: ['Python', 'Playwright', 'SQLite'],
   },
 ];
 
@@ -40,14 +40,8 @@ function Timeline(): JSX.Element {
     <Box component="section" id="timeline" sx={{ py: { xs: 6, md: 10 }, }}>
       <Container maxWidth="md" sx={{ }}>
         <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }} className="scroll-title-left">
-          <Typography
-            variant="overline"
-            sx={{ color: '#8ba8c0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}
-          >
-            工作与学习
-          </Typography>
           <Typography variant="h2" sx={{ fontSize: { xs: '1.6rem', md: '2rem' }, fontWeight: 700, mt: 0.5 }}>
-            教育背景 / 项目经历
+            教育与交付经历
           </Typography>
         </Box>
 

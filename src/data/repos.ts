@@ -3,6 +3,7 @@ export interface Repo {
   displayName: string;
   description: string;
   rationale: string;
+  verification?: string;
   techStack: string[];
   url?: string;
   previewUrl?: string;
@@ -49,22 +50,12 @@ export const experiences: Experience[] = [
 
 export const repos: Repo[] = [
   {
-    name: 'laveda',
-    displayName: 'LAVEDA 企业官网',
-    description: '用一张可以滚动探索的工作台，介绍公司的 AI 服务和产品。',
-    rationale: '我负责官网设计与前端开发。桌面端把字标归位和工作台换屏绑定在同一段滚动上，触屏端收起透视效果。',
-    techStack: ['Next.js', 'GSAP', 'TypeScript'],
-    previewUrl: 'https://laveda.cc/',
-    linkLabel: '访问官网',
-    image: '/projects/work/brand-workspace.webp',
-    imageAlt: 'LAVEDA 官网的工程协作工作台、流程画布与工具窗口',
-  },
-  {
     name: 'finance-oa',
     displayName: '财务 OA 收集助手',
-    description: '把多套 OA 的审批资料与金蝶凭证关联，供财务人员归档和复核。',
-    rationale: '上传前检查已有附件，写入后重新读取对应凭证。中断的任务可以接着处理，匹配不上的单据交给人工复核。',
-    techStack: ['Python', 'Playwright', 'SQLite'],
+    description: '财务要从多套 OA 收齐审批单和附件，再把材料挂到金蝶的对应凭证上。同一天可能有几张金额相同的凭证。',
+    rationale: '我把采集和匹配接进财务工作台。遇到多个候选就留给财务确认。上传后从金蝶重新下载附件，核对文件内容。',
+    verification: '一次本地归档抽查覆盖 67 条已归档申请，511 个文件副本通过了大小和 SHA-256 校验。',
+    techStack: ['Python', 'Playwright', 'SQLite', '金蝶 SDK'],
     previewUrl: 'https://laveda.cc/products/oa/#oa-case',
     linkLabel: '查看产品案例',
     image: '/projects/work/oa.webp',
@@ -73,8 +64,9 @@ export const repos: Repo[] = [
   {
     name: 'ad-assistant',
     displayName: 'LAVEDA AI 投流助手',
-    description: '把选品、预算比较和投后复盘放进同一个桌面应用。',
-    rationale: '账号与会员授权分开处理。Windows 和 Mac 都有受邀测试包，Windows 会员版在两台业务设备上验证了升级和重启。',
+    description: '投手已经给几款商品定了预算，还想比较剩下的钱怎么分。每试一种方案，都得保住已经定下的金额。',
+    rationale: '我把锁定商品和总预算做成分配规则。投手可以比较不同方案，选定后再把目标写入本次投期。',
+    verification: 'Windows 受邀版已验证预算重算，重启应用后仍可打开已保存的投期。',
     techStack: ['Electron', 'React', 'Node.js'],
     previewUrl: 'https://laveda.cc/touliu/',
     linkLabel: '查看投流助手',
@@ -84,8 +76,9 @@ export const repos: Repo[] = [
   {
     name: 'geo',
     displayName: 'GEO 品牌曝光检测',
-    description: '从买家的问题出发，查看 AI 回答有没有提到品牌、推荐了什么、引用了哪些来源。',
-    rationale: '检测问题可以修改，后台任务分别请求模型并保存回答和引用。内测覆盖了 DeepSeek 批量任务与豆包单题。',
+    description: '品牌运营想知道，买家向 AI 询问选购建议时，自家品牌会不会被推荐，推荐的依据又是什么。',
+    rationale: '运营先改好要问的问题。我用任务队列把检测分给不同模型，保存每道题的原回答和引用，让运营能逐条核查。',
+    verification: '内测覆盖了 DeepSeek 批量任务和豆包单题检测。',
     techStack: ['Next.js', 'Fastify', 'PostgreSQL', 'pg-boss'],
     previewUrl: 'https://laveda.cc/products/geo/',
     linkLabel: '查看 GEO 案例',
@@ -95,18 +88,29 @@ export const repos: Repo[] = [
   {
     name: 'voucher',
     displayName: '微信立减金中台',
-    description: '运营配置活动并发券，财务从同一批订单核对核销和账单。',
-    rationale: '批次同步在多实例间互斥并限速。核销回调验证签名，再通过补拉日账单和去重处理遗漏记录。',
+    description: '运营看券发了多少，财务关心哪些已经核销。微信的批次数据和次日账单到达的时间不同。',
+    rationale: '我给批次加了定时同步。核销先校验微信回调的签名，次日再用账单补回漏掉的记录，同一笔核销只计一次。',
     techStack: ['Java 17', 'Spring Boot', 'Redis', 'Quartz'],
     previewUrl: 'https://laveda.cc/products/coupon/',
     linkLabel: '查看立减金案例',
     steps: ['同步券批次', '活动发券', '核销回调', '账单核对'],
   },
   {
+    name: 'laveda',
+    displayName: 'LAVEDA 企业官网',
+    description: '第一次接触 LAVEDA 的访客，可以在首页看到产品的实际界面，再进入财务工具或投流助手的产品页。',
+    rationale: '我负责官网设计和前端开发，用 GSAP 把工作台换屏和字标归位接在同一段滚动里。手机版减轻透视效果，给产品画面留出空间。',
+    techStack: ['Next.js', 'GSAP', 'TypeScript'],
+    previewUrl: 'https://laveda.cc/',
+    linkLabel: '访问官网',
+    image: '/projects/work/brand-workspace.webp',
+    imageAlt: 'LAVEDA 官网的工程协作工作台、流程画布与工具窗口',
+  },
+  {
     name: 'vanby',
-    displayName: '万表 Vanby 网站案例',
-    description: '为公司官网制作腕表客户案例，展示桌面和手机上的目录与咨询入口。',
-    rationale: '分别选取桌面和手机画面，首页卡片强调腕表主视觉，案例详情保留品牌导航和顾问入口。',
+    displayName: '万表 Vanby 官网案例页',
+    description: '我为 LAVEDA 官网制作了万表案例页，展示访客如何浏览腕表目录、找到顾问咨询入口。',
+    rationale: '首页卡片选用腕表主视觉。详情页分别选取桌面和手机画面，让窄屏上的目录和咨询按钮也看得清。',
     techStack: ['Next.js', 'React', 'TypeScript'],
     previewUrl: 'https://laveda.cc/products/vanby/',
     linkLabel: '查看万表案例',
@@ -116,8 +120,8 @@ export const repos: Repo[] = [
   {
     name: 'heritage-crs-platform',
     displayName: '非遗文化智能导览平台',
-    description: '毕业设计。访客和数字人对话，按兴趣找到相关的非遗内容和活动。',
-    rationale: '系统结合显式偏好、浏览记录和对话语义，决定何时继续追问、何时直接推荐。Web 和微信小程序共用后端。',
+    description: '我的本科毕业设计。访客可以从一句感兴趣的话题开始，和数字人一起找非遗项目或活动。',
+    rationale: '我把浏览记录和对话里的偏好用于推荐。线索少时先追问，兴趣明确时再推荐内容。网页和微信小程序共用 FastAPI 后端。',
     techStack: ['Python', 'FastAPI', 'React', '微信小程序'],
     url: 'https://github.com/ryan-flow/heritage-crs-platform',
     linkLabel: '查看源码',
@@ -168,10 +172,10 @@ export const githubUser = {
   username: 'ryan-flow',
   displayName: 'Zixuan Wang',
   avatarUrl: 'https://avatars.githubusercontent.com/u/54438040?v=4',
-  bio: '在广州做 AI 应用、企业网站与业务自动化。',
-  tagline: 'AI 应用开发 · 全栈工程',
+  bio: '我给财务做过审批归档工具，也给投手做过按商品分配预算的桌面软件。',
+  tagline: '业务系统集成与 AI 应用交付',
   githubUrl: 'https://github.com/ryan-flow',
   email: '2919178903@qq.com',
-  jobTarget: 'AI 应用与全栈开发 · 广州',
+  jobTarget: '前线部署全栈工程师（FDE）',
   resumeUrl: '/resume.pdf',
 };

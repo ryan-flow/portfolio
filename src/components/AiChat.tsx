@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Box, Typography, IconButton, TextField, CircularProgress } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import { education, repos } from '../data/repos';
+import { education, githubUser, repos } from '../data/repos';
 
 const WORKER_URL = '/api/chat';
 
@@ -11,18 +11,19 @@ interface Message {
 }
 
 const QUICK_PROMPTS = [
-  { label: '近期项目', prompt: '你近期做了哪些项目？各自解决什么问题？' },
-  { label: '财务流程自动化', prompt: '财务 OA 收集助手怎样关联审批资料和凭证附件？' },
-  { label: '网站与桌面应用', prompt: '你做过哪些网站和桌面应用？各自服务什么场景？' },
-  { label: '常用技术', prompt: '你常用哪些技术？分别用在了哪些项目？' },
+  { label: '凭证怎么匹配？', prompt: '财务 OA 匹配到多张同额凭证时怎么处理？归档抽查和金蝶上传分别怎么验收？' },
+  { label: '预算怎么重算？', prompt: '投手想锁定几款商品的预算，投流助手怎样比较方案？谁决定最后的执行目标？' },
+  { label: '模型回答怎么核对？', prompt: 'GEO 怎么让运营核对模型回答的依据？哪些检测做过内测？' },
+  { label: '为什么选 FDE？', prompt: '你的求职方向是什么？选一个做过的项目，说明它和前线部署工程的关系。' },
   { label: '本科与毕业设计', prompt: '你的本科背景是什么？毕业设计做了什么？' },
 ];
 
 const PUBLIC_BACKGROUND = [
   '以下是王子轩当前作品集的公开资料。回答项目和教育问题时请以这些资料为准，资料不足时请说明。',
+  `求职方向是${githubUser.jobTarget}，意指 Forward Deployed Engineer。这是目标岗位，正式职称与客户驻场经历未提供。`,
   ...education.map(({ school, degree, major, period }) => [school, degree, major, period].join(' · ')),
-  ...repos.map(({ displayName, description, rationale, techStack }) =>
-    `${displayName}，${description}${rationale}（${techStack.join('、')}）`,
+  ...repos.map(({ displayName, description, rationale, verification, techStack }) =>
+    `${displayName}，${description}${rationale}${verification ?? ''}（${techStack.join('、')}）`,
   ),
 ].join('\n');
 
@@ -239,7 +240,7 @@ function AiChat(): JSX.Element {
                     letterSpacing: '-0.01em',
                   }}
                 >
-                  你好，想了解什么？
+                  想聊哪个项目？
                 </Typography>
                 <Typography
                   sx={{
@@ -248,7 +249,7 @@ function AiChat(): JSX.Element {
                     lineHeight: 1.6,
                   }}
                 >
-                  可以问我的工作项目、常用技术或本科背景
+                  可以从一次技术取舍问起，也可以聊我的求职方向。
                 </Typography>
               </Box>
 
